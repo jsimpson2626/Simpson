@@ -185,25 +185,25 @@ ol.steps li{padding-left:58px}
 const BASE = 10;
 // [qty per BASE wraps, unit, name]. qty null = "to taste"
 const chicken = [
-[600, "g", "raw boneless skinless chicken thighs, cut into cubes"],
-[600, "g", "raw chicken breast, cut into cubes"],
+[600, "g", "raw boneless skinless chicken thighs, cut into cubes", 453.6, "lb"],
+[600, "g", "raw chicken breast, cut into cubes", 453.6, "lb"],
 [2.5, "tsp", "salt"],
 [2, "tsp", "chilli flakes"],
 [3, "tsp", "parsley"],
 [4, "tsp", "Italian herbs"],
 [3, "tsp", "paprika"],
 [4, "tsp", "garlic granules or powder"],
-[150, "g", "grated parmesan"],
+[150, "g", "grated parmesan", 100, "cups"],
 [6, "tsp", "olive oil"],
 ];
 const sauce = [
-[60, "g", "cream cheese"],
-[350, "g", "light evaporated milk"],
+[60, "g", "cream cheese", 240, "cups"],
+[350, "g", "light evaporated milk", 252, "cups"],
 [2, "tsp", "Italian herbs"],
 [1, "tsp", "garlic powder"],
 [1, "tsp", "paprika"],
-[180, "g", "grated parmesan"],
-[15, "g", "light butter"],
+[180, "g", "grated parmesan", 100, "cups"],
+[15, "g", "light butter", 14.2, "tbsp"]
 ];
 const wraps = [
 [10, "", "whole wheat wraps"],
@@ -238,14 +238,21 @@ let servings = 10;
 
 function renderList(el, items, factor){
 el.innerHTML = "";
-for(const [qty, unit, name] of items){
+for(const [qty, unit, name, gPerUnit, usUnit] of items){
 const li = document.createElement('li');
 const a = document.createElement('span'); a.className = 'amt';
 const n = document.createElement('span'); n.className = 'nm'; n.textContent = name;
 if(qty === null){ a.textContent = ""; a.style.minWidth = "0"; }
 else {
 const scaled = qty * factor;
-a.textContent = (fmt(scaled) + (unit ? " " + unit : "")).trim();
+let txt = (fmt(scaled) + (unit ? " " + unit : "")).trim();
+if(gPerUnit){
+const us = scaled / gPerUnit;
+let u = usUnit;
+if(u === "cups" && us <= 1.0000001) u = "cup";
+txt += " (" + fmt(us) + " " + u + ")";
+}
+a.textContent = txt;
 }
 li.appendChild(a); li.appendChild(n);
 el.appendChild(li);
