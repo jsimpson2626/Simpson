@@ -20,7 +20,15 @@ header .wrap{position:relative}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8;margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.3rem,7vw,3.8rem);line-height:1.02;letter-spacing:-.01em}
 .tag{margin-top:14px;opacity:.92;font-size:1rem;max-width:55ch}
+.search-wrap{margin:-26px auto 0;position:relative;z-index:2}
+.search{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 20px;box-shadow:0 14px 40px -22px rgba(31,58,95,.5);transition:border-color .2s,box-shadow .2s}
+.search:focus-within{border-color:var(--steel);box-shadow:0 16px 44px -20px rgba(31,58,95,.55)}
+.search svg{flex-shrink:0;color:var(--steel)}
+.search input{border:none;background:none;outline:none;width:100%;font-family:'Spline Sans',sans-serif;font-size:1rem;color:var(--ink)}
+.search input::placeholder{color:#9a948b}
+.search input::-webkit-search-cancel-button{cursor:pointer}
 h2{font-family:'Fraunces',serif;color:var(--navy);font-size:1.4rem;margin:46px 0 18px;display:flex;align-items:center;gap:14px}
+h2 .num{font-family:'Spline Sans',sans-serif;font-weight:500;font-size:.78rem;color:#8a857c;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
 h2::after{content:"";flex:1;height:1px;background:var(--line)}
 ul.recipes{list-style:none;display:grid;gap:14px}
 ul.recipes a{
@@ -32,6 +40,7 @@ ul.recipes a:hover{transform:translateY(-2px);box-shadow:0 14px 30px -20px rgba(
 ul.recipes .name{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;color:var(--navy)}
 ul.recipes .desc{font-size:.86rem;color:#75706a;margin-top:3px}
 ul.recipes .arrow{font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.no-results{display:none;background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:34px 22px;text-align:center;color:#75706a;font-size:.95rem}
 footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </style>
 </head>
@@ -45,8 +54,15 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </header>
 
 <div class="wrap">
-<h2>All Recipes</h2>
-<ul class="recipes">
+<div class="search-wrap">
+<label class="search" for="search">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+<input id="search" type="search" placeholder="Search recipes by name or ingredient&hellip;" autocomplete="off" aria-label="Search recipes">
+</label>
+</div>
+
+<h2>All Recipes <span class="num" id="num"></span></h2>
+<ul class="recipes" id="recipeList">
 
 <!-- COPY THIS BLOCK FOR EACH NEW RECIPE. Change the href, name, and desc. -->
 <li>
@@ -130,9 +146,44 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
+<li>
+<a href="White-Chicken-Chili.html">
+<div>
+<div class="name">White Chicken Chili</div>
+<div class="desc">Creamy, cheesy white chili with white beans, poached chicken and mild green chilis, finished with cheddar jack</div>
+</div>
+<div class="arrow">&rarr;</div>
+</a>
+</li>
+
 </ul>
+<p class="no-results" id="noResults">No recipes match your search. Try a different word.</p>
 
 <footer>Built and hosted on GitHub Pages</footer>
 </div>
+
+<script>
+(function(){
+const search=document.getElementById('search');
+const list=document.getElementById('recipeList');
+const items=Array.from(list.querySelectorAll('li'));
+const noResults=document.getElementById('noResults');
+const num=document.getElementById('num');
+const total=items.length;
+function update(){
+const q=search.value.trim().toLowerCase();
+let visible=0;
+items.forEach(function(li){
+const match=li.textContent.toLowerCase().indexOf(q)!==-1;
+li.style.display=match?'':'none';
+if(match)visible++;
+});
+noResults.style.display=(visible===0)?'block':'none';
+num.textContent=q?visible+' of '+total:total;
+}
+search.addEventListener('input',update);
+update();
+})();
+</script>
 </body>
 </html>
