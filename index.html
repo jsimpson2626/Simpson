@@ -64,7 +64,6 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <h2>All Recipes <span class="num" id="num"></span></h2>
 <ul class="recipes" id="recipeList">
 
-<!-- COPY THIS BLOCK FOR EACH NEW RECIPE. Change the href, name, and desc. -->
 <li>
 <a href="Hidden-Veggie-Spaghetti-with-Venison.html">
 <div>
@@ -74,7 +73,6 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <div class="arrow">&rarr;</div>
 </a>
 </li>
-<!-- END BLOCK -->
 
 <li>
 <a href="Garlic-Parmesan-Chicken-Wraps.html">
@@ -156,6 +154,16 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
+<li>
+<a href="Shakshuka.html">
+<div>
+<div class="name">Shakshuka</div>
+<div class="desc">Eggs poached in a spiced tomato, pepper and onion simmer, finished with cilantro, avocado and feta</div>
+</div>
+<div class="arrow">&rarr;</div>
+</a>
+</li>
+
 </ul>
 <p class="no-results" id="noResults">No recipes match your search. Try a different word.</p>
 
@@ -164,17 +172,19 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 
 <script>
 (function(){
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
 const search=document.getElementById('search');
 const list=document.getElementById('recipeList');
 const items=Array.from(list.querySelectorAll('li'));
 const noResults=document.getElementById('noResults');
 const num=document.getElementById('num');
 const total=items.length;
+items.forEach(function(li){li.dataset.t=norm(li.textContent);});
 function update(){
-const q=search.value.trim().toLowerCase();
+const q=norm(search.value.trim());
 let visible=0;
 items.forEach(function(li){
-const match=li.textContent.toLowerCase().indexOf(q)!==-1;
+const match=li.dataset.t.indexOf(q)!==-1;
 li.style.display=match?'':'none';
 if(match)visible++;
 });
