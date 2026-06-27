@@ -20,13 +20,25 @@ header .wrap{position:relative}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8;margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.3rem,7vw,3.8rem);line-height:1.02;letter-spacing:-.01em}
 .tag{margin-top:14px;opacity:.92;font-size:1rem;max-width:55ch}
-.search-wrap{margin:-26px auto 0;position:relative;z-index:2}
+.search-wrap{margin:-26px auto 0;position:relative;z-index:2;display:flex;gap:12px;align-items:stretch}
+@media(max-width:560px){.search-wrap{flex-direction:column}.spin-btn{justify-content:center;padding:13px 22px}}
 .search{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 20px;box-shadow:0 14px 40px -22px rgba(31,58,95,.5);transition:border-color .2s,box-shadow .2s}
 .search:focus-within{border-color:var(--steel);box-shadow:0 16px 44px -20px rgba(31,58,95,.55)}
 .search svg{flex-shrink:0;color:var(--steel)}
 .search input{border:none;background:none;outline:none;width:100%;font-family:'Spline Sans',sans-serif;font-size:1rem;color:var(--ink)}
 .search input::placeholder{color:#9a948b}
 .search input::-webkit-search-cancel-button{cursor:pointer}
+.search{flex:1;min-width:0}
+.spin-btn{display:flex;align-items:center;gap:9px;flex-shrink:0;cursor:pointer;font-family:'Spline Sans',sans-serif;font-size:.95rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--accent),#a64f2e);border:none;border-radius:14px;padding:0 22px;box-shadow:0 14px 40px -22px rgba(194,96,58,.85);transition:transform .14s,box-shadow .2s,filter .2s}
+.spin-btn:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 16px 36px -18px rgba(194,96,58,.9)}
+.spin-btn:active{transform:translateY(0)}
+.spin-btn:disabled{cursor:default;opacity:.92}
+.spin-btn svg{transition:transform .2s}
+.spin-btn.is-spinning svg{animation:spin360 .5s linear infinite}
+@keyframes spin360{to{transform:rotate(360deg)}}
+ul.recipes li.card-spin a{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;transform:translateY(-2px)}
+ul.recipes li.card-pick a{border-color:var(--accent);box-shadow:0 0 0 3px rgba(194,96,58,.35),0 18px 40px -18px rgba(194,96,58,.7);animation:pickpulse .6s ease}
+@keyframes pickpulse{0%{transform:scale(1)}45%{transform:scale(1.025)}100%{transform:scale(1)}}
 .layout{display:flex;gap:30px;align-items:flex-start;margin-top:34px}
 .sidebar{flex:0 0 210px;position:sticky;top:18px;display:flex;flex-direction:column;gap:6px}
 .side-title{font-family:'Fraunces',serif;font-weight:600;color:var(--navy);font-size:.82rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:.16em}
@@ -70,6 +82,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
 <input id="search" type="search" placeholder="Search recipes by name or ingredient&hellip;" autocomplete="off" aria-label="Search recipes">
 </label>
+<button id="spin" class="spin-btn" type="button" aria-label="Pick a random recipe from the filtered list"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><circle cx="8" cy="8" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="16" cy="8" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="8" cy="16" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="16" cy="16" r="1.1" fill="currentColor" stroke="none"></circle></svg><span>Surprise Me</span></button>
 </div>
 
 <div class="layout">
@@ -1433,6 +1446,37 @@ curCat=b.getAttribute('data-cat');
 h2title.textContent=(curCat==='__all'?'All Recipes':b.childNodes[0].nodeValue.trim());
 update();
 });});
+var spinBtn=document.getElementById('spin');
+function visiblePool(){return items.filter(function(li){return li.style.display!=='none';});}
+var spinning=false;
+function goTo(li){var a=li.querySelector('a'); if(a) window.location.href=a.getAttribute('href');}
+spinBtn.addEventListener('click',function(){
+if(spinning) return;
+var pool=visiblePool();
+if(pool.length===0) return;
+if(pool.length===1){goTo(pool[0]);return;}
+spinning=true; spinBtn.classList.add('is-spinning'); spinBtn.disabled=true;
+items.forEach(function(li){li.classList.remove('card-pick');});
+var ticks=0, total=16+Math.floor(Math.random()*6), last=-1;
+function step(){
+items.forEach(function(li){li.classList.remove('card-spin');});
+var idx; do{idx=Math.floor(Math.random()*pool.length);}while(idx===last&&pool.length>1);
+last=idx;
+var li=pool[idx];
+li.classList.add('card-spin');
+if(ticks>total-6){li.scrollIntoView({block:'center',behavior:'smooth'});}
+ticks++;
+if(ticks>=total){
+li.classList.remove('card-spin'); li.classList.add('card-pick');
+li.scrollIntoView({block:'center',behavior:'smooth'});
+spinBtn.classList.remove('is-spinning'); spinBtn.disabled=false; spinning=false;
+setTimeout(function(){goTo(li);},950);
+return;
+}
+setTimeout(step, 60+ticks*ticks*1.2);
+}
+step();
+});
 search.addEventListener('input',update);
 update();
 })();
