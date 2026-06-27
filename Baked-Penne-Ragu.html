@@ -31,10 +31,10 @@ padding:56px 0 48px;
 header::after{
 content:"";position:absolute;inset:0;opacity:.07;
 background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);
-background-size:18px 18px;
+background-size:18px 18px;pointer-events:none;
 }
 header .wrap{position:relative}
-.back{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font-size:.8rem;letter-spacing:.04em;opacity:.85;margin-bottom:18px;transition:opacity .2s}
+.back{position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font-size:.8rem;letter-spacing:.04em;opacity:.85;margin-bottom:18px;transition:opacity .2s}
 .back:hover{opacity:1}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8;margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.02;letter-spacing:-.01em}
@@ -116,7 +116,7 @@ ol.steps li{padding-left:58px}
 <a class="back" href="index.html">&larr; All recipes</a>
 <div class="eyebrow">Pasta · Oven</div>
 <h1>Baked Penne Ragu</h1>
-<p class="sub">A lightened-up baked penne with a ground turkey, mushroom and roasted-red-pepper ragu, whole wheat pasta and just enough melty mozzarella on top.</p>
+<p class="sub">Pasta</p>
 <div class="meta">
 <div><span>Prep</span><b>15 min</b></div>
 <div><span>Cook</span><b>40 min</b></div>
