@@ -47,6 +47,11 @@ ul.recipes li.card-pick a{border-color:var(--accent);box-shadow:0 0 0 3px rgba(1
 .cat:hover{border-color:var(--steel)}
 .cat.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .cat.active span{background:rgba(255,255,255,.22);color:#fff}
+.cat.subcat{margin-left:16px;font-size:.85rem;padding:7px 12px;background:transparent;border-color:transparent;color:#5f7384;border-left:2px solid var(--line);border-radius:0 8px 8px 0}
+.cat.subcat span{background:transparent;color:#9a948b}
+.cat.subcat:hover{background:var(--card);border-left-color:var(--steel);color:var(--ink)}
+.cat.subcat.active{background:var(--steel);border-color:var(--steel);color:#fff}
+.cat.subcat.active span{background:rgba(255,255,255,.22);color:#fff}
 .main{flex:1;min-width:0}
 h2{font-family:'Fraunces',serif;color:var(--navy);font-size:1.4rem;margin:0 0 18px;display:flex;align-items:center;gap:14px}
 h2 .num{font-family:'Spline Sans',sans-serif;font-weight:500;font-size:.78rem;color:#8a857c;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
@@ -64,6 +69,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 .sidebar{position:static;flex:none;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:8px;width:100%;padding-bottom:6px;-webkit-overflow-scrolling:touch}
 .side-title{display:none}
 .cat{width:auto;white-space:nowrap}
+.cat.subcat{margin-left:0;border:1px solid var(--line);border-radius:10px}
 }
 </style>
 </head>
@@ -89,7 +95,16 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <aside class="sidebar" aria-label="Recipe groups">
 <div class="side-title">Groups</div>
 <button class="cat active" data-cat="__all">All Recipes <span>130</span></button>
-<button class="cat" data-cat="Dinners">Dinners <span>64</span></button>
+<button class="cat" data-cat="Dinners">Dinners <span>78</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Chicken">Chicken <span>15</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Beef &amp; Game">Beef &amp; Game <span>7</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Pork">Pork <span>5</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Seafood">Seafood <span>3</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Pasta">Pasta <span>7</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Soups, Stews &amp; Chili">Soups, Stews &amp; Chili <span>15</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Vegetarian">Vegetarian <span>10</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Sauces &amp; Marinades">Sauces &amp; Marinades <span>4</span></button>
+<button class="cat subcat" data-cat="Dinners" data-sub="Mediterranean">Mediterranean <span>12</span></button>
 <button class="cat" data-cat="Breakfast">Breakfast <span>10</span></button>
 <button class="cat" data-cat="Sides">Sides <span>10</span></button>
 <button class="cat" data-cat="Desserts">Desserts <span>8</span></button>
@@ -97,15 +112,13 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <button class="cat" data-cat="Bread">Bread <span>1</span></button>
 <button class="cat" data-cat="Dips">Dips <span>9</span></button>
 <button class="cat" data-cat="Healthy Snacks">Healthy Snacks <span>8</span></button>
-<button class="cat" data-cat="Untested">Untested <span>2</span></button>
-<button class="cat" data-cat="Mediterranean">Mediterranean <span>12</span></button>
 </aside>
 
 <div class="main">
 <h2><span id="h2title">All Recipes</span> <span class="num" id="num"></span></h2>
 <ul class="recipes" id="recipeList">
 
-<li data-cat="Dinners" data-ing="cherry tomatoes onion carrots red bell pepper zucchini garlic cottage cheese ground venison olive oil italian seasoning sea salt black pepper whole wheat spaghetti parmesan cheese lemon juice red wine vinegar">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="cherry tomatoes onion carrots red bell pepper zucchini garlic cottage cheese ground venison olive oil italian seasoning sea salt black pepper whole wheat spaghetti parmesan cheese lemon juice red wine vinegar">
 <a href="Hidden-Veggie-Spaghetti-with-Venison.html">
 <div>
 <div class="name">Hidden Veggie Spaghetti with Venison</div>
@@ -115,7 +128,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="salt chilli flakes parsley italian herbs paprika garlic granules powder olive oil garlic powder whole wheat wraps shredded lettuce chopped tomatoes onions parmesan chicken">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="salt chilli flakes parsley italian herbs paprika garlic granules powder olive oil garlic powder whole wheat wraps shredded lettuce chopped tomatoes onions parmesan chicken">
 <a href="Garlic-Parmesan-Chicken-Wraps.html">
 <div>
 <div class="name">Garlic Parmesan Chicken Wraps</div>
@@ -125,7 +138,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="pork salt black pepper onion jalapeno cloves garlic orange juice dried oregano ground cumin olive oil">
+<li data-cat="Dinners" data-sub="Pork" data-ing="pork salt black pepper onion jalapeno cloves garlic orange juice dried oregano ground cumin olive oil">
 <a href="Slow-Cooker-Carnitas-Pulled-Pork.html">
 <div>
 <div class="name">Slow Cooker Carnitas Pulled Pork</div>
@@ -135,7 +148,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chicken wings baking powder kosher salt unsalted butter franks redhot sauce blue cheese dressing celery sticks">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="chicken wings baking powder kosher salt unsalted butter franks redhot sauce blue cheese dressing celery sticks">
 <a href="Crispy-Baked-Chicken-Wings.html">
 <div>
 <div class="name">Crispy Baked Chicken Wings</div>
@@ -145,7 +158,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="low sodium soy sauce water light brown sugar mirin sesame oil rice wine vinegar black pepper red pepper flakes sriracha sauce grated ginger grated garlic scallion cornstarch">
+<li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="low sodium soy sauce water light brown sugar mirin sesame oil rice wine vinegar black pepper red pepper flakes sriracha sauce grated ginger grated garlic scallion cornstarch">
 <a href="Korean-BBQ-Sauce.html">
 <div>
 <div class="name">Korean BBQ Sauce</div>
@@ -155,7 +168,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chicken thighs flour lawrys seasoned salt olive oil butter chopped garlic chicken broth lemon dijon mustard heavy cream salt pepper rosemary cooked quinoa">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="chicken thighs flour lawrys seasoned salt olive oil butter chopped garlic chicken broth lemon dijon mustard heavy cream salt pepper rosemary cooked quinoa">
 <a href="Lemon-Chicken-with-Quinoa-and-Veggies.html">
 <div>
 <div class="name">Lemon Chicken with Quinoa &amp; Veggies</div>
@@ -165,7 +178,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="white yellow onion zucchini red bell pepper bella mushrooms grape tomatoes hot italian sausages whole-grain penne olive oil salt pepper italian seasoning grated parmesan">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="white yellow onion zucchini red bell pepper bella mushrooms grape tomatoes hot italian sausages whole-grain penne olive oil salt pepper italian seasoning grated parmesan">
 <a href="Sausage-and-Roasted-Veggie-Penne.html">
 <div>
 <div class="name">Sausage &amp; Roasted Veggie Penne</div>
@@ -175,7 +188,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="deer burger ground beef lamb greek yogurt olive oil yellow onion minced garlic italian seasoning cumin paprika salt pepper parchment paper red onion white vinegar water coarse kosher salt sugar pita tzatziki hummus">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="deer burger ground beef lamb greek yogurt olive oil yellow onion minced garlic italian seasoning cumin paprika salt pepper parchment paper red onion white vinegar water coarse kosher salt sugar pita tzatziki hummus">
 <a href="Gyros.html">
 <div>
 <div class="name">Gyros</div>
@@ -185,7 +198,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="white beans chicken breast olive oil onion garlic mild green chilis ground cumin oregano cayenne pepper salt chicken broth cheddar jack cheese jalapeno pepper">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="white beans chicken breast olive oil onion garlic mild green chilis ground cumin oregano cayenne pepper salt chicken broth cheddar jack cheese jalapeno pepper">
 <a href="White-Chicken-Chili.html">
 <div>
 <div class="name">White Chicken Chili</div>
@@ -195,7 +208,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="olive oil onion, diced red bell pepper, seeded and diced garlic, finely chopped paprika cumin chili powder whole peeled tomatoes (one can) large eggs salt and pepper, to taste small bunch cilantro, chopped small bunch parsley, chopped avocados, sliced feta or goat cheese, crumbled">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="olive oil onion, diced red bell pepper, seeded and diced garlic, finely chopped paprika cumin chili powder whole peeled tomatoes (one can) large eggs salt and pepper, to taste small bunch cilantro, chopped small bunch parsley, chopped avocados, sliced feta or goat cheese, crumbled">
 <a href="Shakshuka.html">
 <div>
 <div class="name">Shakshuka</div>
@@ -205,7 +218,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="deer burger (or ground beef) beef broth tomato sauce (two 8-oz cans) dried minced onion salt garlic powder dried thyme black pepper dried bay leaf yellow potatoes, cubed carrots, sliced large head cauliflower frozen peas">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="deer burger (or ground beef) beef broth tomato sauce (two 8-oz cans) dried minced onion salt garlic powder dried thyme black pepper dried bay leaf yellow potatoes, cubed carrots, sliced large head cauliflower frozen peas">
 <a href="Budget-Deer-Burger-Stew.html">
 <div>
 <div class="name">Budget Deer Burger Stew</div>
@@ -215,7 +228,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="ground venison (or 1 lb ground chicken) black beans, drained kidney beans, drained chili beans frozen corn diced tomatoes tomato sauce red bell pepper, diced yellow bell pepper, diced onion, diced spinach, chopped chili powder paprika balsamic vinegar cumin garlic powder Italian seasoning cayenne pepper black pepper">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="ground venison (or 1 lb ground chicken) black beans, drained kidney beans, drained chili beans frozen corn diced tomatoes tomato sauce red bell pepper, diced yellow bell pepper, diced onion, diced spinach, chopped chili powder paprika balsamic vinegar cumin garlic powder Italian seasoning cayenne pepper black pepper">
 <a href="Vals-Chili.html">
 <div>
 <div class="name">Val&rsquo;s Chili</div>
@@ -225,7 +238,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="olive oil lemon juice (fresh) garlic, minced honey or maple syrup salt black pepper fresh dill or parsley (optional)">
+<li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="olive oil lemon juice (fresh) garlic, minced honey or maple syrup salt black pepper fresh dill or parsley (optional)">
 <a href="Fish-Marinade.html">
 <div>
 <div class="name">Fish Marinade</div>
@@ -235,7 +248,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="basmati rice (or other long-grain white rice) bay leaf salt olive or rice bran oil (optional) fresh cilantro, minced lime juice lemon juice">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="basmati rice (or other long-grain white rice) bay leaf salt olive or rice bran oil (optional) fresh cilantro, minced lime juice lemon juice">
 <a href="Cilantro-Lime-Rice.html">
 <div>
 <div class="name">Cilantro Lime Rice</div>
@@ -245,7 +258,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="dried black beans water white onion, diced garlic, chopped sea salt chili powder ground cumin dried oregano freshly ground black pepper fresh lime juice (optional)">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="dried black beans water white onion, diced garlic, chopped sea salt chili powder ground cumin dried oregano freshly ground black pepper fresh lime juice (optional)">
 <a href="Instant-Pot-Black-Beans.html">
 <div>
 <div class="name">Instant Pot Black Beans</div>
@@ -255,7 +268,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="penne or farfalle (about 3/4 box) salt, for the pasta water ground beef (85&amp;ndash;90% lean) olive oil or butter garlic, minced small onion, finely diced (optional) crushed red pepper flakes (optional) heavy cream (or half-and-half) chicken broth cream cheese Parmesan, grated baby spinach salt and black pepper, to taste fresh parsley or basil, to garnish">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="penne or farfalle (about 3/4 box) salt, for the pasta water ground beef (85&amp;ndash;90% lean) olive oil or butter garlic, minced small onion, finely diced (optional) crushed red pepper flakes (optional) heavy cream (or half-and-half) chicken broth cream cheese Parmesan, grated baby spinach salt and black pepper, to taste fresh parsley or basil, to garnish">
 <a href="Garlic-Cream-Pasta-with-Beef-and-Spinach.html">
 <div>
 <div class="name">Garlic Cream Pasta with Beef &amp; Spinach</div>
@@ -265,7 +278,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="stew meat (venison or beef), cubed potatoes, cubed carrots, cut frozen corn frozen peas frozen green beans fresh tomatoes, diced water beef bouillon cubes Italian seasoning whole cloves bay leaves allspice berries black pepper">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="stew meat (venison or beef), cubed potatoes, cubed carrots, cut frozen corn frozen peas frozen green beans fresh tomatoes, diced water beef bouillon cubes Italian seasoning whole cloves bay leaves allspice berries black pepper">
 <a href="Veggie-Beef-Stew.html">
 <div>
 <div class="name">Veggie Beef Stew</div>
@@ -275,7 +288,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="shrimp, peeled and deveined salt dried oregano paprika cumin olive oil yellow onion, sliced garlic, minced leek, thinly sliced (or green onion) yellow bell pepper, sliced large tomatoes, diced capers (or green olives) lemon, juiced cooked brown rice">
+<li data-cat="Dinners" data-sub="Seafood" data-ing="shrimp, peeled and deveined salt dried oregano paprika cumin olive oil yellow onion, sliced garlic, minced leek, thinly sliced (or green onion) yellow bell pepper, sliced large tomatoes, diced capers (or green olives) lemon, juiced cooked brown rice">
 <a href="Mediterranean-Sauteed-Shrimp.html">
 <div>
 <div class="name">Mediterranean Saut&eacute;ed Shrimp</div>
@@ -285,7 +298,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="onion, diced bell pepper, diced cooked shredded chicken cooked bacon, sausage or chorizo spinach, lightly shredded cheddar cheese, shredded large eggs heavy cream (optional) ranch dressing (optional)">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="onion, diced bell pepper, diced cooked shredded chicken cooked bacon, sausage or chorizo spinach, lightly shredded cheddar cheese, shredded large eggs heavy cream (optional) ranch dressing (optional)">
 <a href="Egg-Chicken-Casserole.html">
 <div>
 <div class="name">Egg Chicken Casserole</div>
@@ -295,7 +308,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="deer steak, cut into 1-inch chunks olive oil lemon juice lemon, zested dried oregano dried thyme black pepper plain Greek yogurt (full-fat) cucumber, grated (unpeeled) fresh lemon juice garlic, grated salt fresh dill, finely chopped fresh mint, chopped (optional)">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="deer steak, cut into 1-inch chunks olive oil lemon juice lemon, zested dried oregano dried thyme black pepper plain Greek yogurt (full-fat) cucumber, grated (unpeeled) fresh lemon juice garlic, grated salt fresh dill, finely chopped fresh mint, chopped (optional)">
 <a href="Greek-Deer-Steak-Dinner.html">
 <div>
 <div class="name">Greek Deer Steak Dinner</div>
@@ -305,7 +318,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chicken breasts (boneless, skinless) olive oil kosher salt oregano paprika black pepper garlic powder Cajun seasoning">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="chicken breasts (boneless, skinless) olive oil kosher salt oregano paprika black pepper garlic powder Cajun seasoning">
 <a href="Air-Fryer-Seasoned-Chicken.html">
 <div>
 <div class="name">Air Fryer Seasoned Chicken</div>
@@ -315,7 +328,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="dry pinto beans (about 2 cups) water small yellow onion, diced bay leaf kosher salt black pepper optional: garlic, chili powder, cumin, paprika or cayenne">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="dry pinto beans (about 2 cups) water small yellow onion, diced bay leaf kosher salt black pepper optional: garlic, chili powder, cumin, paprika or cayenne">
 <a href="InstaPot-Pinto-Beans.html">
 <div>
 <div class="name">InstaPot Pinto Beans</div>
@@ -325,7 +338,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless skinless chicken breasts (about 12 oz each) salt chicken bouillon cube (optional) water, to cover by 1 inch optional: smashed garlic, bay leaf, peppercorns, ginger, lemon, onion or fresh herbs">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken breasts (about 12 oz each) salt chicken bouillon cube (optional) water, to cover by 1 inch optional: smashed garlic, bay leaf, peppercorns, ginger, lemon, onion or fresh herbs">
 <a href="Boiling-Shredded-Chicken.html">
 <div>
 <div class="name">Boiling Shredded Chicken</div>
@@ -335,7 +348,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="bone-in pork chops (about 1-inch thick) olive oil salt and pepper, to taste brown sugar soy sauce Worcestershire sauce pineapple juice pineapple rings garlic, minced apple cider vinegar fresh parsley, chopped, to garnish">
+<li data-cat="Dinners" data-sub="Pork" data-ing="bone-in pork chops (about 1-inch thick) olive oil salt and pepper, to taste brown sugar soy sauce Worcestershire sauce pineapple juice pineapple rings garlic, minced apple cider vinegar fresh parsley, chopped, to garnish">
 <a href="Brown-Sugar-Pineapple-Pork-Chops.html">
 <div>
 <div class="name">Brown Sugar Pineapple Pork Chops</div>
@@ -345,7 +358,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="honey soy sauce rice wine vinegar garlic, minced fresh ginger, minced brown sugar sesame oil olive oil lime, juiced garlic, minced cilantro, chopped chili powder cumin salt pepper olive oil soy sauce honey garlic, minced red wine vinegar fresh ginger, minced onion powder black pepper olive oil lime, juiced cilantro, chopped salt garlic, minced black pepper">
+<li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="honey soy sauce rice wine vinegar garlic, minced fresh ginger, minced brown sugar sesame oil olive oil lime, juiced garlic, minced cilantro, chopped chili powder cumin salt pepper olive oil soy sauce honey garlic, minced red wine vinegar fresh ginger, minced onion powder black pepper olive oil lime, juiced cilantro, chopped salt garlic, minced black pepper">
 <a href="Pork-Chop-Marinades.html">
 <div>
 <div class="name">Pork Chop Marinades</div>
@@ -355,7 +368,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="large sweet potatoes, peeled and cubed (about 4 cups) olive oil, divided kosher salt black or white pepper small red or yellow onions, diced (about 2 cups) green bell peppers, diced (about 3 cups) chili powder large eggs sour cream mild cheddar, grated, divided frozen corn, thawed and patted dry salsa, for serving chorizo, browned (optional)">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="large sweet potatoes, peeled and cubed (about 4 cups) olive oil, divided kosher salt black or white pepper small red or yellow onions, diced (about 2 cups) green bell peppers, diced (about 3 cups) chili powder large eggs sour cream mild cheddar, grated, divided frozen corn, thawed and patted dry salsa, for serving chorizo, browned (optional)">
 <a href="Southwest-Sweet-Potato-and-Egg-Bake.html">
 <div>
 <div class="name">Southwest Sweet Potato &amp; Egg Bake</div>
@@ -365,7 +378,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless skinless chicken thighs soy sauce rice vinegar honey brown sugar garlic, minced ground ginger water cornstarch toasted sesame seeds, for serving chopped green onions, for serving uncooked rice, to serve">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken thighs soy sauce rice vinegar honey brown sugar garlic, minced ground ginger water cornstarch toasted sesame seeds, for serving chopped green onions, for serving uncooked rice, to serve">
 <a href="Crock-Pot-Teriyaki-Chicken.html">
 <div>
 <div class="name">Crock Pot Teriyaki Chicken</div>
@@ -375,7 +388,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chicken breasts or thighs, in bite-sized pieces oil, divided butter broccoli florets zucchini, sliced or cubed small carrot, julienned or cubed mushrooms, sliced red pepper, cubed onion, cubed garlic, minced fresh ginger, minced cashews chicken broth water soy sauce honey cornstarch">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="chicken breasts or thighs, in bite-sized pieces oil, divided butter broccoli florets zucchini, sliced or cubed small carrot, julienned or cubed mushrooms, sliced red pepper, cubed onion, cubed garlic, minced fresh ginger, minced cashews chicken broth water soy sauce honey cornstarch">
 <a href="Chicken-Stir-Fry.html">
 <div>
 <div class="name">Chicken Stir Fry</div>
@@ -385,7 +398,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="salmon fillets, skin on (about 1 lb) salt and pepper, to season olive oil butter garlic, finely diced roasted red peppers, diced fresh baby spinach Half &amp; Half or heavy cream grated Parmesan cheese red pepper flakes (or to taste) chopped parsley salt (to taste) pepper">
+<li data-cat="Dinners" data-sub="Seafood" data-ing="salmon fillets, skin on (about 1 lb) salt and pepper, to season olive oil butter garlic, finely diced roasted red peppers, diced fresh baby spinach Half &amp; Half or heavy cream grated Parmesan cheese red pepper flakes (or to taste) chopped parsley salt (to taste) pepper">
 <a href="Salmon-in-Roasted-Pepper-Sauce.html">
 <div>
 <div class="name">Salmon in Roasted Pepper Sauce</div>
@@ -395,7 +408,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless beef chuck roast (or pork) canola or olive oil all-purpose flour sea salt black pepper large onion, cut into wedges carrots, cut into large chunks yellow potatoes, halved or quartered beef broth rosemary parsley, to garnish">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="boneless beef chuck roast (or pork) canola or olive oil all-purpose flour sea salt black pepper large onion, cut into wedges carrots, cut into large chunks yellow potatoes, halved or quartered beef broth rosemary parsley, to garnish">
 <a href="Pot-Roast.html">
 <div>
 <div class="name">Pot Roast</div>
@@ -405,7 +418,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="ground deer meat tomato sauce (large) Italian diced tomatoes hot chili beans ketchup chili powder (at least) water, to rinse the cans">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="ground deer meat tomato sauce (large) Italian diced tomatoes hot chili beans ketchup chili powder (at least) water, to rinse the cans">
 <a href="Bambi-Chili.html">
 <div>
 <div class="name">Bambi Chili</div>
@@ -415,7 +428,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="zucchini, sliced into half moons yellow squash, sliced into half moons carrots, peeled and cut into sticks red bell pepper, sliced yellow or orange bell pepper, sliced red onion, sliced into half moons garlic, minced dried oregano fresh thyme leaves extra virgin olive oil kosher salt and black pepper short pasta (such as farfalle) grape tomatoes, halved large lemon, zested Parmesan, grated">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="zucchini, sliced into half moons yellow squash, sliced into half moons carrots, peeled and cut into sticks red bell pepper, sliced yellow or orange bell pepper, sliced red onion, sliced into half moons garlic, minced dried oregano fresh thyme leaves extra virgin olive oil kosher salt and black pepper short pasta (such as farfalle) grape tomatoes, halved large lemon, zested Parmesan, grated">
 <a href="Pasta-Primavera.html">
 <div>
 <div class="name">Pasta Primavera</div>
@@ -425,7 +438,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="fresh lemon juice (about 2 lemons) dried oregano garlic, minced kosher salt black pepper extra virgin olive oil large red onion, halved and sliced zucchini, sliced into half moons orange bell pepper, sliced large tomato, cut into wedges kosher salt and black pepper boneless skinless chicken thighs Kalamata olives, pitted Castelvetrano olives, pitted feta cheese, in chunks Italian parsley, chopped, to garnish">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="fresh lemon juice (about 2 lemons) dried oregano garlic, minced kosher salt black pepper extra virgin olive oil large red onion, halved and sliced zucchini, sliced into half moons orange bell pepper, sliced large tomato, cut into wedges kosher salt and black pepper boneless skinless chicken thighs Kalamata olives, pitted Castelvetrano olives, pitted feta cheese, in chunks Italian parsley, chopped, to garnish">
 <a href="Greek-Sheet-Pan-Chicken.html">
 <div>
 <div class="name">Greek Sheet Pan Chicken</div>
@@ -435,7 +448,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="olive oil fresh lemon juice Worcestershire sauce soy sauce garlic, minced ground black pepper venison steak, cut into pieces">
+<li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="olive oil fresh lemon juice Worcestershire sauce soy sauce garlic, minced ground black pepper venison steak, cut into pieces">
 <a href="Deer-Steak-Marinade.html">
 <div>
 <div class="name">Deer Steak Marinade</div>
@@ -445,7 +458,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless skinless chicken breasts (about 6 oz each) olive oil Italian seasoning seasoned salt paprika black pepper">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken breasts (about 6 oz each) olive oil Italian seasoning seasoned salt paprika black pepper">
 <a href="Baked-Chicken.html">
 <div>
 <div class="name">Baked Chicken</div>
@@ -455,7 +468,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="venison roast, cut into 1-inch pieces kosher salt black pepper beef broth, divided balsamic vinegar pomegranate juice tomato paste garlic, minced olive oil large yellow onion, diced celery, sliced carrots, peeled and sliced russet potatoes, in 1-inch chunks baby bella mushrooms, sliced (optional) frozen peas cornstarch">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="venison roast, cut into 1-inch pieces kosher salt black pepper beef broth, divided balsamic vinegar pomegranate juice tomato paste garlic, minced olive oil large yellow onion, diced celery, sliced carrots, peeled and sliced russet potatoes, in 1-inch chunks baby bella mushrooms, sliced (optional) frozen peas cornstarch">
 <a href="Slow-Cooker-Venison-Stew.html">
 <div>
 <div class="name">Slow Cooker Venison Stew</div>
@@ -465,7 +478,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="ground beef or deer burger taco seasoning refried beans black beans, drained sour cream salsa shredded green lettuce shredded cheese diced tomatoes black olives, sliced jalapenos, sliced tortilla chips, for serving">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="ground beef or deer burger taco seasoning refried beans black beans, drained sour cream salsa shredded green lettuce shredded cheese diced tomatoes black olives, sliced jalapenos, sliced tortilla chips, for serving">
 <a href="Layered-Taco-Dip.html">
 <div>
 <div class="name">Layered Taco Dip</div>
@@ -475,7 +488,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="extra virgin olive oil small yellow onion, chopped garlic, chopped russet potatoes, cubed kosher salt and black pepper chickpeas, drained and rinsed (one can) asparagus, trimmed and sliced ground allspice za&#x27;atar dried oregano sweet or smoked paprika ground coriander sugar small red onion, finely chopped Roma tomatoes, chopped crumbled feta fresh parsley, chopped white vinegar eggs">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="extra virgin olive oil small yellow onion, chopped garlic, chopped russet potatoes, cubed kosher salt and black pepper chickpeas, drained and rinsed (one can) asparagus, trimmed and sliced ground allspice za&#x27;atar dried oregano sweet or smoked paprika ground coriander sugar small red onion, finely chopped Roma tomatoes, chopped crumbled feta fresh parsley, chopped white vinegar eggs">
 <a href="Mediterranean-Potato-Hash.html">
 <div>
 <div class="name">Mediterranean Potato Hash</div>
@@ -485,7 +498,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="dry chickpeas fresh parsley, chopped white onion, chopped garlic oat flour (or GF flour blend) sea salt ground cumin ground cardamom ground coriander cayenne (optional) grapeseed or other high-smoke-point oil, for frying">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="dry chickpeas fresh parsley, chopped white onion, chopped garlic oat flour (or GF flour blend) sea salt ground cumin ground cardamom ground coriander cayenne (optional) grapeseed or other high-smoke-point oil, for frying">
 <a href="Falafel.html">
 <div>
 <div class="name">Falafel</div>
@@ -495,7 +508,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="garlic, minced yellow onion, diced fresh ginger, grated olive or coconut oil turmeric cumin crushed red pepper carrots (about 3), chopped celery (about 4 stalks), chopped skinless chicken breast (about 3/4 lb) chicken broth coconut milk (one can) salt cooked jasmine rice fresh cilantro lime">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="garlic, minced yellow onion, diced fresh ginger, grated olive or coconut oil turmeric cumin crushed red pepper carrots (about 3), chopped celery (about 4 stalks), chopped skinless chicken breast (about 3/4 lb) chicken broth coconut milk (one can) salt cooked jasmine rice fresh cilantro lime">
 <a href="Coconut-Turmeric-Chicken-Soup.html">
 <div>
 <div class="name">Coconut Turmeric Chicken Soup</div>
@@ -505,7 +518,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="thin center-cut pork chops (about 1 lb total) salt and pepper, to taste olive oil blackberry jam or preserves butter balsamic vinegar water dried sage salt">
+<li data-cat="Dinners" data-sub="Pork" data-ing="thin center-cut pork chops (about 1 lb total) salt and pepper, to taste olive oil blackberry jam or preserves butter balsamic vinegar water dried sage salt">
 <a href="Blackberry-Sage-Pork-Chops.html">
 <div>
 <div class="name">Blackberry Sage Pork Chops</div>
@@ -515,7 +528,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="vegetable oil garlic, minced fresh ginger, grated medium sweet potatoes (1 lb), cubed medium onions, diced cumin crushed red pepper tomato paste (one can) natural chunky peanut butter vegetable broth (or chicken) kale, chopped cilantro, to garnish (optional)">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="vegetable oil garlic, minced fresh ginger, grated medium sweet potatoes (1 lb), cubed medium onions, diced cumin crushed red pepper tomato paste (one can) natural chunky peanut butter vegetable broth (or chicken) kale, chopped cilantro, to garnish (optional)">
 <a href="African-Peanut-Stew.html">
 <div>
 <div class="name">African Peanut Stew (Vegan)</div>
@@ -525,7 +538,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="yellow onion, diced garlic, minced boneless skinless chicken breast chili powder cumin smoked paprika cayenne (optional) cracked pepper fire roasted tomatoes (one can) diced tomatoes with green chiles (one can) black beans, drained (one can) frozen corn chicken broth 6-inch corn tortillas cooking oil pinch of salt avocado cilantro sour cream lime">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="yellow onion, diced garlic, minced boneless skinless chicken breast chili powder cumin smoked paprika cayenne (optional) cracked pepper fire roasted tomatoes (one can) diced tomatoes with green chiles (one can) black beans, drained (one can) frozen corn chicken broth 6-inch corn tortillas cooking oil pinch of salt avocado cilantro sour cream lime">
 <a href="Slow-Cooker-Chicken-Tortilla-Soup.html">
 <div>
 <div class="name">Slow Cooker Chicken Tortilla Soup</div>
@@ -535,7 +548,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="olive oil ground beef Italian sausage, casings removed onion, finely chopped garlic, minced tomato marinara sauce salt and pepper, to taste Italian seasoning ricotta cheese eggs Parmesan, grated fresh parsley, chopped (optional) low-moisture mozzarella, shredded oven-ready lasagna noodles">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="olive oil ground beef Italian sausage, casings removed onion, finely chopped garlic, minced tomato marinara sauce salt and pepper, to taste Italian seasoning ricotta cheese eggs Parmesan, grated fresh parsley, chopped (optional) low-moisture mozzarella, shredded oven-ready lasagna noodles">
 <a href="Slow-Cooker-Lasagna.html">
 <div>
 <div class="name">Slow Cooker Lasagna</div>
@@ -545,7 +558,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chili powder ground cumin dried oregano smoked paprika kosher salt and black pepper, to taste boneless skinless chicken breasts, in thin strips red bell pepper, in strips yellow bell pepper, in strips orange bell pepper, in strips red onion, in wedges garlic, minced olive oil fresh cilantro, chopped lime juice flour or corn tortillas (8-inch), warmed">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="chili powder ground cumin dried oregano smoked paprika kosher salt and black pepper, to taste boneless skinless chicken breasts, in thin strips red bell pepper, in strips yellow bell pepper, in strips orange bell pepper, in strips red onion, in wedges garlic, minced olive oil fresh cilantro, chopped lime juice flour or corn tortillas (8-inch), warmed">
 <a href="Sheet-Pan-Chicken-Fajitas.html">
 <div>
 <div class="name">Sheet Pan Chicken Fajitas</div>
@@ -555,7 +568,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="onion, chopped reduced-sodium chicken broth cauliflower, chopped (about 3 cups) Yukon gold potato, peeled and diced celery, sliced fresh thyme, chopped (or 1 tsp dried) kosher salt black pepper all-purpose flour 2% milk reduced-fat sharp cheddar, shredded turkey bacon, crisp-cooked and chopped cooking spray">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="onion, chopped reduced-sodium chicken broth cauliflower, chopped (about 3 cups) Yukon gold potato, peeled and diced celery, sliced fresh thyme, chopped (or 1 tsp dried) kosher salt black pepper all-purpose flour 2% milk reduced-fat sharp cheddar, shredded turkey bacon, crisp-cooked and chopped cooking spray">
 <a href="Cauliflower-Potato-Bacon-Bisque.html">
 <div>
 <div class="name">Cauliflower, Potato &amp; Bacon Bisque</div>
@@ -565,7 +578,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="extra virgin olive oil 93% lean ground turkey onions, chopped cremini mushrooms, thinly sliced kosher salt minced garlic red pepper flakes roasted red peppers (in water), drained and chopped canned diced tomatoes canned tomato sauce Italian seasoning fresh basil, minced whole wheat penne, cooked part-skim mozzarella, divided Parmesan, grated, divided cooking spray">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="extra virgin olive oil 93% lean ground turkey onions, chopped cremini mushrooms, thinly sliced kosher salt minced garlic red pepper flakes roasted red peppers (in water), drained and chopped canned diced tomatoes canned tomato sauce Italian seasoning fresh basil, minced whole wheat penne, cooked part-skim mozzarella, divided Parmesan, grated, divided cooking spray">
 <a href="Baked-Penne-Ragu.html">
 <div>
 <div class="name">Baked Penne Ragu</div>
@@ -575,7 +588,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="sweet potatoes, peeled and cut into 1/2-inch pieces lean pork loin, cut into 1-inch pieces canned diced tomatoes with green chiles garlic, minced unsweetened orange juice scallions, chopped (green parts) salt ground cumin black pepper fresh lime juice fresh cilantro, chopped">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="sweet potatoes, peeled and cut into 1/2-inch pieces lean pork loin, cut into 1-inch pieces canned diced tomatoes with green chiles garlic, minced unsweetened orange juice scallions, chopped (green parts) salt ground cumin black pepper fresh lime juice fresh cilantro, chopped">
 <a href="Cuban-Pork-Sweet-Potato-Stew.html">
 <div>
 <div class="name">Cuban Pork &amp; Sweet Potato Stew</div>
@@ -585,7 +598,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="spaghetti squash kosher salt black pepper low-sodium black beans, rinsed red bell pepper, finely chopped rotisserie chicken breast, shredded salsa, divided cheddar or colby, shredded, divided avocado, sliced cooking spray">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="spaghetti squash kosher salt black pepper low-sodium black beans, rinsed red bell pepper, finely chopped rotisserie chicken breast, shredded salsa, divided cheddar or colby, shredded, divided avocado, sliced cooking spray">
 <a href="Tex-Mex-Stuffed-Spaghetti-Squash.html">
 <div>
 <div class="name">Tex Mex Stuffed Spaghetti Squash</div>
@@ -595,7 +608,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="acorn squash kosher salt black pepper fresh baby spinach, chopped no-salt-added diced tomatoes, drained vegetarian sausage, chopped part-skim mozzarella, divided cooking spray">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="acorn squash kosher salt black pepper fresh baby spinach, chopped no-salt-added diced tomatoes, drained vegetarian sausage, chopped part-skim mozzarella, divided cooking spray">
 <a href="Pizza-Stuffed-Acorn-Squash.html">
 <div>
 <div class="name">Pizza Stuffed Acorn Squash</div>
@@ -605,7 +618,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="bell peppers (2 green, 1 red, 1 yellow, 1 orange) lean top sirloin steak, thinly sliced low-sodium soy sauce onion, vertically sliced cremini mushrooms, sliced garlic, minced kosher salt black pepper reduced-fat provolone, sliced cooking spray">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="bell peppers (2 green, 1 red, 1 yellow, 1 orange) lean top sirloin steak, thinly sliced low-sodium soy sauce onion, vertically sliced cremini mushrooms, sliced garlic, minced kosher salt black pepper reduced-fat provolone, sliced cooking spray">
 <a href="Philly-Cheesesteak-Stuffed-Peppers.html">
 <div>
 <div class="name">Philly Cheesesteak Stuffed Peppers</div>
@@ -615,7 +628,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless chicken breasts, cut into 3&amp;ndash;4 fingers each black pepper flour, for coating egg Italian bread crumbs vegetable oil, for frying">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="boneless chicken breasts, cut into 3&amp;ndash;4 fingers each black pepper flour, for coating egg Italian bread crumbs vegetable oil, for frying">
 <a href="Fried-Chicken-Fingers.html">
 <div>
 <div class="name">Fried Chicken Fingers</div>
@@ -625,7 +638,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="olive oil soy sauce red wine vinegar Worcestershire sauce fresh lemon juice garlic, minced brown sugar paprika onion powder dried oregano salt and black pepper, to taste steak, chicken or pork (or a mix) bell peppers, in chunks mushrooms red onion, in chunks zucchini, sliced yellow squash, sliced">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="olive oil soy sauce red wine vinegar Worcestershire sauce fresh lemon juice garlic, minced brown sugar paprika onion powder dried oregano salt and black pepper, to taste steak, chicken or pork (or a mix) bell peppers, in chunks mushrooms red onion, in chunks zucchini, sliced yellow squash, sliced">
 <a href="Kabobs.html">
 <div>
 <div class="name">Kabobs</div>
@@ -635,7 +648,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="Italian sausage (mild or spicy) fresh cheese tortellini onion, diced garlic diced tomatoes chicken broth baby spinach fresh parsley, chopped (optional) salt and pepper, to taste crushed red pepper, to taste (optional)">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="Italian sausage (mild or spicy) fresh cheese tortellini onion, diced garlic diced tomatoes chicken broth baby spinach fresh parsley, chopped (optional) salt and pepper, to taste crushed red pepper, to taste (optional)">
 <a href="Sausage-Spinach-Tortellini-Soup.html">
 <div>
 <div class="name">Sausage Spinach Tortellini Soup</div>
@@ -645,7 +658,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="Italian turkey sausage, casings removed onion, finely diced minced garlic Italian seasoning salt marinara sauce penne or rigatoni (4&amp;ndash;5 cups) ricotta cheese Parmesan, shredded mozzarella cheese">
+<li data-cat="Dinners" data-sub="Pasta" data-ing="Italian turkey sausage, casings removed onion, finely diced minced garlic Italian seasoning salt marinara sauce penne or rigatoni (4&amp;ndash;5 cups) ricotta cheese Parmesan, shredded mozzarella cheese">
 <a href="Baked-Ziti-with-Sausage.html">
 <div>
 <div class="name">Baked Ziti with Sausage</div>
@@ -655,7 +668,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="tikka masala sauce (Private Selection) small heads broccoli bell peppers white onion garlic, minced chicken breast (optional) quinoa or rice, to serve">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="tikka masala sauce (Private Selection) small heads broccoli bell peppers white onion garlic, minced chicken breast (optional) quinoa or rice, to serve">
 <a href="Tikka-Masala.html">
 <div>
 <div class="name">Tikka Masala</div>
@@ -665,7 +678,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="Kroger pizza crust mix (per pizza) pizza sauce cheese meats and veggies (your choice)">
+<li data-cat="Dinners" data-sub="Vegetarian" data-ing="Kroger pizza crust mix (per pizza) pizza sauce cheese meats and veggies (your choice)">
 <a href="Pizza.html">
 <div>
 <div class="name">Homemade Pizza</div>
@@ -675,7 +688,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="fish fillets lemon juice garlic powder salt pepper butter quinoa or rice, to serve">
+<li data-cat="Dinners" data-sub="Seafood" data-ing="fish fillets lemon juice garlic powder salt pepper butter quinoa or rice, to serve">
 <a href="Baked-Fish.html">
 <div>
 <div class="name">Baked Fish</div>
@@ -685,7 +698,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="flank steak, thinly sliced against the grain yellow onion, thinly sliced bell peppers, thinly sliced garlic, minced canola oil, divided salt and pepper, to taste low-sodium soy sauce rice vinegar sesame oil low-sodium beef broth sugar ground ginger cornstarch">
+<li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="flank steak, thinly sliced against the grain yellow onion, thinly sliced bell peppers, thinly sliced garlic, minced canola oil, divided salt and pepper, to taste low-sodium soy sauce rice vinegar sesame oil low-sodium beef broth sugar ground ginger cornstarch">
 <a href="Steak-and-Veggie-Stir-Fry.html">
 <div>
 <div class="name">Steak &amp; Veggie Stir Fry</div>
@@ -695,7 +708,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="boneless pork loin, trimmed apple juice (or soda) seasoning salt garlic powder Italian seasoning dried mustard onion powder black pepper BBQ sauce, as desired hamburger buns, to serve">
+<li data-cat="Dinners" data-sub="Pork" data-ing="boneless pork loin, trimmed apple juice (or soda) seasoning salt garlic powder Italian seasoning dried mustard onion powder black pepper BBQ sauce, as desired hamburger buns, to serve">
 <a href="Crock-Pot-Pulled-Pork.html">
 <div>
 <div class="name">Crock Pot Pulled Pork</div>
@@ -705,7 +718,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="butter small white onion, diced garlic, minced chicken broth diced tomatoes (one can) white beans, drained and rinsed (one can) heavy cream Parmesan, grated Italian seasoning salt pepper cooked shredded chicken refrigerated tortellini spinach">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="butter small white onion, diced garlic, minced chicken broth diced tomatoes (one can) white beans, drained and rinsed (one can) heavy cream Parmesan, grated Italian seasoning salt pepper cooked shredded chicken refrigerated tortellini spinach">
 <a href="Creamy-Tuscan-Tortellini-Soup.html">
 <div>
 <div class="name">Creamy Tuscan Tortellini Soup</div>
@@ -715,7 +728,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="brown sugar paprika garlic powder Italian seasoning (or dried oregano) sea salt black pepper boneless pork chops (1-inch thick) olive oil">
+<li data-cat="Dinners" data-sub="Pork" data-ing="brown sugar paprika garlic powder Italian seasoning (or dried oregano) sea salt black pepper boneless pork chops (1-inch thick) olive oil">
 <a href="Oven-Baked-Pork-Chops.html">
 <div>
 <div class="name">Oven Baked Pork Chops</div>
@@ -725,7 +738,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="banana large egg Fage Total 0% Greek yogurt vanilla protein powder oats milk vanilla essence baking powder blueberries white chocolate chips (optional)">
+<li data-cat="Breakfast" data-sub="A single-serve baked protein bowl that tastes like a warm blueberry muffin &amp;mdash; banana, egg, Greek yogurt, oats and protein powder, baked and drizzled with honey." data-ing="banana large egg Fage Total 0% Greek yogurt vanilla protein powder oats milk vanilla essence baking powder blueberries white chocolate chips (optional)">
 <a href="Baked-Blueberry-Muffin-Protein-Bowl.html">
 <div>
 <div class="name">Baked Blueberry Muffin Protein Bowl</div>
@@ -735,7 +748,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="ground sausage (or links), cooked bacon, cooked Boar&#x27;s Head garlic pepperino ham, chopped med/large potatoes, cut into pieces sweet onion, diced shredded cheddar cheese, divided paprika pepper salt Italian seasoning">
+<li data-cat="Breakfast" data-sub="A loaded breakfast hash-casserole with sausage, bacon, ham, potatoes, onion and lots of cheddar &amp;mdash; mix it all in one dish and bake." data-ing="ground sausage (or links), cooked bacon, cooked Boar&#x27;s Head garlic pepperino ham, chopped med/large potatoes, cut into pieces sweet onion, diced shredded cheddar cheese, divided paprika pepper salt Italian seasoning">
 <a href="Scramblers-Breakfast-Casserole.html">
 <div>
 <div class="name">Scramblers Breakfast Casserole</div>
@@ -745,7 +758,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="all-purpose flour baking powder sugar salt cinnamon large eggs, separated vegetable oil milk vanilla extract large egg buttermilk all-purpose flour garlic powder pepper salt paprika chicken tenderloins oil, for deep frying grated Parmesan">
+<li data-cat="Breakfast" data-sub="Crispy buttermilk fried chicken tenders piled on light, cinnamon-spiced Belgian waffles &amp;mdash; the ultimate sweet-and-savory brunch." data-ing="all-purpose flour baking powder sugar salt cinnamon large eggs, separated vegetable oil milk vanilla extract large egg buttermilk all-purpose flour garlic powder pepper salt paprika chicken tenderloins oil, for deep frying grated Parmesan">
 <a href="Chicken-and-Waffles.html">
 <div>
 <div class="name">Chicken and Waffles</div>
@@ -755,7 +768,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="medium ripe banana (best with brown spots) eggs coconut flour milk of choice optional: hemp, chia or flax seeds">
+<li data-cat="Breakfast" data-sub="Wyatt&#x27;s three-ingredient banana pancakes &amp;mdash; just banana, eggs and a little coconut flour, cooked into tender mini pancakes. Toddler-friendly and naturally sweet." data-ing="medium ripe banana (best with brown spots) eggs coconut flour milk of choice optional: hemp, chia or flax seeds">
 <a href="Banana-Pancakes.html">
 <div>
 <div class="name">Banana Pancakes</div>
@@ -765,7 +778,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="sausage yellow onion, diced red bell pepper, diced garlic, minced large eggs milk frozen diced potatoes shredded cheddar, divided salt black pepper green onions, chopped">
+<li data-cat="Breakfast" data-sub="A hearty baked egg casserole with sausage, peppers, onion, frozen potatoes and cheddar &amp;mdash; great for feeding a crowd or meal-prepping breakfast." data-ing="sausage yellow onion, diced red bell pepper, diced garlic, minced large eggs milk frozen diced potatoes shredded cheddar, divided salt black pepper green onions, chopped">
 <a href="Egg-Potato-Casserole.html">
 <div>
 <div class="name">Egg Potato Casserole</div>
@@ -775,7 +788,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="frozen blueberries ripe banana, frozen baby kale, packed unsweetened almond milk chilled green tea hemp seeds lemon zest lemon juice honey (optional) ground ginger">
+<li data-cat="Breakfast" data-sub="A bright anti-inflammatory smoothie with blueberries, banana, baby kale and green tea, lifted with lemon, ginger and hemp seeds." data-ing="frozen blueberries ripe banana, frozen baby kale, packed unsweetened almond milk chilled green tea hemp seeds lemon zest lemon juice honey (optional) ground ginger">
 <a href="Lemon-Blueberry-Smoothie.html">
 <div>
 <div class="name">Lemon Blueberry Smoothie</div>
@@ -785,7 +798,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="baby kale large apple, cored and chopped cashew or other nut butter honey ice cubes unsweetened almond milk">
+<li data-cat="Breakfast" data-sub="A simple green smoothie with baby kale, fresh apple and nut butter, sweetened with a touch of honey &amp;mdash; creamy, filling and ready in minutes." data-ing="baby kale large apple, cored and chopped cashew or other nut butter honey ice cubes unsweetened almond milk">
 <a href="Kale-Apple-Smoothie.html">
 <div>
 <div class="name">Kale &amp; Apple Smoothie</div>
@@ -795,7 +808,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="plain Greek yogurt milk frozen spinach frozen strawberry &amp; banana mix frozen blueberries chia seeds 2 squirts lemon juice">
+<li data-cat="Breakfast" data-sub="An easy berry green smoothie with Greek yogurt, spinach and frozen fruit &amp;mdash; the Simpson tweak on a Mediterranean strawberry-banana green smoothie." data-ing="plain Greek yogurt milk frozen spinach frozen strawberry &amp; banana mix frozen blueberries chia seeds 2 squirts lemon juice">
 <a href="Fruit-and-Spinach-Smoothie.html">
 <div>
 <div class="name">Fruit and Spinach Smoothie</div>
@@ -805,7 +818,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="old-fashioned oats unsweetened vanilla almond milk light blueberry yogurt mixed berries lemon zest ground cinnamon salt sliced almonds">
+<li data-cat="Breakfast" data-sub="A make-ahead jar of creamy overnight oats with blueberry yogurt, mixed berries and a hit of lemon zest, topped with sliced almonds." data-ing="old-fashioned oats unsweetened vanilla almond milk light blueberry yogurt mixed berries lemon zest ground cinnamon salt sliced almonds">
 <a href="Double-Berry-Overnight-Oats.html">
 <div>
 <div class="name">Double Berry Overnight Oats</div>
@@ -815,7 +828,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Breakfast" data-ing="medium banana, halved old-fashioned oats unsweetened chocolate almond milk PB2 chocolate peanut powder salt">
+<li data-cat="Breakfast" data-sub="A chocolate-peanut-butter-banana jar of overnight oats made with chocolate almond milk and PB2 protein powder &amp;mdash; tastes like dessert, eats like breakfast." data-ing="medium banana, halved old-fashioned oats unsweetened chocolate almond milk PB2 chocolate peanut powder salt">
 <a href="Chocolate-PB-Banana-Overnight-Oats.html">
 <div>
 <div class="name">Chocolate PB &amp; Banana Overnight Oats</div>
@@ -825,7 +838,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="mayonnaise sugar cider vinegar black pepper broccoli florets, finely chopped bacon, cooked and chopped red onion, chopped dried cranberries sliced almonds">
+<li data-cat="Sides" data-sub="A classic crunchy broccoli salad with bacon, red onion, dried cranberries and almonds in a sweet-tangy dressing &amp;mdash; with a higher-protein Greek yogurt option too." data-ing="mayonnaise sugar cider vinegar black pepper broccoli florets, finely chopped bacon, cooked and chopped red onion, chopped dried cranberries sliced almonds">
 <a href="Broccoli-Salad.html">
 <div>
 <div class="name">Broccoli Salad</div>
@@ -835,7 +848,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="extra virgin olive oil balsamic vinegar garlic powder ground mustard (or 1 tbsp Dijon) black pepper salt">
+<li data-cat="Sides" data-sub="A quick everyday balsamic vinaigrette &amp;mdash; olive oil, balsamic, mustard and garlic whisked together in a couple of minutes for salads and roasted veggies." data-ing="extra virgin olive oil balsamic vinegar garlic powder ground mustard (or 1 tbsp Dijon) black pepper salt">
 <a href="Balsamic-Vinaigrette-Dressing.html">
 <div>
 <div class="name">Balsamic Vinaigrette Dressing</div>
@@ -845,7 +858,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="frozen shredded or cubed hash browns medium onion, diced dried onion flakes condensed cream of chicken soup milk (use the soup can) sour cream shredded cheddar cheese salt pepper">
+<li data-cat="Sides" data-sub="The classic cheesy hash brown potato casserole &amp;mdash; shredded potatoes baked with cream of chicken, sour cream and lots of cheddar until bubbly." data-ing="frozen shredded or cubed hash browns medium onion, diced dried onion flakes condensed cream of chicken soup milk (use the soup can) sour cream shredded cheddar cheese salt pepper">
 <a href="Cheesy-Potatoes.html">
 <div>
 <div class="name">Cheesy Potatoes</div>
@@ -855,7 +868,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="green beans, washed and trimmed low-sodium soy sauce sweet chili sauce sriracha (plus more to taste) sesame oil minced garlic toasted sesame seeds (optional)">
+<li data-cat="Sides" data-sub="Blanched green beans tossed in a sticky soy, sweet chili and sriracha glaze with garlic and sesame &amp;mdash; a fast, punchy vegetable side." data-ing="green beans, washed and trimmed low-sodium soy sauce sweet chili sauce sriracha (plus more to taste) sesame oil minced garlic toasted sesame seeds (optional)">
 <a href="Spicy-Sriracha-Green-Beans.html">
 <div>
 <div class="name">Spicy Sriracha Green Beans</div>
@@ -865,7 +878,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="butter flour milk Velveeta cheddar cheese American cheese elbow noodles, boiled extra cheddar, for topping">
+<li data-cat="Sides" data-sub="A rich baked mac and cheese built on a three-cheese sauce of Velveeta, cheddar and American over a roux, baked until bubbly with a cheesy top." data-ing="butter flour milk Velveeta cheddar cheese American cheese elbow noodles, boiled extra cheddar, for topping">
 <a href="Mac-and-Cheese.html">
 <div>
 <div class="name">Mac &amp; Cheese</div>
@@ -875,7 +888,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="mashed sweet potatoes (one 40-oz can) sugar eggs vanilla milk melted butter flour chopped pecans melted butter brown sugar">
+<li data-cat="Sides" data-sub="A holiday-favorite sweet potato casserole with a smooth vanilla sweet potato base under a buttery brown sugar and pecan topping." data-ing="mashed sweet potatoes (one 40-oz can) sugar eggs vanilla milk melted butter flour chopped pecans melted butter brown sugar">
 <a href="Sweet-Potato-Casserole.html">
 <div>
 <div class="name">Sweet Potato Casserole</div>
@@ -885,7 +898,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="mixed vegetables (your choice) olive oil garlic powder Italian seasoning salt and pepper">
+<li data-cat="Sides" data-sub="The simple house method for roasted vegetables &amp;mdash; whatever veggies you&#x27;ve got, tossed with olive oil and seasonings and roasted hot until tender and browned." data-ing="mixed vegetables (your choice) olive oil garlic powder Italian seasoning salt and pepper">
 <a href="Baked-Veggies.html">
 <div>
 <div class="name">Baked Veggies</div>
@@ -895,7 +908,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="green beans, trimmed olive oil seasoned salt black pepper garlic powder">
+<li data-cat="Sides" data-sub="Easy oven-roasted green beans with olive oil, seasoned salt and garlic powder &amp;mdash; tender-crisp and forgiving enough to share the oven with anything." data-ing="green beans, trimmed olive oil seasoned salt black pepper garlic powder">
 <a href="Roasted-Green-Beans.html">
 <div>
 <div class="name">Roasted Green Beans</div>
@@ -905,7 +918,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="carrots, peeled white wine (or water, OJ or broth) butter brown sugar salt pepper fresh parsley, chopped (garnish)">
+<li data-cat="Sides" data-sub="Carrots simmered in white wine and butter with a touch of brown sugar until glossy and glazed, finished with fresh parsley." data-ing="carrots, peeled white wine (or water, OJ or broth) butter brown sugar salt pepper fresh parsley, chopped (garnish)">
 <a href="Glazed-Carrots.html">
 <div>
 <div class="name">Glazed Carrots</div>
@@ -915,7 +928,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Sides" data-ing="garlic, minced extra virgin olive oil cannellini beans, drained (two cans) cherry tomatoes, halved kosher salt and black pepper Aleppo pepper cumin fresh parsley, chopped shaved Parmesan grated Pecorino Romano juice of half a lemon">
+<li data-cat="Sides" data-sub="Creamy cannellini beans simmered with garlic, cherry tomatoes and warm spices, finished with parsley, Parmesan, Pecorino and lemon &amp;mdash; ready in 15 minutes." data-ing="garlic, minced extra virgin olive oil cannellini beans, drained (two cans) cherry tomatoes, halved kosher salt and black pepper Aleppo pepper cumin fresh parsley, chopped shaved Parmesan grated Pecorino Romano juice of half a lemon">
 <a href="Mediterranean-White-Beans.html">
 <div>
 <div class="name">Mediterranean White Beans</div>
@@ -925,7 +938,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="chickpeas, drained and rinsed peanut butter ripe banana maple syrup vanilla extract baking powder dark chocolate chips">
+<li data-cat="Desserts" data-sub="Fudgy flourless blondies blended from chickpeas, peanut butter and banana with dark chocolate chips &amp;mdash; a sneaky-healthy treat sweetened with maple syrup." data-ing="chickpeas, drained and rinsed peanut butter ripe banana maple syrup vanilla extract baking powder dark chocolate chips">
 <a href="PB-Chickpea-Blondies.html">
 <div>
 <div class="name">PB Chickpea Blondies</div>
@@ -935,7 +948,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="ripe bananas blueberries (frozen works best) peanut butter (crunchy is nice) eggs baking soda vanilla extract salt">
+<li data-cat="Desserts" data-sub="Flourless peanut butter and banana muffins studded with blueberries &amp;mdash; just a handful of ingredients blended and baked." data-ing="ripe bananas blueberries (frozen works best) peanut butter (crunchy is nice) eggs baking soda vanilla extract salt">
 <a href="PB-Blueberry-Muffins.html">
 <div>
 <div class="name">PB Blueberry Muffins</div>
@@ -945,7 +958,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="peanut butter unsweetened applesauce protein powder (~30g) rolled oats dark chocolate chips honey or maple syrup (optional) vanilla extract (optional) salt">
+<li data-cat="Desserts" data-sub="No-bake peanut butter protein balls with oats, applesauce and dark chocolate chips &amp;mdash; an easy high-protein bite to keep in the fridge." data-ing="peanut butter unsweetened applesauce protein powder (~30g) rolled oats dark chocolate chips honey or maple syrup (optional) vanilla extract (optional) salt">
 <a href="Protein-PB-Balls.html">
 <div>
 <div class="name">Protein Peanut Butter Balls</div>
@@ -955,7 +968,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="flour butter walnuts, chopped powdered sugar cream cheese Cool Whip strawberries, quartered strawberry gel Cool Whip chopped nuts (optional)">
+<li data-cat="Desserts" data-sub="A layered icebox dessert: a buttery walnut shortbread crust, a sweet cream cheese layer, fresh strawberries in gel, and a Cool Whip top." data-ing="flour butter walnuts, chopped powdered sugar cream cheese Cool Whip strawberries, quartered strawberry gel Cool Whip chopped nuts (optional)">
 <a href="Strawberry-Delight.html">
 <div>
 <div class="name">Strawberry Delight</div>
@@ -965,7 +978,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="salted butter light brown sugar, packed vanilla extract all-purpose flour sweetened condensed milk (one can) mini chocolate chips chocolate bark, for dipping extra chocolate chips and sprinkles, for topping">
+<li data-cat="Desserts" data-sub="Egg-free chocolate chip cookie dough rolled into balls and dipped in chocolate &amp;mdash; a make-ahead crowd-pleaser that makes about 40 truffles." data-ing="salted butter light brown sugar, packed vanilla extract all-purpose flour sweetened condensed milk (one can) mini chocolate chips chocolate bark, for dipping extra chocolate chips and sprinkles, for topping">
 <a href="Chocolate-Chip-Cookie-Dough-Truffles.html">
 <div>
 <div class="name">Chocolate Chip Cookie Dough Truffles</div>
@@ -975,7 +988,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="milk instant French vanilla pudding (3.4 oz each) Oreo cookies, divided butter, room temperature cream cheese, room temperature powdered sugar Cool Whip, thawed gummy worms (optional)">
+<li data-cat="Desserts" data-sub="A no-bake layered dirt pudding with French vanilla pudding, a cream cheese layer and crushed Oreos &amp;mdash; add gummy worms for the kids." data-ing="milk instant French vanilla pudding (3.4 oz each) Oreo cookies, divided butter, room temperature cream cheese, room temperature powdered sugar Cool Whip, thawed gummy worms (optional)">
 <a href="Oreo-Dirt-Pudding.html">
 <div>
 <div class="name">Oreo Dirt Pudding</div>
@@ -985,7 +998,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="frozen whipped topping, thawed sweetened condensed milk (one can) cream cheese, softened milk instant French vanilla pudding mix (one box) bananas, sliced Chessmen cookies">
+<li data-cat="Desserts" data-sub="Paula Deen&#x27;s famous no-bake banana pudding &amp;mdash; layers of Chessmen cookies, fresh bananas and a rich cream-cheese vanilla pudding." data-ing="frozen whipped topping, thawed sweetened condensed milk (one can) cream cheese, softened milk instant French vanilla pudding mix (one box) bananas, sliced Chessmen cookies">
 <a href="Not-Yo-Mamas-Banana-Pudding.html">
 <div>
 <div class="name">Not Yo' Mama's Banana Pudding</div>
@@ -995,7 +1008,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Desserts" data-ing="all-purpose flour baking soda baking powder ground cinnamon ground nutmeg salt granulated sugar butter, softened pumpkin puree large egg vanilla extract chocolate chips">
+<li data-cat="Desserts" data-sub="Soft, cakey old-fashioned pumpkin cookies (Libby&#x27;s classic) with chocolate chips stirred in &amp;mdash; a cozy fall favorite with a glass of milk." data-ing="all-purpose flour baking soda baking powder ground cinnamon ground nutmeg salt granulated sugar butter, softened pumpkin puree large egg vanilla extract chocolate chips">
 <a href="Pumpkin-Chocolate-Chip-Cookies.html">
 <div>
 <div class="name">Pumpkin Chocolate Chip Cookies</div>
@@ -1005,7 +1018,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="water green tea bags">
+<li data-cat="Drinks" data-sub="Smooth, never-bitter green tea made by steeping tea bags in cold water overnight in the fridge." data-ing="water green tea bags">
 <a href="Cold-Brew-Green-Tea.html">
 <div>
 <div class="name">Cold Brew Green Tea</div>
@@ -1015,7 +1028,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="amaretto liqueur orange juice sweet and sour mix">
+<li data-cat="Drinks" data-sub="A simple, easy-drinking cocktail of amaretto, orange juice and sweet and sour mix over ice." data-ing="amaretto liqueur orange juice sweet and sour mix">
 <a href="Amaretto-Sweet-and-Sour.html">
 <div>
 <div class="name">Amaretto Sweet and Sour</div>
@@ -1025,7 +1038,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="ice light rum triple sec lemon juice lime juice amaretto">
+<li data-cat="Drinks" data-sub="A tiki classic with light rum, triple sec, citrus and a touch of amaretto, shaken over ice." data-ing="ice light rum triple sec lemon juice lime juice amaretto">
 <a href="Mai-Tai.html">
 <div>
 <div class="name">Mai Tai</div>
@@ -1035,7 +1048,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="tequila lime juice orange liqueur">
+<li data-cat="Drinks" data-sub="The classic three-ingredient margarita: tequila, fresh lime juice and orange liqueur." data-ing="tequila lime juice orange liqueur">
 <a href="Margarita.html">
 <div>
 <div class="name">Margarita</div>
@@ -1045,7 +1058,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="creamy peanut butter cream liqueur vanilla vodka milk or cream chocolate bitters (optional) chocolate syrup">
+<li data-cat="Drinks" data-sub="A rich, dessert-like batched cocktail of peanut butter, cream liqueur and vanilla vodka, served cold with a chocolate drizzle." data-ing="creamy peanut butter cream liqueur vanilla vodka milk or cream chocolate bitters (optional) chocolate syrup">
 <a href="Peanut-Butter-Cocktail.html">
 <div>
 <div class="name">Peanut Butter Cocktail</div>
@@ -1055,7 +1068,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Drinks" data-ing="vodka coffee liqueur (Kahlua) heavy cream (or milk / half &amp; half)">
+<li data-cat="Drinks" data-sub="The creamy classic: vodka and coffee liqueur layered with cream for that signature swirl." data-ing="vodka coffee liqueur (Kahlua) heavy cream (or milk / half &amp; half)">
 <a href="White-Russian.html">
 <div>
 <div class="name">White Russian</div>
@@ -1065,7 +1078,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Bread" data-ing="bubbly, active sourdough starter warm water olive oil bread flour fine sea salt cornmeal or parchment paper">
+<li data-cat="Bread" data-sub="The Clever Carrot&#x27;s beginner sourdough &amp;mdash; a no-knead, 5-ingredient artisan loaf with olive oil for a soft crumb and crisp golden crust, baked in a Dutch oven." data-ing="bubbly, active sourdough starter warm water olive oil bread flour fine sea salt cornmeal or parchment paper">
 <a href="Sourdough-Bread.html">
 <div>
 <div class="name">Sourdough Bread</div>
@@ -1075,7 +1088,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="black-eyed peas (15 oz), rinsed black beans (15 oz), rinsed corn kernels (fresh or thawed) red bell pepper, finely diced orange bell pepper, finely diced small red onion, finely diced red wine vinegar jalapenos, seeded and minced Roma tomatoes, seeded and diced firm-ripe avocado, diced fresh cilantro, chopped extra-virgin olive oil fresh lime juice honey ground cumin smoked paprika chili powder garlic, finely grated kosher salt black pepper">
+<li data-cat="Dips" data-sub="A loaded bean-and-corn salsa with charred corn, pickled red onion and a cumin-lime-honey dressing that soaks into the beans &amp;mdash; scoop with thick tortilla chips." data-ing="black-eyed peas (15 oz), rinsed black beans (15 oz), rinsed corn kernels (fresh or thawed) red bell pepper, finely diced orange bell pepper, finely diced small red onion, finely diced red wine vinegar jalapenos, seeded and minced Roma tomatoes, seeded and diced firm-ripe avocado, diced fresh cilantro, chopped extra-virgin olive oil fresh lime juice honey ground cumin smoked paprika chili powder garlic, finely grated kosher salt black pepper">
 <a href="Cowboy-Caviar.html">
 <div>
 <div class="name">Cowboy Caviar</div>
@@ -1085,7 +1098,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="Roma tomatoes, diced red onion, finely diced jalapeno, deseeded and finely diced fresh cilantro, chopped lime juice lemon juice salt">
+<li data-cat="Dips" data-sub="A fresh copycat pico de gallo with Roma tomatoes, red onion, jalapeno and a double hit of lime and lemon." data-ing="Roma tomatoes, diced red onion, finely diced jalapeno, deseeded and finely diced fresh cilantro, chopped lime juice lemon juice salt">
 <a href="Chipotle-Pico-de-Gallo.html">
 <div>
 <div class="name">Chipotle Pico de Gallo</div>
@@ -1095,7 +1108,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="shredded cooked chicken cream cheese, softened Frank&#x27;s RedHot sauce ranch dressing">
+<li data-cat="Dips" data-sub="The four-ingredient party classic &amp;mdash; shredded chicken, cream cheese, Frank&#x27;s RedHot and ranch melted together warm." data-ing="shredded cooked chicken cream cheese, softened Frank&#x27;s RedHot sauce ranch dressing">
 <a href="Buffalo-Chicken-Dip.html">
 <div>
 <div class="name">Buffalo Chicken Dip</div>
@@ -1105,7 +1118,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="frozen mango chunks, diced red bell pepper, diced red onion, chopped cilantro leaves, packed jalapeno, seeded and minced large lime, juiced salt">
+<li data-cat="Dips" data-sub="A sweet-and-spicy mango salsa with red pepper, onion, jalapeno and lime &amp;mdash; great with chips or over fish and tacos." data-ing="frozen mango chunks, diced red bell pepper, diced red onion, chopped cilantro leaves, packed jalapeno, seeded and minced large lime, juiced salt">
 <a href="Mango-Salsa.html">
 <div>
 <div class="name">Mango Salsa</div>
@@ -1115,7 +1128,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="avocados lime juice cilantro, chopped red onion, finely chopped jalapeno, finely chopped (with seeds) kosher salt">
+<li data-cat="Dips" data-sub="A simple copycat guacamole &amp;mdash; avocado, lime, cilantro, red onion and jalapeno, mashed together in minutes." data-ing="avocados lime juice cilantro, chopped red onion, finely chopped jalapeno, finely chopped (with seeds) kosher salt">
 <a href="Chipotle-Guac.html">
 <div>
 <div class="name">Chipotle Guac</div>
@@ -1125,7 +1138,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="fat-free sour cream black pepper garlic, minced artichoke hearts, drained and chopped (one can) frozen chopped spinach, thawed and squeezed dry 1/3-less-fat cream cheese, softened fat-free cream cheese, softened part-skim mozzarella, shredded and divided fresh Parmesan, grated and divided">
+<li data-cat="Dips" data-sub="A lightened-up baked spinach artichoke dip using reduced-fat and fat-free cream cheeses, baked bubbly and browned under the broiler." data-ing="fat-free sour cream black pepper garlic, minced artichoke hearts, drained and chopped (one can) frozen chopped spinach, thawed and squeezed dry 1/3-less-fat cream cheese, softened fat-free cream cheese, softened part-skim mozzarella, shredded and divided fresh Parmesan, grated and divided">
 <a href="Spinach-Artichoke-Dip.html">
 <div>
 <div class="name">Spinach Artichoke Dip</div>
@@ -1135,7 +1148,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="pineapple, peeled and diced strawberries, hulled and diced Roma tomatoes, diced red onion, minced jalapeno, minced fresh cilantro, chopped lime, juiced salt">
+<li data-cat="Dips" data-sub="A fresh fruit salsa with pineapple, strawberries and tomato balanced by red onion, jalapeno, cilantro and lime." data-ing="pineapple, peeled and diced strawberries, hulled and diced Roma tomatoes, diced red onion, minced jalapeno, minced fresh cilantro, chopped lime, juiced salt">
 <a href="Strawberry-Pineapple-Salsa.html">
 <div>
 <div class="name">Strawberry Pineapple Salsa</div>
@@ -1145,7 +1158,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="ripe strawberries, chopped red onion, minced jalapeno, minced lime, juiced fresh cilantro, chopped avocado or olive oil salt and pepper, to taste">
+<li data-cat="Dips" data-sub="A legendary little strawberry salsa with red onion, jalapeno, lime and cilantro &amp;mdash; especially good with cinnamon-sugar pita chips." data-ing="ripe strawberries, chopped red onion, minced jalapeno, minced lime, juiced fresh cilantro, chopped avocado or olive oil salt and pepper, to taste">
 <a href="Strawberry-Salsa.html">
 <div>
 <div class="name">Strawberry Salsa</div>
@@ -1155,7 +1168,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-ing="Velveeta cheese chunky salsa deer burger">
+<li data-cat="Dips" data-sub="A three-ingredient warm venison queso dip &amp;mdash; browned deer burger, Velveeta and chunky salsa melted together in the crockpot." data-ing="Velveeta cheese chunky salsa deer burger">
 <a href="Bambi-Dip.html">
 <div>
 <div class="name">Bambi Dip</div>
@@ -1165,7 +1178,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="large eggs, cold from the fridge water">
+<li data-cat="Healthy Snacks" data-sub="Foolproof, easy-peel hard boiled eggs in the Instant Pot using the 5-5-5 method &amp;mdash; pressure cook, natural release, ice bath." data-ing="large eggs, cold from the fridge water">
 <a href="Instant-Pot-Hard-Boiled-Eggs.html">
 <div>
 <div class="name">Instant Pot Hard Boiled Eggs</div>
@@ -1175,7 +1188,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="oats low-fat milk ripe bananas, mashed brown sugar, packed large eggs, beaten baking powder ground cinnamon vanilla extract salt fresh blueberries toasted pecans, chopped">
+<li data-cat="Healthy Snacks" data-sub="Hearty flourless oat muffins with mashed banana, blueberries and toasted pecans &amp;mdash; lightly sweetened and great for grab-and-go breakfasts." data-ing="oats low-fat milk ripe bananas, mashed brown sugar, packed large eggs, beaten baking powder ground cinnamon vanilla extract salt fresh blueberries toasted pecans, chopped">
 <a href="Blueberry-Banana-Nut-Muffin.html">
 <div>
 <div class="name">Blueberry &amp; Banana Nut Muffin</div>
@@ -1185,7 +1198,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="cauliflower florets (about 1 head) large egg onion, grated shredded Parmesan shredded cheddar blanched almond flour sea salt and black pepper avocado oil cooking spray ketchup, for serving (optional)">
+<li data-cat="Healthy Snacks" data-sub="Crispy baked cauliflower tots bound with egg, almond flour and two cheeses &amp;mdash; a low-carb, gluten-free riff on tater tots." data-ing="cauliflower florets (about 1 head) large egg onion, grated shredded Parmesan shredded cheddar blanched almond flour sea salt and black pepper avocado oil cooking spray ketchup, for serving (optional)">
 <a href="Cauliflower-Tots.html">
 <div>
 <div class="name">Cauliflower Tots</div>
@@ -1195,7 +1208,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="old-fashioned rolled oats natural peanut butter honey unsweetened shredded coconut chocolate chips ground flaxseed vanilla extract sea salt">
+<li data-cat="Healthy Snacks" data-sub="Five-minute no-bake oat and peanut butter energy balls with honey, coconut, flaxseed and chocolate chips &amp;mdash; keep a batch in the fridge." data-ing="old-fashioned rolled oats natural peanut butter honey unsweetened shredded coconut chocolate chips ground flaxseed vanilla extract sea salt">
 <a href="No-Bake-Energy-Balls.html">
 <div>
 <div class="name">No Bake Energy Balls</div>
@@ -1205,7 +1218,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="ripe bananas vanilla extract chocolate chips (plus more to sprinkle)">
+<li data-cat="Healthy Snacks" data-sub="Two-ingredient nice cream &amp;mdash; frozen bananas blended creamy with vanilla and chocolate chips, frozen into single-serve cups." data-ing="ripe bananas vanilla extract chocolate chips (plus more to sprinkle)">
 <a href="Banana-Chocolate-Chip-Ice-Cream.html">
 <div>
 <div class="name">Banana &amp; Chocolate Chip "Ice Cream"</div>
@@ -1215,7 +1228,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="ripe banana oats chia seeds chocolate chips vanilla protein powder almond milk (more if too dry)">
+<li data-cat="Healthy Snacks" data-sub="A high-protein baked oats with banana, chia, protein powder and chocolate chips &amp;mdash; mixed and baked right in the pan." data-ing="ripe banana oats chia seeds chocolate chips vanilla protein powder almond milk (more if too dry)">
 <a href="Banana-Chocolate-Chip-Baked-Oats.html">
 <div>
 <div class="name">Banana Chocolate Chip Baked Oats</div>
@@ -1225,7 +1238,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="large ripe bananas, mashed oats vanilla extract mix-ins of your choice (optional)">
+<li data-cat="Healthy Snacks" data-sub="Three-ingredient banana oat mini muffins &amp;mdash; just mashed banana, oats and vanilla, with any mix-ins you like. Great for toddlers and snacking." data-ing="large ripe bananas, mashed oats vanilla extract mix-ins of your choice (optional)">
 <a href="Banana-Oat-Mini-Muffins.html">
 <div>
 <div class="name">Banana Oat Mini Muffins</div>
@@ -1235,7 +1248,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-ing="peanut butter honey (optional, or sub water) water rolled oats whey protein powder ground flaxseed almond flakes (optional) dark chocolate, melted (for top) refined coconut oil">
+<li data-cat="Healthy Snacks" data-sub="Homemade no-bake protein bars with peanut butter, oats, whey and flax, topped with a dark chocolate shell &amp;mdash; about 25g protein per bar." data-ing="peanut butter honey (optional, or sub water) water rolled oats whey protein powder ground flaxseed almond flakes (optional) dark chocolate, melted (for top) refined coconut oil">
 <a href="Protein-Bars.html">
 <div>
 <div class="name">Protein Bars</div>
@@ -1245,7 +1258,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Untested" data-ing="frozen chicken wings cayenne pepper red pepper flakes salt hot sauce of choice butter water, for boiling">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="frozen chicken wings cayenne pepper red pepper flakes salt hot sauce of choice butter water, for boiling">
 <a href="Baked-Chicken-Wings-from-Frozen.html">
 <div>
 <div class="name">Baked Chicken Wings from Frozen</div>
@@ -1255,7 +1268,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Untested" data-ing="chuck roast, cut in 1.5-inch cubes sweet potatoes, peeled and cubed onions, coarsely chopped carrots, chopped coconut oil curry paste coconut milk soy sauce fish sauce apple juice salt and black pepper">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="chuck roast, cut in 1.5-inch cubes sweet potatoes, peeled and cubed onions, coarsely chopped carrots, chopped coconut oil curry paste coconut milk soy sauce fish sauce apple juice salt and black pepper">
 <a href="Beef-Curry-Stew.html">
 <div>
 <div class="name">Beef Curry Stew</div>
@@ -1265,7 +1278,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="cooked chicken breast, shredded BBQ sauce black beans, drained and rinsed whole kernel corn, drained jalapeno, seeded and diced red onion, diced garlic, minced cilantro, chopped white wine vinegar extra virgin olive oil honey Monterey Jack cheese, shredded flour tortillas (6-inch)">
+<li data-cat="Dinners" data-sub="Chicken" data-ing="cooked chicken breast, shredded BBQ sauce black beans, drained and rinsed whole kernel corn, drained jalapeno, seeded and diced red onion, diced garlic, minced cilantro, chopped white wine vinegar extra virgin olive oil honey Monterey Jack cheese, shredded flour tortillas (6-inch)">
 <a href="Cowboy-Quesadillas.html">
 <div>
 <div class="name">Cowboy Quesadillas</div>
@@ -1275,7 +1288,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dinners" data-ing="chicken broth olive oil garlic, minced sweet onion, sliced large lemon, zested (plus juice) boneless skinless chicken breasts Israeli (pearl) couscous crushed red pepper crumbled feta chopped chives salt and pepper">
+<li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="chicken broth olive oil garlic, minced sweet onion, sliced large lemon, zested (plus juice) boneless skinless chicken breasts Israeli (pearl) couscous crushed red pepper crumbled feta chopped chives salt and pepper">
 <a href="Greek-Lemon-Chicken-Soup.html">
 <div>
 <div class="name">Greek Lemon Chicken Soup</div>
@@ -1285,7 +1298,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="large butternut squash olive oil onion, chopped garlic, finely chopped 1-inch piece ginger, finely chopped low-sodium chicken broth fresh thyme white beans, rinsed (one can) chickpeas, rinsed (one can) whole-grain couscous roasted pistachios, chopped dried apricots, chopped fresh cilantro, chopped green onion, sliced">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="large butternut squash olive oil onion, chopped garlic, finely chopped 1-inch piece ginger, finely chopped low-sodium chicken broth fresh thyme white beans, rinsed (one can) chickpeas, rinsed (one can) whole-grain couscous roasted pistachios, chopped dried apricots, chopped fresh cilantro, chopped green onion, sliced">
 <a href="Butternut-Squash-White-Bean-Soup.html">
 <div>
 <div class="name">Butternut Squash &amp; White Bean Soup</div>
@@ -1295,7 +1308,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="extra-virgin olive oil carrots, peeled and chopped celery, sliced onion, finely chopped tomato paste garlic, crushed ground cumin low-sodium vegetable or chicken broth low-sodium black beans, undrained (three cans) frozen corn avocado and cilantro, for serving">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="extra-virgin olive oil carrots, peeled and chopped celery, sliced onion, finely chopped tomato paste garlic, crushed ground cumin low-sodium vegetable or chicken broth low-sodium black beans, undrained (three cans) frozen corn avocado and cilantro, for serving">
 <a href="Smoky-Vegan-Black-Bean-Soup.html">
 <div>
 <div class="name">Smoky Vegan Black Bean Soup</div>
@@ -1305,7 +1318,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="whole-grain linguine frozen peas, thawed olive oil boneless skinless chicken breast, in 1-inch chunks kosher salt and black pepper fresh lemon juice low-fat cream cheese, cubed lemon zest grated Parmesan flat-leaf parsley, chopped">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="whole-grain linguine frozen peas, thawed olive oil boneless skinless chicken breast, in 1-inch chunks kosher salt and black pepper fresh lemon juice low-fat cream cheese, cubed lemon zest grated Parmesan flat-leaf parsley, chopped">
 <a href="Creamy-Lemon-Chicken-Pasta.html">
 <div>
 <div class="name">Creamy Lemon Chicken Pasta</div>
@@ -1315,7 +1328,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="acorn squash (about 1.5 lb) olive oil kosher salt cayenne pepper boneless skinless chicken breasts (6 oz each) black pepper pomegranate juice honey balsamic vinegar crumbled feta pomegranate seeds fresh mint, finely chopped">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="acorn squash (about 1.5 lb) olive oil kosher salt cayenne pepper boneless skinless chicken breasts (6 oz each) black pepper pomegranate juice honey balsamic vinegar crumbled feta pomegranate seeds fresh mint, finely chopped">
 <a href="Pomegranate-Honey-Glazed-Chicken-and-Squash.html">
 <div>
 <div class="name">Pomegranate-Honey Chicken &amp; Squash</div>
@@ -1325,7 +1338,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="small acorn squash (about 4.5 lb) olive oil salt and black pepper onion, finely chopped garlic, finely chopped mixed-color quinoa fresh thyme leaves water dried cranberries Swiss chard, chopped (about 6 cups) crumbled feta, for serving (optional)">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="small acorn squash (about 4.5 lb) olive oil salt and black pepper onion, finely chopped garlic, finely chopped mixed-color quinoa fresh thyme leaves water dried cranberries Swiss chard, chopped (about 6 cups) crumbled feta, for serving (optional)">
 <a href="Quinoa-Stuffed-Acorn-Squash.html">
 <div>
 <div class="name">Quinoa-Stuffed Acorn Squash</div>
@@ -1335,7 +1348,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="summer squash salt large eggs Gruyere cheese, shredded milk green onions, thinly sliced">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="summer squash salt large eggs Gruyere cheese, shredded milk green onions, thinly sliced">
 <a href="Summer-Squash-Frittata.html">
 <div>
 <div class="name">Summer Squash Frittata</div>
@@ -1345,7 +1358,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="medium spaghetti squash shallot, finely chopped extra-virgin olive oil packed spinach salt reduced-fat cream cheese, softened marinated artichoke hearts, drained and chopped grated Parmesan lemon zest black pepper">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="medium spaghetti squash shallot, finely chopped extra-virgin olive oil packed spinach salt reduced-fat cream cheese, softened marinated artichoke hearts, drained and chopped grated Parmesan lemon zest black pepper">
 <a href="Spinach-Artichoke-Spaghetti-Squash.html">
 <div>
 <div class="name">Spinach &amp; Artichoke Squash Casserole</div>
@@ -1355,7 +1368,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="large bell peppers, seeded and thinly sliced red onion, thinly sliced toasted sesame oil salt low-sodium soy sauce honey grated fresh ginger black pepper skinless salmon fillets (5 oz each) cooked brown rice fresh basil, for garnish">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="large bell peppers, seeded and thinly sliced red onion, thinly sliced toasted sesame oil salt low-sodium soy sauce honey grated fresh ginger black pepper skinless salmon fillets (5 oz each) cooked brown rice fresh basil, for garnish">
 <a href="Honey-Soy-Glazed-Salmon-with-Peppers.html">
 <div>
 <div class="name">Honey-Soy-Glazed Salmon with Peppers</div>
@@ -1365,7 +1378,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="whole-grain couscous navel orange hot water kosher salt and black pepper large shrimp, peeled and deveined ground cumin cayenne pepper thin asparagus, trimmed olive oil">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="whole-grain couscous navel orange hot water kosher salt and black pepper large shrimp, peeled and deveined ground cumin cayenne pepper thin asparagus, trimmed olive oil">
 <a href="Roasted-Cumin-Shrimp-and-Asparagus.html">
 <div>
 <div class="name">Roasted Cumin Shrimp &amp; Asparagus</div>
@@ -1375,7 +1388,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="light brown sugar chipotle chile powder ground cumin garlic powder onion powder salt and black pepper small chicken thighs (about 4 lb) extra-virgin olive oil small oranges, quartered green onions, thinly sliced">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="light brown sugar chipotle chile powder ground cumin garlic powder onion powder salt and black pepper small chicken thighs (about 4 lb) extra-virgin olive oil small oranges, quartered green onions, thinly sliced">
 <a href="Chipotle-Orange-Chicken.html">
 <div>
 <div class="name">Chipotle Orange Chicken</div>
@@ -1385,7 +1398,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="small chicken thighs (about 1.5 lb) kosher salt and black pepper olive oil green beans, halved cherry tomatoes butter beans, drained (one can) pesto (store-bought or homemade) grated Parmesan and chopped basil, for topping">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="small chicken thighs (about 1.5 lb) kosher salt and black pepper olive oil green beans, halved cherry tomatoes butter beans, drained (one can) pesto (store-bought or homemade) grated Parmesan and chopped basil, for topping">
 <a href="Skillet-Pesto-Chicken-and-Beans.html">
 <div>
 <div class="name">Skillet Pesto Chicken &amp; Beans</div>
@@ -1395,7 +1408,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Mediterranean" data-ing="harissa pepper paste extra-virgin olive oil honey boneless skinless chicken breasts, thinly sliced chickpeas, drained (one can) quick-cooking bulgur, cooked fresh parsley, finely chopped salt">
+<li data-cat="Dinners" data-sub="Mediterranean" data-ing="harissa pepper paste extra-virgin olive oil honey boneless skinless chicken breasts, thinly sliced chickpeas, drained (one can) quick-cooking bulgur, cooked fresh parsley, finely chopped salt">
 <a href="Harissa-Grilled-Chicken-Kebabs.html">
 <div>
 <div class="name">Harissa Grilled Chicken Kebabs</div>
@@ -1424,6 +1437,7 @@ var num=document.getElementById('num');
 var h2title=document.getElementById('h2title');
 var cats=Array.prototype.slice.call(document.querySelectorAll('.cat'));
 var curCat='__all';
+var curSub=null;
 var total=items.length;
 items.forEach(function(li){li.dataset.t=norm(li.textContent+' '+(li.getAttribute('data-ing')||''));});
 function update(){
@@ -1431,19 +1445,21 @@ var q=norm(search.value.trim());
 var vis=0;
 items.forEach(function(li){
 var okCat=(curCat==='__all'||li.getAttribute('data-cat')===curCat);
+var okSub=(!curSub||li.getAttribute('data-sub')===curSub);
 var okQ=li.dataset.t.indexOf(q)!==-1;
-var show=okCat&&okQ;
+var show=okCat&&okSub&&okQ;
 li.style.display=show?'':'none';
 if(show)vis++;
 });
 noResults.style.display=vis===0?'block':'none';
-num.textContent=(q||curCat!=='__all')?vis+' of '+total:total;
+num.textContent=(q||curCat!=='__all'||curSub)?vis+' of '+total:total;
 }
 cats.forEach(function(b){b.addEventListener('click',function(){
 cats.forEach(function(x){x.classList.remove('active');});
 b.classList.add('active');
 curCat=b.getAttribute('data-cat');
-h2title.textContent=(curCat==='__all'?'All Recipes':b.childNodes[0].nodeValue.trim());
+curSub=b.getAttribute('data-sub')||null;
+h2title.textContent=b.childNodes[0].nodeValue.trim();
 update();
 });});
 var spinBtn=document.getElementById('spin');
