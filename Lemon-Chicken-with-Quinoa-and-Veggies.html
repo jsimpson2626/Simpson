@@ -34,6 +34,8 @@ background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);
 background-size:18px 18px;
 }
 header .wrap{position:relative}
+.back{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font-size:.8rem;letter-spacing:.04em;opacity:.85;margin-bottom:18px;transition:opacity .2s}
+.back:hover{opacity:1}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8;margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.02;letter-spacing:-.01em}
 .sub{margin-top:16px;max-width:60ch;opacity:.92;font-size:.98rem}
@@ -111,6 +113,7 @@ ol.steps li{padding-left:58px}
 <body>
 <header>
 <div class="wrap">
+<a class="back" href="index.html">&larr; All recipes</a>
 <div class="eyebrow">Skillet &middot; Weeknight</div>
 <h1>Lemon Chicken<br>with Quinoa &amp; Veggies</h1>
 <p class="sub">Pan-fried crispy chicken thighs rested in a bright lemon, garlic and Dijon cream gravy, served over quinoa instead of mashed potatoes to keep the carbs down.</p>
@@ -202,8 +205,8 @@ if(x === null) return "";
 if(x >= 10){ return (Math.round(x*10)/10).toString().replace(/\.0$/, ""); }
 const whole = Math.floor(x + 1e-9);
 const frac = x - whole;
-const map = [[0,""],[0.125,"\u215B"],[0.25,"\u00BC"],[0.333,"\u2153"],[0.375,"\u215C"],
-[0.5,"\u00BD"],[0.625,"\u215D"],[0.667,"\u2154"],[0.75,"\u00BE"],[0.875,"\u215E"],[1,""]];
+const map = [[0,""],[0.125,"⅛"],[0.25,"¼"],[0.333,"⅓"],[0.375,"⅜"],
+[0.5,"½"],[0.625,"⅝"],[0.667,"⅔"],[0.75,"¾"],[0.875,"⅞"],[1,""]];
 let best = map[0], d = 1;
 for(const m of map){ const dd = Math.abs(frac - m[0]); if(dd < d){ d = dd; best = m; } }
 let frStr = best[1];

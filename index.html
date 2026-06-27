@@ -47,7 +47,11 @@ ul.recipes li.card-pick a{border-color:var(--accent);box-shadow:0 0 0 3px rgba(1
 .cat:hover{border-color:var(--steel)}
 .cat.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .cat.active span{background:rgba(255,255,255,.22);color:#fff}
-.cat.subcat{margin-left:16px;font-size:.85rem;padding:7px 12px;background:transparent;border-color:transparent;color:#5f7384;border-left:2px solid var(--line);border-radius:0 8px 8px 0}
+.cat.has-subs::after{content:"";flex:0 0 auto;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);opacity:.45;transition:transform .2s;margin-left:-2px}
+.cat.has-subs.expanded::after{transform:rotate(45deg)}
+.cat.has-subs span{margin-left:auto}
+.cat.subcat{display:none;margin-left:16px;font-size:.85rem;padding:7px 12px;background:transparent;border-color:transparent;color:#5f7384;border-left:2px solid var(--line);border-radius:0 8px 8px 0}
+.cat.subcat.show{display:flex}
 .cat.subcat span{background:transparent;color:#9a948b}
 .cat.subcat:hover{background:var(--card);border-left-color:var(--steel);color:var(--ink)}
 .cat.subcat.active{background:var(--steel);border-color:var(--steel);color:#fff}
@@ -95,23 +99,24 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <aside class="sidebar" aria-label="Recipe groups">
 <div class="side-title">Groups</div>
 <button class="cat active" data-cat="__all">All Recipes <span>130</span></button>
-<button class="cat" data-cat="Dinners">Dinners <span>78</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Chicken">Chicken <span>15</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Beef &amp; Game">Beef &amp; Game <span>7</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Pork">Pork <span>5</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Seafood">Seafood <span>3</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Pasta">Pasta <span>7</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Soups, Stews &amp; Chili">Soups, Stews &amp; Chili <span>15</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Vegetarian">Vegetarian <span>10</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Sauces &amp; Marinades">Sauces &amp; Marinades <span>4</span></button>
-<button class="cat subcat" data-cat="Dinners" data-sub="Mediterranean">Mediterranean <span>12</span></button>
+<button class="cat has-subs" data-cat="Dinners">Dinners <span>78</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Chicken">Chicken <span>15</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Beef &amp; Game">Beef &amp; Game <span>7</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Pork">Pork <span>5</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Seafood">Seafood <span>3</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Pasta">Pasta <span>7</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Soups, Stews &amp; Chili">Soups, Stews &amp; Chili <span>15</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Vegetarian">Vegetarian <span>10</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Sauces &amp; Marinades">Sauces &amp; Marinades <span>4</span></button>
+<button class="cat subcat" data-parent="Dinners" data-cat="Dinners" data-sub="Mediterranean">Mediterranean <span>12</span></button>
 <button class="cat" data-cat="Breakfast">Breakfast <span>10</span></button>
 <button class="cat" data-cat="Sides">Sides <span>10</span></button>
 <button class="cat" data-cat="Desserts">Desserts <span>8</span></button>
 <button class="cat" data-cat="Drinks">Drinks <span>6</span></button>
 <button class="cat" data-cat="Bread">Bread <span>1</span></button>
-<button class="cat" data-cat="Dips">Dips <span>9</span></button>
-<button class="cat" data-cat="Healthy Snacks">Healthy Snacks <span>8</span></button>
+<button class="cat has-subs" data-cat="Snacks">Snacks <span>17</span></button>
+<button class="cat subcat" data-parent="Snacks" data-cat="Snacks" data-sub="Dips">Dips <span>9</span></button>
+<button class="cat subcat" data-parent="Snacks" data-cat="Snacks" data-sub="Healthy Snacks">Healthy Snacks <span>8</span></button>
 </aside>
 
 <div class="main">
@@ -1088,7 +1093,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A loaded bean-and-corn salsa with charred corn, pickled red onion and a cumin-lime-honey dressing that soaks into the beans &amp;mdash; scoop with thick tortilla chips." data-ing="black-eyed peas (15 oz), rinsed black beans (15 oz), rinsed corn kernels (fresh or thawed) red bell pepper, finely diced orange bell pepper, finely diced small red onion, finely diced red wine vinegar jalapenos, seeded and minced Roma tomatoes, seeded and diced firm-ripe avocado, diced fresh cilantro, chopped extra-virgin olive oil fresh lime juice honey ground cumin smoked paprika chili powder garlic, finely grated kosher salt black pepper">
+<li data-cat="Snacks" data-sub="Dips" data-ing="black-eyed peas (15 oz), rinsed black beans (15 oz), rinsed corn kernels (fresh or thawed) red bell pepper, finely diced orange bell pepper, finely diced small red onion, finely diced red wine vinegar jalapenos, seeded and minced Roma tomatoes, seeded and diced firm-ripe avocado, diced fresh cilantro, chopped extra-virgin olive oil fresh lime juice honey ground cumin smoked paprika chili powder garlic, finely grated kosher salt black pepper">
 <a href="Cowboy-Caviar.html">
 <div>
 <div class="name">Cowboy Caviar</div>
@@ -1098,7 +1103,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A fresh copycat pico de gallo with Roma tomatoes, red onion, jalapeno and a double hit of lime and lemon." data-ing="Roma tomatoes, diced red onion, finely diced jalapeno, deseeded and finely diced fresh cilantro, chopped lime juice lemon juice salt">
+<li data-cat="Snacks" data-sub="Dips" data-ing="Roma tomatoes, diced red onion, finely diced jalapeno, deseeded and finely diced fresh cilantro, chopped lime juice lemon juice salt">
 <a href="Chipotle-Pico-de-Gallo.html">
 <div>
 <div class="name">Chipotle Pico de Gallo</div>
@@ -1108,7 +1113,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="The four-ingredient party classic &amp;mdash; shredded chicken, cream cheese, Frank&#x27;s RedHot and ranch melted together warm." data-ing="shredded cooked chicken cream cheese, softened Frank&#x27;s RedHot sauce ranch dressing">
+<li data-cat="Snacks" data-sub="Dips" data-ing="shredded cooked chicken cream cheese, softened Frank&#x27;s RedHot sauce ranch dressing">
 <a href="Buffalo-Chicken-Dip.html">
 <div>
 <div class="name">Buffalo Chicken Dip</div>
@@ -1118,7 +1123,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A sweet-and-spicy mango salsa with red pepper, onion, jalapeno and lime &amp;mdash; great with chips or over fish and tacos." data-ing="frozen mango chunks, diced red bell pepper, diced red onion, chopped cilantro leaves, packed jalapeno, seeded and minced large lime, juiced salt">
+<li data-cat="Snacks" data-sub="Dips" data-ing="frozen mango chunks, diced red bell pepper, diced red onion, chopped cilantro leaves, packed jalapeno, seeded and minced large lime, juiced salt">
 <a href="Mango-Salsa.html">
 <div>
 <div class="name">Mango Salsa</div>
@@ -1128,7 +1133,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A simple copycat guacamole &amp;mdash; avocado, lime, cilantro, red onion and jalapeno, mashed together in minutes." data-ing="avocados lime juice cilantro, chopped red onion, finely chopped jalapeno, finely chopped (with seeds) kosher salt">
+<li data-cat="Snacks" data-sub="Dips" data-ing="avocados lime juice cilantro, chopped red onion, finely chopped jalapeno, finely chopped (with seeds) kosher salt">
 <a href="Chipotle-Guac.html">
 <div>
 <div class="name">Chipotle Guac</div>
@@ -1138,7 +1143,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A lightened-up baked spinach artichoke dip using reduced-fat and fat-free cream cheeses, baked bubbly and browned under the broiler." data-ing="fat-free sour cream black pepper garlic, minced artichoke hearts, drained and chopped (one can) frozen chopped spinach, thawed and squeezed dry 1/3-less-fat cream cheese, softened fat-free cream cheese, softened part-skim mozzarella, shredded and divided fresh Parmesan, grated and divided">
+<li data-cat="Snacks" data-sub="Dips" data-ing="fat-free sour cream black pepper garlic, minced artichoke hearts, drained and chopped (one can) frozen chopped spinach, thawed and squeezed dry 1/3-less-fat cream cheese, softened fat-free cream cheese, softened part-skim mozzarella, shredded and divided fresh Parmesan, grated and divided">
 <a href="Spinach-Artichoke-Dip.html">
 <div>
 <div class="name">Spinach Artichoke Dip</div>
@@ -1148,7 +1153,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A fresh fruit salsa with pineapple, strawberries and tomato balanced by red onion, jalapeno, cilantro and lime." data-ing="pineapple, peeled and diced strawberries, hulled and diced Roma tomatoes, diced red onion, minced jalapeno, minced fresh cilantro, chopped lime, juiced salt">
+<li data-cat="Snacks" data-sub="Dips" data-ing="pineapple, peeled and diced strawberries, hulled and diced Roma tomatoes, diced red onion, minced jalapeno, minced fresh cilantro, chopped lime, juiced salt">
 <a href="Strawberry-Pineapple-Salsa.html">
 <div>
 <div class="name">Strawberry Pineapple Salsa</div>
@@ -1158,7 +1163,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A legendary little strawberry salsa with red onion, jalapeno, lime and cilantro &amp;mdash; especially good with cinnamon-sugar pita chips." data-ing="ripe strawberries, chopped red onion, minced jalapeno, minced lime, juiced fresh cilantro, chopped avocado or olive oil salt and pepper, to taste">
+<li data-cat="Snacks" data-sub="Dips" data-ing="ripe strawberries, chopped red onion, minced jalapeno, minced lime, juiced fresh cilantro, chopped avocado or olive oil salt and pepper, to taste">
 <a href="Strawberry-Salsa.html">
 <div>
 <div class="name">Strawberry Salsa</div>
@@ -1168,7 +1173,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Dips" data-sub="A three-ingredient warm venison queso dip &amp;mdash; browned deer burger, Velveeta and chunky salsa melted together in the crockpot." data-ing="Velveeta cheese chunky salsa deer burger">
+<li data-cat="Snacks" data-sub="Dips" data-ing="Velveeta cheese chunky salsa deer burger">
 <a href="Bambi-Dip.html">
 <div>
 <div class="name">Bambi Dip</div>
@@ -1178,7 +1183,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Foolproof, easy-peel hard boiled eggs in the Instant Pot using the 5-5-5 method &amp;mdash; pressure cook, natural release, ice bath." data-ing="large eggs, cold from the fridge water">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="large eggs, cold from the fridge water">
 <a href="Instant-Pot-Hard-Boiled-Eggs.html">
 <div>
 <div class="name">Instant Pot Hard Boiled Eggs</div>
@@ -1188,7 +1193,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Hearty flourless oat muffins with mashed banana, blueberries and toasted pecans &amp;mdash; lightly sweetened and great for grab-and-go breakfasts." data-ing="oats low-fat milk ripe bananas, mashed brown sugar, packed large eggs, beaten baking powder ground cinnamon vanilla extract salt fresh blueberries toasted pecans, chopped">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="oats low-fat milk ripe bananas, mashed brown sugar, packed large eggs, beaten baking powder ground cinnamon vanilla extract salt fresh blueberries toasted pecans, chopped">
 <a href="Blueberry-Banana-Nut-Muffin.html">
 <div>
 <div class="name">Blueberry &amp; Banana Nut Muffin</div>
@@ -1198,7 +1203,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Crispy baked cauliflower tots bound with egg, almond flour and two cheeses &amp;mdash; a low-carb, gluten-free riff on tater tots." data-ing="cauliflower florets (about 1 head) large egg onion, grated shredded Parmesan shredded cheddar blanched almond flour sea salt and black pepper avocado oil cooking spray ketchup, for serving (optional)">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="cauliflower florets (about 1 head) large egg onion, grated shredded Parmesan shredded cheddar blanched almond flour sea salt and black pepper avocado oil cooking spray ketchup, for serving (optional)">
 <a href="Cauliflower-Tots.html">
 <div>
 <div class="name">Cauliflower Tots</div>
@@ -1208,7 +1213,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Five-minute no-bake oat and peanut butter energy balls with honey, coconut, flaxseed and chocolate chips &amp;mdash; keep a batch in the fridge." data-ing="old-fashioned rolled oats natural peanut butter honey unsweetened shredded coconut chocolate chips ground flaxseed vanilla extract sea salt">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="old-fashioned rolled oats natural peanut butter honey unsweetened shredded coconut chocolate chips ground flaxseed vanilla extract sea salt">
 <a href="No-Bake-Energy-Balls.html">
 <div>
 <div class="name">No Bake Energy Balls</div>
@@ -1218,7 +1223,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Two-ingredient nice cream &amp;mdash; frozen bananas blended creamy with vanilla and chocolate chips, frozen into single-serve cups." data-ing="ripe bananas vanilla extract chocolate chips (plus more to sprinkle)">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="ripe bananas vanilla extract chocolate chips (plus more to sprinkle)">
 <a href="Banana-Chocolate-Chip-Ice-Cream.html">
 <div>
 <div class="name">Banana &amp; Chocolate Chip "Ice Cream"</div>
@@ -1228,7 +1233,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="A high-protein baked oats with banana, chia, protein powder and chocolate chips &amp;mdash; mixed and baked right in the pan." data-ing="ripe banana oats chia seeds chocolate chips vanilla protein powder almond milk (more if too dry)">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="ripe banana oats chia seeds chocolate chips vanilla protein powder almond milk (more if too dry)">
 <a href="Banana-Chocolate-Chip-Baked-Oats.html">
 <div>
 <div class="name">Banana Chocolate Chip Baked Oats</div>
@@ -1238,7 +1243,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Three-ingredient banana oat mini muffins &amp;mdash; just mashed banana, oats and vanilla, with any mix-ins you like. Great for toddlers and snacking." data-ing="large ripe bananas, mashed oats vanilla extract mix-ins of your choice (optional)">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="large ripe bananas, mashed oats vanilla extract mix-ins of your choice (optional)">
 <a href="Banana-Oat-Mini-Muffins.html">
 <div>
 <div class="name">Banana Oat Mini Muffins</div>
@@ -1248,7 +1253,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </a>
 </li>
 
-<li data-cat="Healthy Snacks" data-sub="Homemade no-bake protein bars with peanut butter, oats, whey and flax, topped with a dark chocolate shell &amp;mdash; about 25g protein per bar." data-ing="peanut butter honey (optional, or sub water) water rolled oats whey protein powder ground flaxseed almond flakes (optional) dark chocolate, melted (for top) refined coconut oil">
+<li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="peanut butter honey (optional, or sub water) water rolled oats whey protein powder ground flaxseed almond flakes (optional) dark chocolate, melted (for top) refined coconut oil">
 <a href="Protein-Bars.html">
 <div>
 <div class="name">Protein Bars</div>
@@ -1454,11 +1459,20 @@ if(show)vis++;
 noResults.style.display=vis===0?'block':'none';
 num.textContent=(q||curCat!=='__all'||curSub)?vis+' of '+total:total;
 }
+function setExpanded(parent){
+cats.forEach(function(s){
+if(s.classList.contains('subcat')){s.classList.toggle('show', parent!==null&&s.getAttribute('data-parent')===parent);}
+if(s.classList.contains('has-subs')){s.classList.toggle('expanded', s.getAttribute('data-cat')===parent);}
+});
+}
 cats.forEach(function(b){b.addEventListener('click',function(){
 cats.forEach(function(x){x.classList.remove('active');});
 b.classList.add('active');
 curCat=b.getAttribute('data-cat');
 curSub=b.getAttribute('data-sub')||null;
+if(b.classList.contains('subcat')){setExpanded(b.getAttribute('data-parent'));}
+else if(b.classList.contains('has-subs')){setExpanded(b.getAttribute('data-cat'));}
+else{setExpanded(null);}
 h2title.textContent=b.childNodes[0].nodeValue.trim();
 update();
 });});
