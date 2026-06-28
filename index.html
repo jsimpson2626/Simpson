@@ -75,6 +75,48 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 .cat{width:auto;white-space:nowrap}
 .cat.subcat{margin-left:0;border:1px solid var(--line);border-radius:10px}
 }
+ul.recipes li{position:relative}
+.addlist{position:absolute;top:9px;right:11px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--steel);display:grid;place-items:center;cursor:pointer;z-index:3;transition:transform .12s,background .15s,color .15s,border-color .15s;box-shadow:0 2px 8px -4px rgba(31,58,95,.4)}
+.addlist svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;transition:transform .2s}
+.addlist:hover{border-color:var(--steel);color:var(--navy);transform:scale(1.08)}
+.addlist.added{background:var(--accent);border-color:var(--accent);color:#fff}
+.addlist.added svg{transform:rotate(45deg)}
+#shopBar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(140%);z-index:150;display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;border:none;border-radius:999px;padding:13px 22px;font-family:'Spline Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:0 16px 40px -14px rgba(31,58,95,.7);transition:transform .25s}
+#shopBar.show{transform:translateX(-50%) translateY(0)}
+#shopBar svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#shopBar .cnt{background:var(--accent);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.78rem;padding:0 6px}
+#shop{position:fixed;inset:0;z-index:300;background:var(--paper);display:none;flex-direction:column}
+#shop.open{display:flex}
+.shop-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 22px;background:linear-gradient(135deg,var(--navy),var(--steel));color:#fff}
+.shop-top h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem}
+.shop-close{background:rgba(255,255,255,.16);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:grid;place-items:center;line-height:1}
+.shop-scroll{flex:1;overflow-y:auto;padding:20px 22px;max-width:760px;margin:0 auto;width:100%}
+.shop-recipes{display:flex;flex-wrap:wrap;gap:10px}
+.shop-chip{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:7px 8px 7px 14px}
+.shop-chip .cn{font-weight:600;font-size:.9rem;color:var(--navy);max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shop-step{display:flex;align-items:center;gap:1px;background:var(--soft);border-radius:999px;padding:3px}
+.shop-step button{width:26px;height:26px;border:none;border-radius:50%;background:var(--navy);color:#fff;font-size:1rem;cursor:pointer;display:grid;place-items:center;line-height:1}
+.shop-step button:disabled{opacity:.35;cursor:not-allowed}
+.shop-step .sv{min-width:26px;text-align:center;font-family:'Fraunces',serif;font-weight:600;font-size:.92rem}
+.shop-step .u{font-size:.58rem;color:#75706a;text-transform:uppercase;letter-spacing:.08em;margin:0 4px 0 2px}
+.shop-rm{background:none;border:none;color:#a3553f;cursor:pointer;font-size:1.15rem;line-height:1;padding:0 2px}
+.shop-note{font-size:.78rem;color:#8a857c;margin:16px 0 2px}
+.shop-list{list-style:none;display:grid;gap:1px;margin-top:6px}
+.shop-list li{display:flex;align-items:flex-start;gap:13px;padding:11px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
+.shop-list li.done .sl-name{text-decoration:line-through;opacity:.5}
+.shop-list li.done .sl-amt{opacity:.5}
+.sl-check{flex:0 0 auto;width:20px;height:20px;border:1.6px solid var(--line);border-radius:6px;display:grid;place-items:center;margin-top:1px;background:#fff}
+.shop-list li.done .sl-check{background:var(--accent);border-color:var(--accent)}
+.sl-check svg{width:13px;height:13px;stroke:#fff;stroke-width:3;fill:none;display:none}
+.shop-list li.done .sl-check svg{display:block}
+.sl-amt{font-family:'Fraunces',serif;font-weight:600;color:var(--accent);min-width:90px;font-variant-numeric:tabular-nums}
+.sl-name{flex:1}
+.sl-src{display:block;font-size:.72rem;color:#9a948b;margin-top:2px}
+.shop-empty{color:#75706a;text-align:center;padding:40px 0;border:none}
+.shop-foot{display:flex;gap:10px;padding:14px 22px;padding-bottom:calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--card)}
+.shop-foot button{flex:1;border-radius:12px;padding:13px;font-family:'Spline Sans',sans-serif;font-size:.92rem;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.shop-foot .primary{background:var(--navy);color:#fff;border-color:var(--navy);flex:1.5}
+.shop-foot .danger{color:#a3553f}
 </style>
 </head>
 <body>
@@ -82,7 +124,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 <div class="wrap">
 <div class="eyebrow">Simpson Kitchen</div>
 <h1>My Recipes</h1>
-<p class="tag">Made from scratch with love (and a lot of protein). Pick a group on the left or search, then tap any recipe to scale the servings.</p>
+<p class="tag">Made from scratch with love (and a lot of protein). Pick a group on the left or search, tap any recipe to scale the servings, or hit + on a card to build a shopping list.</p>
 </div>
 </header>
 
@@ -131,6 +173,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Hidden-Veggie-Spaghetti-with-Venison.html" data-name="Hidden Veggie Spaghetti with Venison" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="salt chilli flakes parsley italian herbs paprika garlic granules powder olive oil garlic powder whole wheat wraps shredded lettuce chopped tomatoes onions parmesan chicken">
@@ -141,6 +184,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Garlic-Parmesan-Chicken-Wraps.html" data-name="Garlic Parmesan Chicken Wraps" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pork" data-ing="pork salt black pepper onion jalapeno cloves garlic orange juice dried oregano ground cumin olive oil">
@@ -151,6 +195,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Slow-Cooker-Carnitas-Pulled-Pork.html" data-name="Slow Cooker Carnitas Pulled Pork" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="chicken wings baking powder kosher salt unsalted butter franks redhot sauce blue cheese dressing celery sticks">
@@ -161,6 +206,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Crispy-Baked-Chicken-Wings.html" data-name="Crispy Baked Chicken Wings" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="low sodium soy sauce water light brown sugar mirin sesame oil rice wine vinegar black pepper red pepper flakes sriracha sauce grated ginger grated garlic scallion cornstarch">
@@ -171,6 +217,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Korean-BBQ-Sauce.html" data-name="Korean BBQ Sauce" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="chicken thighs flour lawrys seasoned salt olive oil butter chopped garlic chicken broth lemon dijon mustard heavy cream salt pepper rosemary cooked quinoa">
@@ -181,6 +228,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Lemon-Chicken-with-Quinoa-and-Veggies.html" data-name="Lemon Chicken with Quinoa &amp; Veggies" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="white yellow onion zucchini red bell pepper bella mushrooms grape tomatoes hot italian sausages whole-grain penne olive oil salt pepper italian seasoning grated parmesan">
@@ -191,6 +239,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Sausage-and-Roasted-Veggie-Penne.html" data-name="Sausage &amp; Roasted Veggie Penne" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="deer burger ground beef lamb greek yogurt olive oil yellow onion minced garlic italian seasoning cumin paprika salt pepper parchment paper red onion white vinegar water coarse kosher salt sugar pita tzatziki hummus">
@@ -201,6 +250,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Gyros.html" data-name="Gyros" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="white beans chicken breast olive oil onion garlic mild green chilis ground cumin oregano cayenne pepper salt chicken broth cheddar jack cheese jalapeno pepper">
@@ -211,6 +261,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="White-Chicken-Chili.html" data-name="White Chicken Chili" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="olive oil onion, diced red bell pepper, seeded and diced garlic, finely chopped paprika cumin chili powder whole peeled tomatoes (one can) large eggs salt and pepper, to taste small bunch cilantro, chopped small bunch parsley, chopped avocados, sliced feta or goat cheese, crumbled">
@@ -221,6 +272,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Shakshuka.html" data-name="Shakshuka" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="deer burger (or ground beef) beef broth tomato sauce (two 8-oz cans) dried minced onion salt garlic powder dried thyme black pepper dried bay leaf yellow potatoes, cubed carrots, sliced large head cauliflower frozen peas">
@@ -231,6 +283,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Budget-Deer-Burger-Stew.html" data-name="Budget Deer Burger Stew" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="ground venison (or 1 lb ground chicken) black beans, drained kidney beans, drained chili beans frozen corn diced tomatoes tomato sauce red bell pepper, diced yellow bell pepper, diced onion, diced spinach, chopped chili powder paprika balsamic vinegar cumin garlic powder Italian seasoning cayenne pepper black pepper">
@@ -241,6 +294,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Vals-Chili.html" data-name="Val&rsquo;s Chili" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="olive oil lemon juice (fresh) garlic, minced honey or maple syrup salt black pepper fresh dill or parsley (optional)">
@@ -251,6 +305,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Fish-Marinade.html" data-name="Fish Marinade" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="basmati rice (or other long-grain white rice) bay leaf salt olive or rice bran oil (optional) fresh cilantro, minced lime juice lemon juice">
@@ -261,6 +316,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cilantro-Lime-Rice.html" data-name="Cilantro Lime Rice" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="dried black beans water white onion, diced garlic, chopped sea salt chili powder ground cumin dried oregano freshly ground black pepper fresh lime juice (optional)">
@@ -271,6 +327,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Instant-Pot-Black-Beans.html" data-name="Instant Pot Black Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="penne or farfalle (about 3/4 box) salt, for the pasta water ground beef (85&amp;ndash;90% lean) olive oil or butter garlic, minced small onion, finely diced (optional) crushed red pepper flakes (optional) heavy cream (or half-and-half) chicken broth cream cheese Parmesan, grated baby spinach salt and black pepper, to taste fresh parsley or basil, to garnish">
@@ -281,6 +338,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Garlic-Cream-Pasta-with-Beef-and-Spinach.html" data-name="Garlic Cream Pasta with Beef &amp; Spinach" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="stew meat (venison or beef), cubed potatoes, cubed carrots, cut frozen corn frozen peas frozen green beans fresh tomatoes, diced water beef bouillon cubes Italian seasoning whole cloves bay leaves allspice berries black pepper">
@@ -291,6 +349,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Veggie-Beef-Stew.html" data-name="Veggie Beef Stew" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Seafood" data-ing="shrimp, peeled and deveined salt dried oregano paprika cumin olive oil yellow onion, sliced garlic, minced leek, thinly sliced (or green onion) yellow bell pepper, sliced large tomatoes, diced capers (or green olives) lemon, juiced cooked brown rice">
@@ -301,6 +360,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mediterranean-Sauteed-Shrimp.html" data-name="Mediterranean Saut&eacute;ed Shrimp" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="onion, diced bell pepper, diced cooked shredded chicken cooked bacon, sausage or chorizo spinach, lightly shredded cheddar cheese, shredded large eggs heavy cream (optional) ranch dressing (optional)">
@@ -311,6 +371,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Egg-Chicken-Casserole.html" data-name="Egg Chicken Casserole" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="deer steak, cut into 1-inch chunks olive oil lemon juice lemon, zested dried oregano dried thyme black pepper plain Greek yogurt (full-fat) cucumber, grated (unpeeled) fresh lemon juice garlic, grated salt fresh dill, finely chopped fresh mint, chopped (optional)">
@@ -321,6 +382,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Greek-Deer-Steak-Dinner.html" data-name="Greek Deer Steak Dinner" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="chicken breasts (boneless, skinless) olive oil kosher salt oregano paprika black pepper garlic powder Cajun seasoning">
@@ -331,6 +393,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Air-Fryer-Seasoned-Chicken.html" data-name="Air Fryer Seasoned Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="dry pinto beans (about 2 cups) water small yellow onion, diced bay leaf kosher salt black pepper optional: garlic, chili powder, cumin, paprika or cayenne">
@@ -341,6 +404,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="InstaPot-Pinto-Beans.html" data-name="InstaPot Pinto Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken breasts (about 12 oz each) salt chicken bouillon cube (optional) water, to cover by 1 inch optional: smashed garlic, bay leaf, peppercorns, ginger, lemon, onion or fresh herbs">
@@ -351,6 +415,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Boiling-Shredded-Chicken.html" data-name="Boiling Shredded Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pork" data-ing="bone-in pork chops (about 1-inch thick) olive oil salt and pepper, to taste brown sugar soy sauce Worcestershire sauce pineapple juice pineapple rings garlic, minced apple cider vinegar fresh parsley, chopped, to garnish">
@@ -361,6 +426,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Brown-Sugar-Pineapple-Pork-Chops.html" data-name="Brown Sugar Pineapple Pork Chops" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="honey soy sauce rice wine vinegar garlic, minced fresh ginger, minced brown sugar sesame oil olive oil lime, juiced garlic, minced cilantro, chopped chili powder cumin salt pepper olive oil soy sauce honey garlic, minced red wine vinegar fresh ginger, minced onion powder black pepper olive oil lime, juiced cilantro, chopped salt garlic, minced black pepper">
@@ -371,6 +437,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pork-Chop-Marinades.html" data-name="Pork Chop Marinades" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="large sweet potatoes, peeled and cubed (about 4 cups) olive oil, divided kosher salt black or white pepper small red or yellow onions, diced (about 2 cups) green bell peppers, diced (about 3 cups) chili powder large eggs sour cream mild cheddar, grated, divided frozen corn, thawed and patted dry salsa, for serving chorizo, browned (optional)">
@@ -381,6 +448,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Southwest-Sweet-Potato-and-Egg-Bake.html" data-name="Southwest Sweet Potato &amp; Egg Bake" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken thighs soy sauce rice vinegar honey brown sugar garlic, minced ground ginger water cornstarch toasted sesame seeds, for serving chopped green onions, for serving uncooked rice, to serve">
@@ -391,6 +459,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Crock-Pot-Teriyaki-Chicken.html" data-name="Crock Pot Teriyaki Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="chicken breasts or thighs, in bite-sized pieces oil, divided butter broccoli florets zucchini, sliced or cubed small carrot, julienned or cubed mushrooms, sliced red pepper, cubed onion, cubed garlic, minced fresh ginger, minced cashews chicken broth water soy sauce honey cornstarch">
@@ -401,6 +470,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chicken-Stir-Fry.html" data-name="Chicken Stir Fry" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Seafood" data-ing="salmon fillets, skin on (about 1 lb) salt and pepper, to season olive oil butter garlic, finely diced roasted red peppers, diced fresh baby spinach Half &amp; Half or heavy cream grated Parmesan cheese red pepper flakes (or to taste) chopped parsley salt (to taste) pepper">
@@ -411,6 +481,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Salmon-in-Roasted-Pepper-Sauce.html" data-name="Salmon in Roasted Pepper Sauce" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="boneless beef chuck roast (or pork) canola or olive oil all-purpose flour sea salt black pepper large onion, cut into wedges carrots, cut into large chunks yellow potatoes, halved or quartered beef broth rosemary parsley, to garnish">
@@ -421,6 +492,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pot-Roast.html" data-name="Pot Roast" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="ground deer meat tomato sauce (large) Italian diced tomatoes hot chili beans ketchup chili powder (at least) water, to rinse the cans">
@@ -431,6 +503,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Bambi-Chili.html" data-name="Bambi Chili" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="zucchini, sliced into half moons yellow squash, sliced into half moons carrots, peeled and cut into sticks red bell pepper, sliced yellow or orange bell pepper, sliced red onion, sliced into half moons garlic, minced dried oregano fresh thyme leaves extra virgin olive oil kosher salt and black pepper short pasta (such as farfalle) grape tomatoes, halved large lemon, zested Parmesan, grated">
@@ -441,6 +514,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pasta-Primavera.html" data-name="Pasta Primavera" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="fresh lemon juice (about 2 lemons) dried oregano garlic, minced kosher salt black pepper extra virgin olive oil large red onion, halved and sliced zucchini, sliced into half moons orange bell pepper, sliced large tomato, cut into wedges kosher salt and black pepper boneless skinless chicken thighs Kalamata olives, pitted Castelvetrano olives, pitted feta cheese, in chunks Italian parsley, chopped, to garnish">
@@ -451,6 +525,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Greek-Sheet-Pan-Chicken.html" data-name="Greek Sheet Pan Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Sauces &amp; Marinades" data-ing="olive oil fresh lemon juice Worcestershire sauce soy sauce garlic, minced ground black pepper venison steak, cut into pieces">
@@ -461,6 +536,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Deer-Steak-Marinade.html" data-name="Deer Steak Marinade" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="boneless skinless chicken breasts (about 6 oz each) olive oil Italian seasoning seasoned salt paprika black pepper">
@@ -471,6 +547,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Chicken.html" data-name="Baked Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="venison roast, cut into 1-inch pieces kosher salt black pepper beef broth, divided balsamic vinegar pomegranate juice tomato paste garlic, minced olive oil large yellow onion, diced celery, sliced carrots, peeled and sliced russet potatoes, in 1-inch chunks baby bella mushrooms, sliced (optional) frozen peas cornstarch">
@@ -481,6 +558,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Slow-Cooker-Venison-Stew.html" data-name="Slow Cooker Venison Stew" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="ground beef or deer burger taco seasoning refried beans black beans, drained sour cream salsa shredded green lettuce shredded cheese diced tomatoes black olives, sliced jalapenos, sliced tortilla chips, for serving">
@@ -491,6 +569,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Layered-Taco-Dip.html" data-name="Layered Taco Dip" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="extra virgin olive oil small yellow onion, chopped garlic, chopped russet potatoes, cubed kosher salt and black pepper chickpeas, drained and rinsed (one can) asparagus, trimmed and sliced ground allspice za&#x27;atar dried oregano sweet or smoked paprika ground coriander sugar small red onion, finely chopped Roma tomatoes, chopped crumbled feta fresh parsley, chopped white vinegar eggs">
@@ -501,6 +580,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mediterranean-Potato-Hash.html" data-name="Mediterranean Potato Hash" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="dry chickpeas fresh parsley, chopped white onion, chopped garlic oat flour (or GF flour blend) sea salt ground cumin ground cardamom ground coriander cayenne (optional) grapeseed or other high-smoke-point oil, for frying">
@@ -511,6 +591,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Falafel.html" data-name="Falafel" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="garlic, minced yellow onion, diced fresh ginger, grated olive or coconut oil turmeric cumin crushed red pepper carrots (about 3), chopped celery (about 4 stalks), chopped skinless chicken breast (about 3/4 lb) chicken broth coconut milk (one can) salt cooked jasmine rice fresh cilantro lime">
@@ -521,6 +602,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Coconut-Turmeric-Chicken-Soup.html" data-name="Coconut Turmeric Chicken Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pork" data-ing="thin center-cut pork chops (about 1 lb total) salt and pepper, to taste olive oil blackberry jam or preserves butter balsamic vinegar water dried sage salt">
@@ -531,6 +613,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Blackberry-Sage-Pork-Chops.html" data-name="Blackberry Sage Pork Chops" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="vegetable oil garlic, minced fresh ginger, grated medium sweet potatoes (1 lb), cubed medium onions, diced cumin crushed red pepper tomato paste (one can) natural chunky peanut butter vegetable broth (or chicken) kale, chopped cilantro, to garnish (optional)">
@@ -541,6 +624,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="African-Peanut-Stew.html" data-name="African Peanut Stew (Vegan)" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="yellow onion, diced garlic, minced boneless skinless chicken breast chili powder cumin smoked paprika cayenne (optional) cracked pepper fire roasted tomatoes (one can) diced tomatoes with green chiles (one can) black beans, drained (one can) frozen corn chicken broth 6-inch corn tortillas cooking oil pinch of salt avocado cilantro sour cream lime">
@@ -551,6 +635,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Slow-Cooker-Chicken-Tortilla-Soup.html" data-name="Slow Cooker Chicken Tortilla Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="olive oil ground beef Italian sausage, casings removed onion, finely chopped garlic, minced tomato marinara sauce salt and pepper, to taste Italian seasoning ricotta cheese eggs Parmesan, grated fresh parsley, chopped (optional) low-moisture mozzarella, shredded oven-ready lasagna noodles">
@@ -561,6 +646,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Slow-Cooker-Lasagna.html" data-name="Slow Cooker Lasagna" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="chili powder ground cumin dried oregano smoked paprika kosher salt and black pepper, to taste boneless skinless chicken breasts, in thin strips red bell pepper, in strips yellow bell pepper, in strips orange bell pepper, in strips red onion, in wedges garlic, minced olive oil fresh cilantro, chopped lime juice flour or corn tortillas (8-inch), warmed">
@@ -571,6 +657,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Sheet-Pan-Chicken-Fajitas.html" data-name="Sheet Pan Chicken Fajitas" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="onion, chopped reduced-sodium chicken broth cauliflower, chopped (about 3 cups) Yukon gold potato, peeled and diced celery, sliced fresh thyme, chopped (or 1 tsp dried) kosher salt black pepper all-purpose flour 2% milk reduced-fat sharp cheddar, shredded turkey bacon, crisp-cooked and chopped cooking spray">
@@ -581,6 +668,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cauliflower-Potato-Bacon-Bisque.html" data-name="Cauliflower, Potato &amp; Bacon Bisque" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="extra virgin olive oil 93% lean ground turkey onions, chopped cremini mushrooms, thinly sliced kosher salt minced garlic red pepper flakes roasted red peppers (in water), drained and chopped canned diced tomatoes canned tomato sauce Italian seasoning fresh basil, minced whole wheat penne, cooked part-skim mozzarella, divided Parmesan, grated, divided cooking spray">
@@ -591,6 +679,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Penne-Ragu.html" data-name="Baked Penne Ragu" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="sweet potatoes, peeled and cut into 1/2-inch pieces lean pork loin, cut into 1-inch pieces canned diced tomatoes with green chiles garlic, minced unsweetened orange juice scallions, chopped (green parts) salt ground cumin black pepper fresh lime juice fresh cilantro, chopped">
@@ -601,6 +690,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cuban-Pork-Sweet-Potato-Stew.html" data-name="Cuban Pork &amp; Sweet Potato Stew" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="spaghetti squash kosher salt black pepper low-sodium black beans, rinsed red bell pepper, finely chopped rotisserie chicken breast, shredded salsa, divided cheddar or colby, shredded, divided avocado, sliced cooking spray">
@@ -611,6 +701,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Tex-Mex-Stuffed-Spaghetti-Squash.html" data-name="Tex Mex Stuffed Spaghetti Squash" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="acorn squash kosher salt black pepper fresh baby spinach, chopped no-salt-added diced tomatoes, drained vegetarian sausage, chopped part-skim mozzarella, divided cooking spray">
@@ -621,6 +712,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pizza-Stuffed-Acorn-Squash.html" data-name="Pizza Stuffed Acorn Squash" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="bell peppers (2 green, 1 red, 1 yellow, 1 orange) lean top sirloin steak, thinly sliced low-sodium soy sauce onion, vertically sliced cremini mushrooms, sliced garlic, minced kosher salt black pepper reduced-fat provolone, sliced cooking spray">
@@ -631,6 +723,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Philly-Cheesesteak-Stuffed-Peppers.html" data-name="Philly Cheesesteak Stuffed Peppers" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="boneless chicken breasts, cut into 3&amp;ndash;4 fingers each black pepper flour, for coating egg Italian bread crumbs vegetable oil, for frying">
@@ -641,6 +734,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Fried-Chicken-Fingers.html" data-name="Fried Chicken Fingers" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="olive oil soy sauce red wine vinegar Worcestershire sauce fresh lemon juice garlic, minced brown sugar paprika onion powder dried oregano salt and black pepper, to taste steak, chicken or pork (or a mix) bell peppers, in chunks mushrooms red onion, in chunks zucchini, sliced yellow squash, sliced">
@@ -651,6 +745,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Kabobs.html" data-name="Kabobs" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="Italian sausage (mild or spicy) fresh cheese tortellini onion, diced garlic diced tomatoes chicken broth baby spinach fresh parsley, chopped (optional) salt and pepper, to taste crushed red pepper, to taste (optional)">
@@ -661,6 +756,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Sausage-Spinach-Tortellini-Soup.html" data-name="Sausage Spinach Tortellini Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pasta" data-ing="Italian turkey sausage, casings removed onion, finely diced minced garlic Italian seasoning salt marinara sauce penne or rigatoni (4&amp;ndash;5 cups) ricotta cheese Parmesan, shredded mozzarella cheese">
@@ -671,6 +767,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Ziti-with-Sausage.html" data-name="Baked Ziti with Sausage" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="tikka masala sauce (Private Selection) small heads broccoli bell peppers white onion garlic, minced chicken breast (optional) quinoa or rice, to serve">
@@ -681,6 +778,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Tikka-Masala.html" data-name="Tikka Masala" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Vegetarian" data-ing="Kroger pizza crust mix (per pizza) pizza sauce cheese meats and veggies (your choice)">
@@ -691,6 +789,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pizza.html" data-name="Homemade Pizza" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Seafood" data-ing="fish fillets lemon juice garlic powder salt pepper butter quinoa or rice, to serve">
@@ -701,6 +800,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Fish.html" data-name="Baked Fish" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Beef &amp; Game" data-ing="flank steak, thinly sliced against the grain yellow onion, thinly sliced bell peppers, thinly sliced garlic, minced canola oil, divided salt and pepper, to taste low-sodium soy sauce rice vinegar sesame oil low-sodium beef broth sugar ground ginger cornstarch">
@@ -711,6 +811,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Steak-and-Veggie-Stir-Fry.html" data-name="Steak &amp; Veggie Stir Fry" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pork" data-ing="boneless pork loin, trimmed apple juice (or soda) seasoning salt garlic powder Italian seasoning dried mustard onion powder black pepper BBQ sauce, as desired hamburger buns, to serve">
@@ -721,6 +822,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Crock-Pot-Pulled-Pork.html" data-name="Crock Pot Pulled Pork" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="butter small white onion, diced garlic, minced chicken broth diced tomatoes (one can) white beans, drained and rinsed (one can) heavy cream Parmesan, grated Italian seasoning salt pepper cooked shredded chicken refrigerated tortellini spinach">
@@ -731,6 +833,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Creamy-Tuscan-Tortellini-Soup.html" data-name="Creamy Tuscan Tortellini Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Pork" data-ing="brown sugar paprika garlic powder Italian seasoning (or dried oregano) sea salt black pepper boneless pork chops (1-inch thick) olive oil">
@@ -741,6 +844,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Oven-Baked-Pork-Chops.html" data-name="Oven Baked Pork Chops" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A single-serve baked protein bowl that tastes like a warm blueberry muffin &amp;mdash; banana, egg, Greek yogurt, oats and protein powder, baked and drizzled with honey." data-ing="banana large egg Fage Total 0% Greek yogurt vanilla protein powder oats milk vanilla essence baking powder blueberries white chocolate chips (optional)">
@@ -751,6 +855,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Blueberry-Muffin-Protein-Bowl.html" data-name="Baked Blueberry Muffin Protein Bowl" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A loaded breakfast hash-casserole with sausage, bacon, ham, potatoes, onion and lots of cheddar &amp;mdash; mix it all in one dish and bake." data-ing="ground sausage (or links), cooked bacon, cooked Boar&#x27;s Head garlic pepperino ham, chopped med/large potatoes, cut into pieces sweet onion, diced shredded cheddar cheese, divided paprika pepper salt Italian seasoning">
@@ -761,6 +866,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Scramblers-Breakfast-Casserole.html" data-name="Scramblers Breakfast Casserole" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="Crispy buttermilk fried chicken tenders piled on light, cinnamon-spiced Belgian waffles &amp;mdash; the ultimate sweet-and-savory brunch." data-ing="all-purpose flour baking powder sugar salt cinnamon large eggs, separated vegetable oil milk vanilla extract large egg buttermilk all-purpose flour garlic powder pepper salt paprika chicken tenderloins oil, for deep frying grated Parmesan">
@@ -771,6 +877,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chicken-and-Waffles.html" data-name="Chicken and Waffles" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="Wyatt&#x27;s three-ingredient banana pancakes &amp;mdash; just banana, eggs and a little coconut flour, cooked into tender mini pancakes. Toddler-friendly and naturally sweet." data-ing="medium ripe banana (best with brown spots) eggs coconut flour milk of choice optional: hemp, chia or flax seeds">
@@ -781,6 +888,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Banana-Pancakes.html" data-name="Banana Pancakes" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A hearty baked egg casserole with sausage, peppers, onion, frozen potatoes and cheddar &amp;mdash; great for feeding a crowd or meal-prepping breakfast." data-ing="sausage yellow onion, diced red bell pepper, diced garlic, minced large eggs milk frozen diced potatoes shredded cheddar, divided salt black pepper green onions, chopped">
@@ -791,6 +899,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Egg-Potato-Casserole.html" data-name="Egg Potato Casserole" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A bright anti-inflammatory smoothie with blueberries, banana, baby kale and green tea, lifted with lemon, ginger and hemp seeds." data-ing="frozen blueberries ripe banana, frozen baby kale, packed unsweetened almond milk chilled green tea hemp seeds lemon zest lemon juice honey (optional) ground ginger">
@@ -801,6 +910,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Lemon-Blueberry-Smoothie.html" data-name="Lemon Blueberry Smoothie" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A simple green smoothie with baby kale, fresh apple and nut butter, sweetened with a touch of honey &amp;mdash; creamy, filling and ready in minutes." data-ing="baby kale large apple, cored and chopped cashew or other nut butter honey ice cubes unsweetened almond milk">
@@ -811,6 +921,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Kale-Apple-Smoothie.html" data-name="Kale &amp; Apple Smoothie" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="An easy berry green smoothie with Greek yogurt, spinach and frozen fruit &amp;mdash; the Simpson tweak on a Mediterranean strawberry-banana green smoothie." data-ing="plain Greek yogurt milk frozen spinach frozen strawberry &amp; banana mix frozen blueberries chia seeds 2 squirts lemon juice">
@@ -821,6 +932,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Fruit-and-Spinach-Smoothie.html" data-name="Fruit and Spinach Smoothie" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A make-ahead jar of creamy overnight oats with blueberry yogurt, mixed berries and a hit of lemon zest, topped with sliced almonds." data-ing="old-fashioned oats unsweetened vanilla almond milk light blueberry yogurt mixed berries lemon zest ground cinnamon salt sliced almonds">
@@ -831,6 +943,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Double-Berry-Overnight-Oats.html" data-name="Double Berry Overnight Oats" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Breakfast" data-sub="A chocolate-peanut-butter-banana jar of overnight oats made with chocolate almond milk and PB2 protein powder &amp;mdash; tastes like dessert, eats like breakfast." data-ing="medium banana, halved old-fashioned oats unsweetened chocolate almond milk PB2 chocolate peanut powder salt">
@@ -841,6 +954,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chocolate-PB-Banana-Overnight-Oats.html" data-name="Chocolate PB &amp; Banana Overnight Oats" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="A classic crunchy broccoli salad with bacon, red onion, dried cranberries and almonds in a sweet-tangy dressing &amp;mdash; with a higher-protein Greek yogurt option too." data-ing="mayonnaise sugar cider vinegar black pepper broccoli florets, finely chopped bacon, cooked and chopped red onion, chopped dried cranberries sliced almonds">
@@ -851,6 +965,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Broccoli-Salad.html" data-name="Broccoli Salad" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="A quick everyday balsamic vinaigrette &amp;mdash; olive oil, balsamic, mustard and garlic whisked together in a couple of minutes for salads and roasted veggies." data-ing="extra virgin olive oil balsamic vinegar garlic powder ground mustard (or 1 tbsp Dijon) black pepper salt">
@@ -861,6 +976,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Balsamic-Vinaigrette-Dressing.html" data-name="Balsamic Vinaigrette Dressing" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="The classic cheesy hash brown potato casserole &amp;mdash; shredded potatoes baked with cream of chicken, sour cream and lots of cheddar until bubbly." data-ing="frozen shredded or cubed hash browns medium onion, diced dried onion flakes condensed cream of chicken soup milk (use the soup can) sour cream shredded cheddar cheese salt pepper">
@@ -871,6 +987,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cheesy-Potatoes.html" data-name="Cheesy Potatoes" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="Blanched green beans tossed in a sticky soy, sweet chili and sriracha glaze with garlic and sesame &amp;mdash; a fast, punchy vegetable side." data-ing="green beans, washed and trimmed low-sodium soy sauce sweet chili sauce sriracha (plus more to taste) sesame oil minced garlic toasted sesame seeds (optional)">
@@ -881,6 +998,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Spicy-Sriracha-Green-Beans.html" data-name="Spicy Sriracha Green Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="A rich baked mac and cheese built on a three-cheese sauce of Velveeta, cheddar and American over a roux, baked until bubbly with a cheesy top." data-ing="butter flour milk Velveeta cheddar cheese American cheese elbow noodles, boiled extra cheddar, for topping">
@@ -891,6 +1009,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mac-and-Cheese.html" data-name="Mac &amp; Cheese" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="A holiday-favorite sweet potato casserole with a smooth vanilla sweet potato base under a buttery brown sugar and pecan topping." data-ing="mashed sweet potatoes (one 40-oz can) sugar eggs vanilla milk melted butter flour chopped pecans melted butter brown sugar">
@@ -901,6 +1020,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Sweet-Potato-Casserole.html" data-name="Sweet Potato Casserole" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="The simple house method for roasted vegetables &amp;mdash; whatever veggies you&#x27;ve got, tossed with olive oil and seasonings and roasted hot until tender and browned." data-ing="mixed vegetables (your choice) olive oil garlic powder Italian seasoning salt and pepper">
@@ -911,6 +1031,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Veggies.html" data-name="Baked Veggies" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="Easy oven-roasted green beans with olive oil, seasoned salt and garlic powder &amp;mdash; tender-crisp and forgiving enough to share the oven with anything." data-ing="green beans, trimmed olive oil seasoned salt black pepper garlic powder">
@@ -921,6 +1042,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Roasted-Green-Beans.html" data-name="Roasted Green Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="Carrots simmered in white wine and butter with a touch of brown sugar until glossy and glazed, finished with fresh parsley." data-ing="carrots, peeled white wine (or water, OJ or broth) butter brown sugar salt pepper fresh parsley, chopped (garnish)">
@@ -931,6 +1053,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Glazed-Carrots.html" data-name="Glazed Carrots" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Sides" data-sub="Creamy cannellini beans simmered with garlic, cherry tomatoes and warm spices, finished with parsley, Parmesan, Pecorino and lemon &amp;mdash; ready in 15 minutes." data-ing="garlic, minced extra virgin olive oil cannellini beans, drained (two cans) cherry tomatoes, halved kosher salt and black pepper Aleppo pepper cumin fresh parsley, chopped shaved Parmesan grated Pecorino Romano juice of half a lemon">
@@ -941,6 +1064,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mediterranean-White-Beans.html" data-name="Mediterranean White Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="Fudgy flourless blondies blended from chickpeas, peanut butter and banana with dark chocolate chips &amp;mdash; a sneaky-healthy treat sweetened with maple syrup." data-ing="chickpeas, drained and rinsed peanut butter ripe banana maple syrup vanilla extract baking powder dark chocolate chips">
@@ -951,6 +1075,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="PB-Chickpea-Blondies.html" data-name="PB Chickpea Blondies" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="Flourless peanut butter and banana muffins studded with blueberries &amp;mdash; just a handful of ingredients blended and baked." data-ing="ripe bananas blueberries (frozen works best) peanut butter (crunchy is nice) eggs baking soda vanilla extract salt">
@@ -961,6 +1086,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="PB-Blueberry-Muffins.html" data-name="PB Blueberry Muffins" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="No-bake peanut butter protein balls with oats, applesauce and dark chocolate chips &amp;mdash; an easy high-protein bite to keep in the fridge." data-ing="peanut butter unsweetened applesauce protein powder (~30g) rolled oats dark chocolate chips honey or maple syrup (optional) vanilla extract (optional) salt">
@@ -971,6 +1097,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Protein-PB-Balls.html" data-name="Protein Peanut Butter Balls" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="A layered icebox dessert: a buttery walnut shortbread crust, a sweet cream cheese layer, fresh strawberries in gel, and a Cool Whip top." data-ing="flour butter walnuts, chopped powdered sugar cream cheese Cool Whip strawberries, quartered strawberry gel Cool Whip chopped nuts (optional)">
@@ -981,6 +1108,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Strawberry-Delight.html" data-name="Strawberry Delight" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="Egg-free chocolate chip cookie dough rolled into balls and dipped in chocolate &amp;mdash; a make-ahead crowd-pleaser that makes about 40 truffles." data-ing="salted butter light brown sugar, packed vanilla extract all-purpose flour sweetened condensed milk (one can) mini chocolate chips chocolate bark, for dipping extra chocolate chips and sprinkles, for topping">
@@ -991,6 +1119,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chocolate-Chip-Cookie-Dough-Truffles.html" data-name="Chocolate Chip Cookie Dough Truffles" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="A no-bake layered dirt pudding with French vanilla pudding, a cream cheese layer and crushed Oreos &amp;mdash; add gummy worms for the kids." data-ing="milk instant French vanilla pudding (3.4 oz each) Oreo cookies, divided butter, room temperature cream cheese, room temperature powdered sugar Cool Whip, thawed gummy worms (optional)">
@@ -1001,6 +1130,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Oreo-Dirt-Pudding.html" data-name="Oreo Dirt Pudding" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="Paula Deen&#x27;s famous no-bake banana pudding &amp;mdash; layers of Chessmen cookies, fresh bananas and a rich cream-cheese vanilla pudding." data-ing="frozen whipped topping, thawed sweetened condensed milk (one can) cream cheese, softened milk instant French vanilla pudding mix (one box) bananas, sliced Chessmen cookies">
@@ -1011,6 +1141,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Not-Yo-Mamas-Banana-Pudding.html" data-name="Not Yo' Mama's Banana Pudding" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Desserts" data-sub="Soft, cakey old-fashioned pumpkin cookies (Libby&#x27;s classic) with chocolate chips stirred in &amp;mdash; a cozy fall favorite with a glass of milk." data-ing="all-purpose flour baking soda baking powder ground cinnamon ground nutmeg salt granulated sugar butter, softened pumpkin puree large egg vanilla extract chocolate chips">
@@ -1021,6 +1152,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pumpkin-Chocolate-Chip-Cookies.html" data-name="Pumpkin Chocolate Chip Cookies" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="Smooth, never-bitter green tea made by steeping tea bags in cold water overnight in the fridge." data-ing="water green tea bags">
@@ -1031,6 +1163,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cold-Brew-Green-Tea.html" data-name="Cold Brew Green Tea" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="A simple, easy-drinking cocktail of amaretto, orange juice and sweet and sour mix over ice." data-ing="amaretto liqueur orange juice sweet and sour mix">
@@ -1041,6 +1174,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Amaretto-Sweet-and-Sour.html" data-name="Amaretto Sweet and Sour" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="A tiki classic with light rum, triple sec, citrus and a touch of amaretto, shaken over ice." data-ing="ice light rum triple sec lemon juice lime juice amaretto">
@@ -1051,6 +1185,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mai-Tai.html" data-name="Mai Tai" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="The classic three-ingredient margarita: tequila, fresh lime juice and orange liqueur." data-ing="tequila lime juice orange liqueur">
@@ -1061,6 +1196,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Margarita.html" data-name="Margarita" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="A rich, dessert-like batched cocktail of peanut butter, cream liqueur and vanilla vodka, served cold with a chocolate drizzle." data-ing="creamy peanut butter cream liqueur vanilla vodka milk or cream chocolate bitters (optional) chocolate syrup">
@@ -1071,6 +1207,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Peanut-Butter-Cocktail.html" data-name="Peanut Butter Cocktail" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Drinks" data-sub="The creamy classic: vodka and coffee liqueur layered with cream for that signature swirl." data-ing="vodka coffee liqueur (Kahlua) heavy cream (or milk / half &amp; half)">
@@ -1081,6 +1218,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="White-Russian.html" data-name="White Russian" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Bread" data-sub="The Clever Carrot&#x27;s beginner sourdough &amp;mdash; a no-knead, 5-ingredient artisan loaf with olive oil for a soft crumb and crisp golden crust, baked in a Dutch oven." data-ing="bubbly, active sourdough starter warm water olive oil bread flour fine sea salt cornmeal or parchment paper">
@@ -1091,6 +1229,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Sourdough-Bread.html" data-name="Sourdough Bread" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="black-eyed peas (15 oz), rinsed black beans (15 oz), rinsed corn kernels (fresh or thawed) red bell pepper, finely diced orange bell pepper, finely diced small red onion, finely diced red wine vinegar jalapenos, seeded and minced Roma tomatoes, seeded and diced firm-ripe avocado, diced fresh cilantro, chopped extra-virgin olive oil fresh lime juice honey ground cumin smoked paprika chili powder garlic, finely grated kosher salt black pepper">
@@ -1101,6 +1240,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cowboy-Caviar.html" data-name="Cowboy Caviar" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="Roma tomatoes, diced red onion, finely diced jalapeno, deseeded and finely diced fresh cilantro, chopped lime juice lemon juice salt">
@@ -1111,6 +1251,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chipotle-Pico-de-Gallo.html" data-name="Chipotle Pico de Gallo" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="shredded cooked chicken cream cheese, softened Frank&#x27;s RedHot sauce ranch dressing">
@@ -1121,6 +1262,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Buffalo-Chicken-Dip.html" data-name="Buffalo Chicken Dip" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="frozen mango chunks, diced red bell pepper, diced red onion, chopped cilantro leaves, packed jalapeno, seeded and minced large lime, juiced salt">
@@ -1131,6 +1273,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Mango-Salsa.html" data-name="Mango Salsa" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="avocados lime juice cilantro, chopped red onion, finely chopped jalapeno, finely chopped (with seeds) kosher salt">
@@ -1141,6 +1284,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chipotle-Guac.html" data-name="Chipotle Guac" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="fat-free sour cream black pepper garlic, minced artichoke hearts, drained and chopped (one can) frozen chopped spinach, thawed and squeezed dry 1/3-less-fat cream cheese, softened fat-free cream cheese, softened part-skim mozzarella, shredded and divided fresh Parmesan, grated and divided">
@@ -1151,6 +1295,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Spinach-Artichoke-Dip.html" data-name="Spinach Artichoke Dip" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="pineapple, peeled and diced strawberries, hulled and diced Roma tomatoes, diced red onion, minced jalapeno, minced fresh cilantro, chopped lime, juiced salt">
@@ -1161,6 +1306,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Strawberry-Pineapple-Salsa.html" data-name="Strawberry Pineapple Salsa" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="ripe strawberries, chopped red onion, minced jalapeno, minced lime, juiced fresh cilantro, chopped avocado or olive oil salt and pepper, to taste">
@@ -1171,6 +1317,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Strawberry-Salsa.html" data-name="Strawberry Salsa" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Dips" data-ing="Velveeta cheese chunky salsa deer burger">
@@ -1181,6 +1328,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Bambi-Dip.html" data-name="Bambi Dip" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="large eggs, cold from the fridge water">
@@ -1191,6 +1339,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Instant-Pot-Hard-Boiled-Eggs.html" data-name="Instant Pot Hard Boiled Eggs" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="oats low-fat milk ripe bananas, mashed brown sugar, packed large eggs, beaten baking powder ground cinnamon vanilla extract salt fresh blueberries toasted pecans, chopped">
@@ -1201,6 +1350,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Blueberry-Banana-Nut-Muffin.html" data-name="Blueberry &amp; Banana Nut Muffin" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="cauliflower florets (about 1 head) large egg onion, grated shredded Parmesan shredded cheddar blanched almond flour sea salt and black pepper avocado oil cooking spray ketchup, for serving (optional)">
@@ -1211,6 +1361,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cauliflower-Tots.html" data-name="Cauliflower Tots" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="old-fashioned rolled oats natural peanut butter honey unsweetened shredded coconut chocolate chips ground flaxseed vanilla extract sea salt">
@@ -1221,6 +1372,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="No-Bake-Energy-Balls.html" data-name="No Bake Energy Balls" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="ripe bananas vanilla extract chocolate chips (plus more to sprinkle)">
@@ -1231,6 +1383,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Banana-Chocolate-Chip-Ice-Cream.html" data-name="Banana &amp; Chocolate Chip "Ice Cream"" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="ripe banana oats chia seeds chocolate chips vanilla protein powder almond milk (more if too dry)">
@@ -1241,6 +1394,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Banana-Chocolate-Chip-Baked-Oats.html" data-name="Banana Chocolate Chip Baked Oats" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="large ripe bananas, mashed oats vanilla extract mix-ins of your choice (optional)">
@@ -1251,6 +1405,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Banana-Oat-Mini-Muffins.html" data-name="Banana Oat Mini Muffins" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Snacks" data-sub="Healthy Snacks" data-ing="peanut butter honey (optional, or sub water) water rolled oats whey protein powder ground flaxseed almond flakes (optional) dark chocolate, melted (for top) refined coconut oil">
@@ -1261,6 +1416,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Protein-Bars.html" data-name="Protein Bars" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="frozen chicken wings cayenne pepper red pepper flakes salt hot sauce of choice butter water, for boiling">
@@ -1271,6 +1427,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Baked-Chicken-Wings-from-Frozen.html" data-name="Baked Chicken Wings from Frozen" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="chuck roast, cut in 1.5-inch cubes sweet potatoes, peeled and cubed onions, coarsely chopped carrots, chopped coconut oil curry paste coconut milk soy sauce fish sauce apple juice salt and black pepper">
@@ -1281,6 +1438,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Beef-Curry-Stew.html" data-name="Beef Curry Stew" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Chicken" data-ing="cooked chicken breast, shredded BBQ sauce black beans, drained and rinsed whole kernel corn, drained jalapeno, seeded and diced red onion, diced garlic, minced cilantro, chopped white wine vinegar extra virgin olive oil honey Monterey Jack cheese, shredded flour tortillas (6-inch)">
@@ -1291,6 +1449,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Cowboy-Quesadillas.html" data-name="Cowboy Quesadillas" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Soups, Stews &amp; Chili" data-ing="chicken broth olive oil garlic, minced sweet onion, sliced large lemon, zested (plus juice) boneless skinless chicken breasts Israeli (pearl) couscous crushed red pepper crumbled feta chopped chives salt and pepper">
@@ -1301,6 +1460,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Greek-Lemon-Chicken-Soup.html" data-name="Greek Lemon Chicken Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="large butternut squash olive oil onion, chopped garlic, finely chopped 1-inch piece ginger, finely chopped low-sodium chicken broth fresh thyme white beans, rinsed (one can) chickpeas, rinsed (one can) whole-grain couscous roasted pistachios, chopped dried apricots, chopped fresh cilantro, chopped green onion, sliced">
@@ -1311,6 +1471,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Butternut-Squash-White-Bean-Soup.html" data-name="Butternut Squash &amp; White Bean Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="extra-virgin olive oil carrots, peeled and chopped celery, sliced onion, finely chopped tomato paste garlic, crushed ground cumin low-sodium vegetable or chicken broth low-sodium black beans, undrained (three cans) frozen corn avocado and cilantro, for serving">
@@ -1321,6 +1482,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Smoky-Vegan-Black-Bean-Soup.html" data-name="Smoky Vegan Black Bean Soup" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="whole-grain linguine frozen peas, thawed olive oil boneless skinless chicken breast, in 1-inch chunks kosher salt and black pepper fresh lemon juice low-fat cream cheese, cubed lemon zest grated Parmesan flat-leaf parsley, chopped">
@@ -1331,6 +1493,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Creamy-Lemon-Chicken-Pasta.html" data-name="Creamy Lemon Chicken Pasta" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="acorn squash (about 1.5 lb) olive oil kosher salt cayenne pepper boneless skinless chicken breasts (6 oz each) black pepper pomegranate juice honey balsamic vinegar crumbled feta pomegranate seeds fresh mint, finely chopped">
@@ -1341,6 +1504,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Pomegranate-Honey-Glazed-Chicken-and-Squash.html" data-name="Pomegranate-Honey Chicken &amp; Squash" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="small acorn squash (about 4.5 lb) olive oil salt and black pepper onion, finely chopped garlic, finely chopped mixed-color quinoa fresh thyme leaves water dried cranberries Swiss chard, chopped (about 6 cups) crumbled feta, for serving (optional)">
@@ -1351,6 +1515,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Quinoa-Stuffed-Acorn-Squash.html" data-name="Quinoa-Stuffed Acorn Squash" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="summer squash salt large eggs Gruyere cheese, shredded milk green onions, thinly sliced">
@@ -1361,6 +1526,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Summer-Squash-Frittata.html" data-name="Summer Squash Frittata" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="medium spaghetti squash shallot, finely chopped extra-virgin olive oil packed spinach salt reduced-fat cream cheese, softened marinated artichoke hearts, drained and chopped grated Parmesan lemon zest black pepper">
@@ -1371,6 +1537,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Spinach-Artichoke-Spaghetti-Squash.html" data-name="Spinach &amp; Artichoke Squash Casserole" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="large bell peppers, seeded and thinly sliced red onion, thinly sliced toasted sesame oil salt low-sodium soy sauce honey grated fresh ginger black pepper skinless salmon fillets (5 oz each) cooked brown rice fresh basil, for garnish">
@@ -1381,6 +1548,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Honey-Soy-Glazed-Salmon-with-Peppers.html" data-name="Honey-Soy-Glazed Salmon with Peppers" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="whole-grain couscous navel orange hot water kosher salt and black pepper large shrimp, peeled and deveined ground cumin cayenne pepper thin asparagus, trimmed olive oil">
@@ -1391,6 +1559,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Roasted-Cumin-Shrimp-and-Asparagus.html" data-name="Roasted Cumin Shrimp &amp; Asparagus" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="light brown sugar chipotle chile powder ground cumin garlic powder onion powder salt and black pepper small chicken thighs (about 4 lb) extra-virgin olive oil small oranges, quartered green onions, thinly sliced">
@@ -1401,6 +1570,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Chipotle-Orange-Chicken.html" data-name="Chipotle Orange Chicken" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="small chicken thighs (about 1.5 lb) kosher salt and black pepper olive oil green beans, halved cherry tomatoes butter beans, drained (one can) pesto (store-bought or homemade) grated Parmesan and chopped basil, for topping">
@@ -1411,6 +1581,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Skillet-Pesto-Chicken-and-Beans.html" data-name="Skillet Pesto Chicken &amp; Beans" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 <li data-cat="Dinners" data-sub="Mediterranean" data-ing="harissa pepper paste extra-virgin olive oil honey boneless skinless chicken breasts, thinly sliced chickpeas, drained (one can) quick-cooking bulgur, cooked fresh parsley, finely chopped salt">
@@ -1421,6 +1592,7 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 </div>
 <div class="arrow">&rarr;</div>
 </a>
+<button class="addlist" type="button" data-href="Harissa-Grilled-Chicken-Kebabs.html" data-name="Harissa Grilled Chicken Kebabs" aria-label="Add to shopping list" title="Add to shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
 </li>
 
 </ul>
@@ -1509,6 +1681,105 @@ step();
 });
 search.addEventListener('input',update);
 update();
+})();
+</script>
+<button id="shopBar" type="button" aria-label="Open shopping list"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.6 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path></svg><span>Shopping list</span><span class="cnt" id="shopCnt">0</span></button>
+<div id="shop" role="dialog" aria-modal="true" aria-label="Shopping list">
+<div class="shop-top"><h3>Shopping list</h3><button class="shop-close" id="shopClose" aria-label="Close">&times;</button></div>
+<div class="shop-scroll">
+<div class="shop-recipes" id="shopRecipes"></div>
+<div class="shop-note" id="shopNote"></div>
+<ul class="shop-list" id="shopList"></ul>
+</div>
+<div class="shop-foot">
+<button class="primary" id="shopCopy">Copy list</button>
+<button id="shopPrint">Print</button>
+<button class="danger" id="shopClear">Clear</button>
+</div>
+</div>
+<script>
+(function(){
+var KEY='scc_shop_v1';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+var state=load();
+var bar=document.getElementById('shopBar'),cnt=document.getElementById('shopCnt'),shop=document.getElementById('shop');
+var FM=[[0,""],[0.125,"⅛"],[0.25,"¼"],[0.333,"⅓"],[0.375,"⅜"],[0.5,"½"],[0.625,"⅝"],[0.667,"⅔"],[0.75,"¾"],[0.875,"⅞"],[1,""]];
+function fmt(x){
+if(x===null||x===undefined)return"";
+if(x>=10)return(Math.round(x*10)/10).toString().replace(/\.0$/,"");
+var whole=Math.floor(x+1e-9),frac=x-whole,best=FM[0],d=1;
+for(var i=0;i<FM.length;i++){var dd=Math.abs(frac-FM[i][0]);if(dd<d){d=dd;best=FM[i];}}
+var fr=best[1],w=whole;if(best[0]===1){w+=1;fr="";}
+if(d>0.06)return(Math.round(x*100)/100).toString();
+if(w===0&&fr)return fr;if(fr)return w+fr;return w.toString();
+}
+function nameFor(href){var b=document.querySelector('.addlist[data-href="'+href+'"]');return b?b.getAttribute('data-name'):href.replace(/\.html$/,'').replace(/-/g,' ');}
+function refreshButtons(){var b=document.querySelectorAll('.addlist');for(var i=0;i<b.length;i++){b[i].classList.toggle('added',state.hasOwnProperty(b[i].getAttribute('data-href')));}}
+function updateBar(){var n=Object.keys(state).length;cnt.textContent=n;bar.classList.toggle('show',n>0);}
+var ab=document.querySelectorAll('.addlist');
+for(var i=0;i<ab.length;i++){ab[i].addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var h=this.getAttribute('data-href');if(state.hasOwnProperty(h)){delete state[h];}else{state[h]=null;}save(state);this.classList.toggle('added');updateBar();});}
+var cache={};
+function parse(text){
+var base=1;var m=text.match(/const BASE\s*=\s*([\d.]+)/);if(m)base=parseFloat(m[1]);
+var rows=[],re=/\[\s*(null|-?[\d.]+)\s*,\s*"([^"]*)"\s*,\s*"((?:[^"\\]|\\.)*)"/g,mm;
+while((mm=re.exec(text))){var q=mm[1]==='null'?null:parseFloat(mm[1]);rows.push([q,mm[2],mm[3].replace(/\\"/g,'"').replace(/\\\\/g,'\\')]);}
+return {base:base,rows:rows};
+}
+function fetchRecipe(href){if(cache[href])return Promise.resolve(cache[href]);return fetch(href+'?cb='+Date.now()).then(function(r){return r.text();}).then(function(t){cache[href]=parse(t);return cache[href];}).catch(function(){cache[href]={base:1,rows:[]};return cache[href];});}
+var recipesEl=document.getElementById('shopRecipes'),listEl=document.getElementById('shopList'),noteEl=document.getElementById('shopNote');
+function normName(s){return s.toLowerCase().replace(/\s+/g,' ').trim();}
+function buildList(){
+recipesEl.innerHTML='';listEl.innerHTML='';
+var hrefs=Object.keys(state);
+if(!hrefs.length){noteEl.textContent='';listEl.innerHTML='<li class="shop-empty">Your list is empty. Tap the + on any recipe card to add it here.</li>';return;}
+hrefs.forEach(function(h){
+var data=cache[h],base=data?data.base:1,sv=state[h]||base;
+var chip=document.createElement('div');chip.className='shop-chip';
+chip.innerHTML='<span class="cn">'+nameFor(h)+'</span><span class="shop-step"><button class="sd" aria-label="Fewer servings">−</button><span class="sv">'+sv+'</span><button class="su" aria-label="More servings">+</button><span class="u">serv</span></span><button class="shop-rm" aria-label="Remove">×</button>';
+chip.querySelector('.sd').disabled=(sv<=1);
+chip.querySelector('.sd').onclick=function(){var c=state[h]||base;if(c>1){state[h]=c-1;save(state);buildList();}};
+chip.querySelector('.su').onclick=function(){var c=state[h]||base;if(c<40){state[h]=c+1;save(state);buildList();}};
+chip.querySelector('.shop-rm').onclick=function(){delete state[h];save(state);refreshButtons();updateBar();buildList();};
+recipesEl.appendChild(chip);
+});
+var map={},order=[];
+hrefs.forEach(function(h){
+var data=cache[h];if(!data)return;var base=data.base,sv=state[h]||base,factor=sv/base,rn=nameFor(h);
+data.rows.forEach(function(row){
+var q=row[0],unit=row[1],nm=row[2];if(!nm)return;
+var key=normName(nm)+'|'+(q===null?'__':unit);
+if(!map[key]){map[key]={disp:nm,unit:unit,qty:(q===null?null:0),srcs:{}};order.push(key);}
+var it=map[key];it.srcs[rn]=1;if(q===null){it.qty=(it.qty===0?null:it.qty);if(it.qty===undefined)it.qty=null;}else if(it.qty!==null){it.qty+=q*factor;}
+});
+});
+var keys=order.slice().sort(function(a,b){var x=map[a].disp.toLowerCase(),y=map[b].disp.toLowerCase();return x<y?-1:(x>y?1:0);});
+noteEl.textContent=keys.length+' items · combined where name and unit match exactly';
+keys.forEach(function(k){
+var it=map[k],li=document.createElement('li');
+var amt=(it.qty!==null&&it.qty>0)?(fmt(it.qty)+(it.unit?' '+it.unit:'')).trim():'';
+var srcs=Object.keys(it.srcs).join(', ');
+var toTaste=(!amt)?' <span style="color:#9a948b">(to taste)</span>':'';
+li.innerHTML='<span class="sl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="sl-amt">'+amt+'</span><span class="sl-name">'+it.disp+toTaste+'<span class="sl-src">'+srcs+'</span></span>';
+li.addEventListener('click',function(){li.classList.toggle('done');});
+listEl.appendChild(li);
+});
+}
+function openShop(){
+shop.classList.add('open');document.body.style.overflow='hidden';
+recipesEl.innerHTML='';listEl.innerHTML='';noteEl.textContent='Building your list…';
+var hrefs=Object.keys(state);
+Promise.all(hrefs.map(fetchRecipe)).then(buildList).catch(buildList);
+}
+function closeShop(){shop.classList.remove('open');document.body.style.overflow='';}
+bar.addEventListener('click',openShop);
+document.getElementById('shopClose').addEventListener('click',closeShop);
+document.getElementById('shopClear').addEventListener('click',function(){if(!Object.keys(state).length)return;if(confirm('Clear the whole shopping list?')){state={};save(state);refreshButtons();updateBar();closeShop();}});
+function rowsText(){var out=[];var ls=document.querySelectorAll('#shopList li');for(var i=0;i<ls.length;i++){var a=ls[i].querySelector('.sl-amt'),n=ls[i].querySelector('.sl-name');if(!n)continue;var nm=n.childNodes[0]?n.childNodes[0].textContent.trim():n.textContent.trim();var amt=a?a.textContent.trim():'';out.push([amt,nm]);}return out;}
+document.getElementById('shopCopy').addEventListener('click',function(){var t='Shopping list\n\n'+rowsText().map(function(r){return '- '+(r[0]?r[0]+'  ':'')+r[1];}).join('\n');var b=this,o=b.textContent;function ok(){b.textContent='Copied!';setTimeout(function(){b.textContent=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){window.prompt('Copy your list:',t);});}else{window.prompt('Copy your list:',t);}});
+document.getElementById('shopPrint').addEventListener('click',function(){var rows=rowsText().map(function(r){return '<li><span>'+(r[0]||'')+'</span>'+r[1]+'</li>';}).join('');var w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>Shopping list</title><style>body{font-family:sans-serif;max-width:600px;margin:30px auto;padding:0 16px;color:#13202e}h1{font-size:1.4rem}ul{list-style:none;padding:0}li{padding:9px 0;border-bottom:1px solid #ddd;display:flex;gap:12px}li span{min-width:90px;color:#c2603a;font-weight:600}</style></head><body><h1>Shopping list</h1><ul>'+rows+'</ul></body></html>');w.document.close();w.focus();setTimeout(function(){try{w.print();}catch(e){}},350);});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&shop.classList.contains('open'))closeShop();});
+refreshButtons();updateBar();
 })();
 </script>
 </body>
