@@ -108,6 +108,42 @@ footer{margin-top:48px;text-align:center;font-size:.78rem;color:#8a857c}
 .amt{min-width:92px}
 ol.steps li{padding-left:58px}
 }
+/* ---- Cook Mode ---- */
+.scaler-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.cook-go{display:inline-flex;align-items:center;gap:8px;height:50px;background:linear-gradient(135deg,var(--accent),#a64f2e);color:#fff;border:none;border-radius:999px;padding:0 22px;font-family:'Spline Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:0 10px 24px -14px rgba(194,96,58,.9);transition:transform .12s,box-shadow .2s;white-space:nowrap}
+.cook-go:hover{transform:translateY(-1px)}
+.cook-go svg{width:16px;height:16px;fill:currentColor}
+.cook{position:fixed;inset:0;z-index:200;background:var(--ink);color:#fff;display:none;flex-direction:column}
+.cook.open{display:flex}
+.cook-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px}
+.cook-top .ctitle{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cook-top .cright{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.cook-wake{display:flex;align-items:center;gap:6px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;opacity:.45}
+.cook-wake.on{opacity:.9;color:#7fe0b0}
+.cook-wake span{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+.cook-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.4rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.cook-prog{height:4px;background:rgba(255,255,255,.12)}
+.cook-prog .bar{height:100%;background:var(--accent);width:0;transition:width .3s}
+.cook-body{flex:1;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;padding:24px;max-width:760px;margin:0 auto;width:100%}
+.cook-stepno{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);font-weight:600;margin-bottom:16px}
+.cook-stepno b{color:#fff}
+.cook-h{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,5.5vw,2.6rem);line-height:1.1;margin-bottom:20px;color:#fff}
+.cook-text{font-size:clamp(1.18rem,3.6vw,1.55rem);line-height:1.5;opacity:.97}
+.cook-doner{margin-top:30px}
+.cook-done{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:11px 20px;font-size:.95rem;cursor:pointer;font-family:'Spline Sans',sans-serif}
+.cook-done.checked{background:rgba(127,224,176,.16);border-color:#7fe0b0;color:#bff3d8}
+.cook-ing{border-top:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+.cook-ing summary{cursor:pointer;list-style:none;padding:14px 24px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.8;max-width:760px;margin:0 auto}
+.cook-ing summary::-webkit-details-marker{display:none}
+.cook-ing[open] summary{opacity:1;color:var(--steel)}
+.cook-ing ul{list-style:none;max-width:760px;margin:0 auto;padding:0 24px 16px;display:grid;gap:2px;max-height:32vh;overflow-y:auto}
+.cook-ing li{display:flex;gap:12px;font-size:1rem;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.cook-ing .a{color:var(--accent);font-family:'Fraunces',serif;font-weight:600;min-width:92px}
+.cook-nav{display:flex;gap:12px;padding:16px 20px;padding-bottom:calc(16px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.12)}
+.cook-nav button{flex:1;border:none;border-radius:14px;padding:18px;font-size:1.05rem;font-weight:600;font-family:'Spline Sans',sans-serif;cursor:pointer}
+.cook-prev{background:rgba(255,255,255,.1);color:#fff}
+.cook-prev:disabled{opacity:.3;cursor:not-allowed}
+.cook-next{background:var(--accent);color:#fff;flex:2}
 </style>
 </head>
 <body>
@@ -129,10 +165,13 @@ ol.steps li{padding-left:58px}
 <div class="label">Servings
 <small>amounts scale automatically</small>
 </div>
+<div class="scaler-right">
 <div class="stepper">
 <button id="minus" aria-label="Fewer servings">&minus;</button>
 <div class="count" id="count">6</div>
 <button id="plus" aria-label="More servings">&plus;</button>
+</div>
+<button class="cook-go" id="cook-start" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 5 19 12 7 19 7 5"></polygon></svg> Cook Mode</button>
 </div>
 </div>
 
@@ -247,6 +286,76 @@ document.getElementById('plus').disabled = servings >= 10;
 document.getElementById('minus').onclick = () => { if(servings > 1){ servings--; render(); } };
 document.getElementById('plus').onclick = () => { if(servings < 10){ servings++; render(); } };
 render();
+</script>
+<div class="cook" id="cook" role="dialog" aria-modal="true" aria-label="Cook mode">
+<div class="cook-top">
+<div class="ctitle" id="cook-recipe"></div>
+<div class="cright">
+<span class="cook-wake" id="cook-wake"><span></span>Screen on</span>
+<button class="cook-close" id="cook-close" aria-label="Exit cook mode">&times;</button>
+</div>
+</div>
+<div class="cook-prog"><div class="bar" id="cook-bar"></div></div>
+<div class="cook-body" id="cook-body">
+<div class="cook-stepno">Step <b id="cook-cur">1</b> of <span id="cook-total">1</span></div>
+<div class="cook-h" id="cook-h"></div>
+<div class="cook-text" id="cook-text"></div>
+<div class="cook-doner"><button class="cook-done" id="cook-done" type="button">Mark step done</button></div>
+</div>
+<details class="cook-ing">
+<summary>Ingredients (this batch) &#9662;</summary>
+<ul id="cook-ing"></ul>
+</details>
+<div class="cook-nav">
+<button class="cook-prev" id="cook-prev" type="button">Back</button>
+<button class="cook-next" id="cook-next" type="button">Next step</button>
+</div>
+</div>
+<script>
+(function(){
+var steps=[].slice.call(document.querySelectorAll('.steps li')).map(function(li){
+var st=li.querySelector('.st');var title=st?st.textContent.trim():'';
+var body=li.textContent.trim();if(title&&body.indexOf(title)===0)body=body.slice(title.length).trim();
+return {title:title,body:body};
+});
+var cook=document.getElementById('cook'),idx=0,done={},wakeLock=null;
+var E=function(id){return document.getElementById(id);};
+E('cook-total').textContent=steps.length;
+E('cook-recipe').textContent=document.title;
+function render(){
+var s=steps[idx]||{title:'',body:''};
+E('cook-cur').textContent=idx+1;
+E('cook-h').textContent=s.title;
+E('cook-text').textContent=s.body;
+E('cook-bar').style.width=((idx+1)/steps.length*100)+'%';
+E('cook-prev').disabled=idx===0;
+E('cook-next').textContent=idx===steps.length-1?'Finish':'Next step';
+var d=!!done[idx];var b=E('cook-done');
+b.classList.toggle('checked',d);b.textContent=d?'✓ Step done':'Mark step done';
+E('cook-body').scrollTop=0;
+}
+function snapIng(){
+var out=E('cook-ing');out.innerHTML='';
+[].slice.call(document.querySelectorAll('ul.ing li')).forEach(function(li){
+var a=li.querySelector('.amt'),n=li.querySelector('.nm');if(!n)return;
+var row=document.createElement('li');
+var sa=document.createElement('span');sa.className='a';sa.textContent=a?a.textContent:'';
+var sn=document.createElement('span');sn.textContent=n.textContent;
+row.appendChild(sa);row.appendChild(sn);out.appendChild(row);
+});
+}
+async function reqWake(){try{if('wakeLock' in navigator){wakeLock=await navigator.wakeLock.request('screen');E('cook-wake').classList.add('on');wakeLock.addEventListener('release',function(){E('cook-wake').classList.remove('on');});}}catch(e){}}
+function relWake(){try{if(wakeLock){wakeLock.release();wakeLock=null;}}catch(e){}E('cook-wake').classList.remove('on');}
+function openCook(){idx=0;done={};snapIng();render();cook.classList.add('open');document.body.style.overflow='hidden';reqWake();}
+function closeCook(){cook.classList.remove('open');document.body.style.overflow='';relWake();}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&cook.classList.contains('open'))reqWake();});
+E('cook-start').addEventListener('click',openCook);
+E('cook-close').addEventListener('click',closeCook);
+E('cook-prev').addEventListener('click',function(){if(idx>0){idx--;render();}});
+E('cook-next').addEventListener('click',function(){if(idx<steps.length-1){idx++;render();}else{closeCook();}});
+E('cook-done').addEventListener('click',function(){done[idx]=!done[idx];render();if(done[idx]&&idx<steps.length-1){setTimeout(function(){idx++;render();},200);}});
+document.addEventListener('keydown',function(e){if(!cook.classList.contains('open'))return;if(e.key==='Escape')closeCook();else if(e.key==='ArrowRight')E('cook-next').click();else if(e.key==='ArrowLeft')E('cook-prev').click();});
+})();
 </script>
 </body>
 </html>
