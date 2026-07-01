@@ -154,9 +154,9 @@ ol.steps li{padding-left:58px}
 <h1>Honey-Soy Salmon<br>with Peppers</h1>
 <p class="sub">Mediterranean</p>
 <div class="meta">
-<div><span>Prep</span><b>5 min</b></div>
+<div><span>Prep</span><b>10 min</b></div>
 <div><span>Cook</span><b>25 min</b></div>
-<div><span>Total</span><b>~30 min</b></div>
+<div><span>Total</span><b>~35 min</b></div>
 </div>
 </div>
 </header>
@@ -168,7 +168,7 @@ ol.steps li{padding-left:58px}
 <div class="scaler-right">
 <div class="stepper">
 <button id="minus" aria-label="Fewer servings">&minus;</button>
-<div class="count" id="count">4</div>
+<div class="count" id="count">2</div>
 <button id="plus" aria-label="More servings">&plus;</button>
 </div>
 <button class="cook-go" id="cook-start" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 5 19 12 7 19 7 5"></polygon></svg> Cook Mode</button>
@@ -184,21 +184,21 @@ ol.steps li{padding-left:58px}
 <section>
 <h2>Method</h2>
 <ol class="steps">
-<li><span class="st">Roast the peppers</span>Preheat to 425&deg;F. Toss the bell peppers and onion with 1 tbsp sesame oil and 1/4 tsp salt on a sheet pan and roast about 20 minutes.</li>
-<li><span class="st">Glaze the salmon</span>Whisk the remaining sesame oil, soy sauce, honey, ginger and 1/4 tsp pepper in a baking dish, then add the salmon and turn to coat.</li>
-<li><span class="st">Bake</span>Bake the salmon until cooked through, 15&ndash;20 minutes.</li>
-<li><span class="st">Serve</span>Serve the salmon with the peppers and brown rice, garnished with fresh basil.</li>
+<li><span class="st">Make the glaze</span>Preheat the oven to 425&deg;F. Whisk together the sesame oil, soy sauce, honey and ginger with a pinch of salt and pepper.</li>
+<li><span class="st">Load one glass pan</span>Spread the sliced bell peppers and red onion in a glass baking dish (not non-stick &mdash; see note). Nestle the salmon fillets in among them, then pour the glaze over everything and turn to coat.</li>
+<li><span class="st">Roast together</span>Roast until the salmon flakes easily and the peppers are tender, about 20&ndash;25 minutes, spooning the pan juices over the salmon once or twice.</li>
+<li><span class="st">Serve</span>Serve over the cooked brown rice with the roasted peppers and onion, and spoon the pan juices on top.</li>
 </ol>
 </section>
 
 <section>
 <h2>Estimated Macros</h2>
-<p class="per">Per serving, at <b id="perCount">4</b> servings</p>
+<p class="per">Per serving, at <b id="perCount">2</b> servings</p>
 <div class="macros">
-<div class="macro cal"><div class="v" id="m-cal">480</div><div class="k">Calories</div></div>
-<div class="macro"><div class="v" id="m-pro">34g</div><div class="k">Protein</div></div>
-<div class="macro"><div class="v" id="m-carb">42g</div><div class="k">Carbs</div></div>
-<div class="macro"><div class="v" id="m-fat">18g</div><div class="k">Fat</div></div>
+<div class="macro cal"><div class="v" id="m-cal">600</div><div class="k">Calories</div></div>
+<div class="macro"><div class="v" id="m-pro">37g</div><div class="k">Protein</div></div>
+<div class="macro"><div class="v" id="m-carb">46g</div><div class="k">Carbs</div></div>
+<div class="macro"><div class="v" id="m-fat">29g</div><div class="k">Fat</div></div>
 <div class="macro"><div class="v" id="m-fib">3g</div><div class="k">Fiber</div></div>
 </div>
 <p style="font-size:.78rem;color:#8a857c;margin-top:12px">Built from raw ingredients as rough estimates. Macros shown are per serving and stay constant; total ingredient amounts scale with the serving count above.</p>
@@ -207,7 +207,8 @@ ol.steps li{padding-left:58px}
 <section>
 <h2>Notes &amp; Tips</h2>
 <div class="notes">
-<p><b>Glaze works on chicken too.</b> The honey-soy glaze is great on chicken or grilled veggies.</p>
+<p><b>Use a glass pan, not non-stick.</b> Roast everything in a glass baking dish. The honey-soy glaze caramelizes at high heat and can scorch and stick on non-stick coatings; glass gives you clean, glossy pan juices to spoon back over the fish.</p>
+<p><b>Glaze works on chicken too.</b> The honey-soy-ginger glaze is great on chicken or grilled vegetables.</p>
 </div>
 </section>
 
@@ -215,20 +216,19 @@ ol.steps li{padding-left:58px}
 </div>
 
 <script>
-// Base amounts are calibrated to 4 servings.
-const BASE = 4;
+// Base amounts are calibrated to 2 servings.
+const BASE = 2;
 const g0 = [
-[2, "", "large bell peppers, seeded and thinly sliced"],
-[1, "", "red onion, thinly sliced"],
+[1, "", "large bell peppers, seeded and thinly sliced"],
+[0.25, "", "red onion, thinly sliced"],
 [2, "tbsp", "toasted sesame oil"],
 [null, "", "salt"],
 [3, "tbsp", "low-sodium soy sauce"],
 [2, "tbsp", "honey"],
 [2, "tsp", "grated fresh ginger"],
 [null, "", "black pepper"],
-[4, "", "skinless salmon fillets (5 oz each)"],
-[3, "cups", "cooked brown rice"],
-[null, "", "fresh basil, for garnish"],
+[2, "", "skinless salmon fillets (5 oz each)"],
+[1, "cup", "cooked brown rice"],
 ];
 
 function fmt(x){
@@ -253,7 +253,7 @@ return w.toString();
 
 const countEl = document.getElementById('count');
 const perCountEl = document.getElementById('perCount');
-let servings = 4;
+let servings = 2;
 
 function fill(el, list, factor){
 el.innerHTML = "";
