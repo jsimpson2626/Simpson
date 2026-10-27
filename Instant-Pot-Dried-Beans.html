@@ -169,7 +169,6 @@ table.chart tr.on td{background:#fff3ec}
 <a class="back" href="index.html">&larr; All recipes</a>
 <div class="eyebrow">Basics · Instant Pot</div>
 <h1>Instant Pot Dried Beans</h1>
-<p class="sub">Any dried bean from the bag, no soaking required. Pick the bean and how many cups you're cooking; the water, time at pressure and release adjust from a table rather than a flat ratio.</p>
 <div class="meta">
 <div><span>Prep</span><b>5 min</b></div>
 <div><span>At pressure</span><b id="metaCook">25 min</b></div>
@@ -180,7 +179,7 @@ table.chart tr.on td{background:#fff3ec}
 
 <div class="scaler wrap">
 <div class="label">Cups of dry beans
-<small>water, time and yield adjust</small>
+<small>water and time adjust</small>
 </div>
 <div class="scaler-right">
 <div class="stepper">
@@ -198,29 +197,13 @@ table.chart tr.on td{background:#fff3ec}
 <div class="pick">
 <label for="bean">Bean</label>
 <select id="bean"></select>
-<label for="soak" style="margin-left:6px"><input type="checkbox" id="soak" style="vertical-align:-2px;margin-right:6px">Soaked overnight</label>
 </div>
 <div class="plan">
 <div class="cell"><div class="v hi" id="p-water">6 cups</div><div class="k">Water</div></div>
 <div class="cell"><div class="v hi" id="p-cook">25 min</div><div class="k">High pressure</div></div>
 <div class="cell"><div class="v" id="p-rel">20 min</div><div class="k">Natural release</div></div>
-<div class="cell"><div class="v" id="p-press">~12 min</div><div class="k">To pressure</div></div>
 <div class="cell"><div class="v" id="p-yield">~6 cups</div><div class="k">Cooked yield</div></div>
-<div class="cell"><div class="v" id="p-cans">~4</div><div class="k">15-oz cans</div></div>
 </div>
-<div class="chartwrap">
-<table class="chart">
-<thead><tr><th>Bean</th><th>Unsoaked</th><th>Soaked</th><th>Release</th><th>Notes</th></tr></thead>
-<tbody id="beanBody"></tbody>
-</table>
-</div>
-<div class="chartwrap" style="margin-top:14px">
-<table class="chart">
-<thead><tr><th>Dry beans</th><th>Water</th><th>Ratio</th><th>Pot</th><th>Yield, about</th></tr></thead>
-<tbody id="waterBody"></tbody>
-</table>
-</div>
-<p style="font-size:.78rem;color:#8a857c;margin-top:10px">Why not a flat ratio: beans absorb about their own volume, and on top of that the pot needs enough free liquid to come to pressure and lose some to steam. That fixed overhead is a big share at 1 cup and small at 4, so the ratio runs from about 1:3&frac12; down to about 1:2&frac12;. Time at pressure depends on the bean, not the batch; bigger batches just take longer to reach pressure. Times are middle-of-the-road for beans under a year old; old beans can need 10 more minutes.</p>
 </section>
 
 <section>
@@ -231,12 +214,10 @@ table.chart tr.on td{background:#fff3ec}
 <section>
 <h2>Method</h2>
 <ol class="steps">
-<li><span class="st">Sort and rinse</span>Spread the beans out and pick out any stones, shriveled beans or debris, then rinse well in a colander. If you soaked them, drain and rinse, and tick the box above so the time drops.</li>
-<li><span class="st">Load the pot</span>Add the beans, <b id="s-water">6 cups</b> of water, the oil, and the bay leaf, onion and garlic if using. Skip the salt and anything acidic for now. Don't fill past the halfway line.</li>
-<li><span class="st">Pressure cook</span>Lock the lid, valve to Sealing, High Pressure for <b id="s-cook">25 minutes</b> (<b id="s-bean">black beans</b>, <span id="s-soaked">unsoaked</span>). Expect about <b id="s-press">12 minutes</b> to reach pressure first.</li>
-<li><span class="st">Natural release</span>Leave it for <b id="s-rel">20 minutes</b>, then vent whatever is left. A quick release on beans makes them split and foam up into the valve.</li>
-<li><span class="st">Check and season</span>Taste a few. Creamy all the way through means done; a chalky center means lock the lid back on for 5 more minutes at pressure. Stir in the salt now, plus a splash of vinegar or lime if you like.</li>
-<li><span class="st">Store</span>Cool in the cooking liquid. Fridge 5 days, or freeze in 1&frac34;-cup portions (one can's worth) with some liquid for 6 months.</li>
+<li><span class="st">Rinse</span>Pick out any stones, then rinse the beans. Add them to the pot with <b id="s-water">6 cups</b> of water. Don't fill past the halfway line.</li>
+<li><span class="st">Pressure cook</span>Lid locked, valve to Sealing, High Pressure for <b id="s-cook">25 minutes</b> (<b id="s-bean">black beans</b>).</li>
+<li><span class="st">Natural release</span>Leave it for <b id="s-rel">20 minutes</b>, then vent the rest. Taste; if a center is chalky, cook 5 more minutes at pressure.</li>
+<li><span class="st">Store</span>Cool in the liquid. Fridge 5 days, freezer 6 months.</li>
 </ol>
 </section>
 
@@ -250,18 +231,14 @@ table.chart tr.on td{background:#fff3ec}
 <div class="macro"><div class="v" id="m-fat">1g</div><div class="k">Fat</div></div>
 <div class="macro"><div class="v" id="m-fib">11g</div><div class="k">Fiber</div></div>
 </div>
-<p style="font-size:.78rem;color:#8a857c;margin-top:12px">Plain cooked beans, no oil counted. Changes with the bean selected above.</p>
 </section>
 
 <section>
-<h2>Notes &amp; Tips</h2>
+<h2>Notes</h2>
 <div class="notes">
-<p><b>Salt after, not before.</b> Salt and acid (tomato, vinegar, citrus) in the pot keep the skins from softening. Add them once the beans are tender, then let them sit 10 minutes to absorb.</p>
-<p><b>Oil stops the foam.</b> The tablespoon of oil knocks down the foam that can clog the valve. Don't skip it on chickpeas or lentils.</p>
-<p><b>Firm vs. creamy.</b> The chart gives beans that hold their shape for salads and bowls. For refried beans, soups or hummus, add 5 minutes.</p>
-<p><b>Kidney beans must be fully cooked.</b> Raw or undercooked red kidney beans contain a toxin. The chart times handle it; never shorten them for kidneys.</p>
-<p><b>Lentils and split peas.</b> No soak, short times, 10-minute release. Red lentils go to mush by design; use them for dal, not salads.</p>
-<p><b>Altitude.</b> Above 3,000 ft add 5% per 1,000 ft to the time at pressure.</p>
+<p><b>Salt after cooking.</b> Salt or acid in the pot keeps the skins tough.</p>
+<p><b>Kidney beans.</b> Never shorten the time; undercooked red kidney beans are toxic.</p>
+<p><b>Foam.</b> A tablespoon of oil in the water keeps chickpeas and lentils from foaming into the valve.</p>
 </div>
 </section>
 
@@ -272,39 +249,34 @@ table.chart tr.on td{background:#fff3ec}
 // Base amounts are calibrated to 2 cups (1 lb) dry beans, about 6 cups cooked.
 const BASE = 2;
 const g0 = [
-[2, "cups", "dried beans (1 lb), any type"],
-[6, "cups", "water (see table)"],
-[1, "tbsp", "olive oil or neutral oil"],
-[1.5, "tsp", "kosher salt, added after cooking"],
-[1, "", "bay leaf (optional)"],
-[0.5, "", "onion, left in one piece (optional)"],
-[2, "cloves", "garlic, smashed (optional)"],
+[2, "cups", "dried beans, any type"],
+[6, "cups", "water (adjusts above)"],
 ];
-// Water table: 2.5 cups per cup of beans plus 1 cup of overhead for the pot.
+// Water: 2.5 cups per cup of beans plus 1 cup for the pot.
 const WATER = {1:3.5, 1.5:4.75, 2:6, 2.5:7.25, 3:8.5, 3.5:9.5, 4:10};
 const CUPS = Object.keys(WATER).map(Number).sort((a,b)=>a-b);
-// [name, unsoaked min, soaked min, natural release min, note, cal, pro, carb, fat, fiber] per 3/4 cup cooked
+// [name, high-pressure min, natural release min, cal, pro, carb, fat, fiber] per 3/4 cup cooked
 const BEANS = [
-["Black beans", 25, 10, 20, "Hold shape well; 30 for refried", 170, 11, 30, 1, 11],
-["Pinto beans", 25, 10, 20, "30 for refried or soupy", 185, 12, 34, 1, 12],
-["Kidney beans (red)", 30, 12, 20, "Never shorten; must be fully cooked", 170, 12, 30, 1, 10],
-["Cannellini / white kidney", 30, 12, 20, "Creamy; good for soups", 185, 13, 33, 1, 9],
-["Great Northern", 28, 10, 20, "Milder white bean", 155, 11, 28, 1, 9],
-["Navy beans", 25, 10, 20, "Small; softens fast, watch for mush", 190, 11, 36, 1, 14],
-["Chickpeas (garbanzo)", 40, 15, 20, "45 for hummus-soft", 200, 11, 34, 3, 9],
-["Lima / butter beans", 25, 10, 20, "Baby limas: 15 unsoaked", 160, 11, 29, 1, 10],
-["Black-eyed peas", 10, 5, 15, "No soak needed; thin skins", 150, 10, 27, 1, 8],
-["Adzuki beans", 20, 8, 15, "Sweet; good in rice bowls", 220, 13, 43, 0, 13],
-["Cranberry / borlotti", 25, 10, 20, "Creamy; Italian soups", 180, 12, 32, 1, 9],
-["Mixed 15-bean blend", 30, 12, 20, "Timed to the slowest bean", 175, 12, 32, 1, 10],
-["Brown / green lentils", 8, 0, 10, "No soak; firm for salads", 170, 13, 30, 1, 12],
-["French green / beluga lentils", 6, 0, 10, "No soak; stays firm", 170, 13, 30, 1, 12],
-["Red / yellow lentils", 4, 0, 10, "No soak; breaks down, for dal", 170, 13, 30, 1, 11],
-["Split peas", 8, 0, 10, "No soak; soft for soup", 175, 12, 31, 1, 12],
+["Black beans", 25, 20, 170, 11, 30, 1, 11],
+["Pinto beans", 25, 20, 185, 12, 34, 1, 12],
+["Kidney beans (red)", 30, 20, 170, 12, 30, 1, 10],
+["Cannellini / white kidney", 30, 20, 185, 13, 33, 1, 9],
+["Great Northern", 28, 20, 155, 11, 28, 1, 9],
+["Navy beans", 25, 20, 190, 11, 36, 1, 14],
+["Chickpeas (garbanzo)", 40, 20, 200, 11, 34, 3, 9],
+["Lima / butter beans", 25, 20, 160, 11, 29, 1, 10],
+["Baby lima beans", 15, 20, 160, 11, 29, 1, 10],
+["Black-eyed peas", 10, 15, 150, 10, 27, 1, 8],
+["Adzuki beans", 20, 15, 220, 13, 43, 0, 13],
+["Cranberry / borlotti", 25, 20, 180, 12, 32, 1, 9],
+["Mixed 15-bean blend", 30, 20, 175, 12, 32, 1, 10],
+["Brown / green lentils", 8, 10, 170, 13, 30, 1, 12],
+["French green / beluga lentils", 6, 10, 170, 13, 30, 1, 12],
+["Red / yellow lentils", 4, 10, 170, 13, 30, 1, 11],
+["Split peas", 8, 10, 175, 12, 31, 1, 12],
 ];
 function pressMin(c){ return Math.round(8 + 2*c); }
 function yieldCups(c){ return Math.round(c*3*2)/2; }
-function ratio(c){ const r = WATER[c]/c; return "1:" + fmt(r); }
 
 function fmt(x){
 if(x === null) return "";
@@ -328,7 +300,6 @@ function minStr(m){ return m >= 60 ? Math.floor(m/60) + " hr" + (m%60 ? " " + (m
 
 const countEl = document.getElementById('count');
 const beanSel = document.getElementById('bean');
-const soakBox = document.getElementById('soak');
 let cups = 2, bean = 0;
 BEANS.forEach((b, i) => { const o = document.createElement('option'); o.value = i; o.textContent = b[0]; beanSel.appendChild(o); });
 
@@ -351,11 +322,7 @@ el.appendChild(li);
 
 function render(){
 const b = BEANS[bean];
-const noSoak = b[2] === 0;
-soakBox.disabled = noSoak; if(noSoak) soakBox.checked = false;
-const soaked = soakBox.checked;
-const cook = soaked ? b[2] : b[1];
-const rel = b[3];
+const cook = b[1], rel = b[2];
 countEl.textContent = fmt(cups);
 fill(document.getElementById('ing0'), g0, cups / BASE);
 const w = WATER[cups];
@@ -363,44 +330,25 @@ const total = pressMin(cups) + cook + rel + 10;
 document.getElementById('p-water').textContent = cupsStr(w);
 document.getElementById('p-cook').textContent = cook + " min";
 document.getElementById('p-rel').textContent = rel + " min";
-document.getElementById('p-press').textContent = "~" + pressMin(cups) + " min";
 document.getElementById('p-yield').textContent = "~" + cupsStr(yieldCups(cups));
-document.getElementById('p-cans').textContent = "~" + Math.round(yieldCups(cups) / 1.75);
 document.getElementById('metaCook').textContent = cook + " min";
 document.getElementById('metaTotal').textContent = "~" + minStr(total);
 document.getElementById('s-water').textContent = cupsStr(w);
 document.getElementById('s-cook').textContent = cook + " minutes";
 document.getElementById('s-bean').textContent = b[0].toLowerCase();
-document.getElementById('s-soaked').textContent = soaked ? "soaked" : "unsoaked";
-document.getElementById('s-press').textContent = pressMin(cups) + " minutes";
 document.getElementById('s-rel').textContent = rel + " minutes";
 document.getElementById('m-bean').textContent = b[0].toLowerCase();
-document.getElementById('m-cal').textContent = b[5];
-document.getElementById('m-pro').textContent = b[6] + "g";
-document.getElementById('m-carb').textContent = b[7] + "g";
-document.getElementById('m-fat').textContent = b[8] + "g";
-document.getElementById('m-fib').textContent = b[9] + "g";
-const bb = document.getElementById('beanBody'); bb.innerHTML = "";
-BEANS.forEach((x, i) => {
-const tr = document.createElement('tr'); if(i === bean) tr.className = 'on';
-tr.innerHTML = '<td>' + x[0] + '</td><td class="n">' + x[1] + ' min</td><td class="n">' + (x[2] ? x[2] + ' min' : 'no soak') + '</td><td>' + x[3] + ' min NR</td><td>' + x[4] + '</td>';
-tr.style.cursor = 'pointer'; tr.onclick = () => { bean = i; beanSel.value = i; render(); };
-bb.appendChild(tr);
-});
-const wb = document.getElementById('waterBody'); wb.innerHTML = "";
-for(const c of CUPS){
-const tr = document.createElement('tr'); if(c === cups) tr.className = 'on';
-tr.innerHTML = '<td class="n">' + cupsStr(c) + '</td><td class="n">' + cupsStr(WATER[c]) + '</td><td>' + ratio(c) + '</td><td>' + (c > 3 ? '8-qt only' : '6-qt or 8-qt') + '</td><td>' + cupsStr(yieldCups(c)) + '</td>';
-tr.style.cursor = 'pointer'; tr.onclick = () => { cups = c; render(); };
-wb.appendChild(tr);
-}
+document.getElementById('m-cal').textContent = b[3];
+document.getElementById('m-pro').textContent = b[4] + "g";
+document.getElementById('m-carb').textContent = b[5] + "g";
+document.getElementById('m-fat').textContent = b[6] + "g";
+document.getElementById('m-fib').textContent = b[7] + "g";
 document.getElementById('minus').disabled = cups <= CUPS[0];
 document.getElementById('plus').disabled = cups >= CUPS[CUPS.length-1];
 }
 document.getElementById('minus').onclick = () => { const i = CUPS.indexOf(cups); if(i > 0){ cups = CUPS[i-1]; render(); } };
 document.getElementById('plus').onclick = () => { const i = CUPS.indexOf(cups); if(i < CUPS.length-1){ cups = CUPS[i+1]; render(); } };
 beanSel.onchange = () => { bean = parseInt(beanSel.value, 10); render(); };
-soakBox.onchange = render;
 render();
 </script>
 <div class="cook" id="cook" role="dialog" aria-modal="true" aria-label="Cook mode">
