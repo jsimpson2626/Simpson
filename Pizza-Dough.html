@@ -159,7 +159,6 @@ ol.steps li{padding-left:58px}
 .cfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:16px}
 .ballout{font-size:.86rem;color:#75706a}
 .ballout b{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--accent);margin-right:4px}
-.pct{font-size:.74rem;color:#8a857c;font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
 .nm small{display:block;font-size:.76rem;color:#8a857c}
 @media(max-width:560px){.crow{grid-template-columns:1fr;gap:8px}.calc{padding:18px}}
 .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;box-shadow:0 14px 40px -26px rgba(31,58,95,.6)}
@@ -173,11 +172,9 @@ ol.steps li{padding-left:58px}
 <a class="back" href="index.html">&larr; All recipes</a>
 <div class="eyebrow">Bread · Pizza</div>
 <h1>Pizza Dough</h1>
-<p class="sub">Cold-fermented pizza dough. Set the size, count and thickness below and every amount updates.</p>
 <div class="meta">
 <div><span>Size</span><b id="h-size">15 in</b></div>
 <div><span>Dough ball</span><b id="h-ball">422 g</b></div>
-<div><span>Hydration</span><b id="h-hyd">62%</b></div>
 <div><span>Cold rest</span><b id="h-rest">2&ndash;4 days</b></div>
 </div>
 </div>
@@ -191,7 +188,7 @@ ol.steps li{padding-left:58px}
 <div class="crow"><div class="clab">Thickness</div>
 <div class="seg" role="group" aria-label="Thickness"><button type="button" data-v="1.8">Thin</button><button type="button" data-v="2.11" class="on">Regular</button><button type="button" data-v="2.75">Thick</button></div></div>
 <div class="crow"><div class="clab">Gluten free</div>
-<label class="tog"><input type="checkbox" id="gft"> GF flour, 80% hydration</label></div>
+<label class="tog"><input type="checkbox" id="gft"> Use GF flour</label></div>
 <div class="cfoot">
 <div class="ballout"><b id="rball">422</b>g per dough ball</div>
 <button class="cook-go" id="cook-start" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 5 19 12 7 19 7 5"></polygon></svg> Cook Mode</button>
@@ -233,7 +230,7 @@ ol.steps li{padding-left:58px}
 
 <script>
 (function(){
-// Same math as the Dough Guy calculator.
+// Same math as the Dough Guy calculator, except GF ball weight uses the GF ingredient total.
 var BF_STD = 1509.797685*(480/425), BF_GF = 333*6, DF = 2550/1509.797685;
 var cT = 2.11;
 var STEPS = [
@@ -262,8 +259,7 @@ var li=document.createElement('li');
 var a=document.createElement('span');a.className='amt';a.textContent=amt;
 var n=document.createElement('span');n.className='nm';n.textContent=name;
 if(sub){var s=document.createElement('small');s.textContent=sub;n.appendChild(s);}
-var p=document.createElement('span');p.className='pct';p.textContent=pct;
-li.appendChild(a);li.appendChild(n);li.appendChild(p);return li;
+li.appendChild(a);li.appendChild(n);return li;
 }
 var lastGF=null;
 function calc(){
@@ -271,11 +267,10 @@ var sz=parseFloat($('ps').value), qt=parseInt($('pq').value,10), gf=$('gft').che
 var fl=(gf?BF_GF:BF_STD)*Math.pow(sz/16,2)*(qt/6)*(cT/2.11);
 var wP=gf?0.8:0.62;
 var w=Math.round(fl*wP), y=fl*0.004, sa=Math.round(fl*0.025), su=Math.round(fl*0.02), oi=Math.round(fl*0.033);
-var ball=Math.round(fl*DF/qt);
+var ball=Math.round(fl*DF*(gf?1.882/1.702:1)/qt);
 $('szD').textContent=sz+'"'; $('qtD').textContent=qt;
 $('rball').textContent=ball;
 $('h-size').textContent=sz+' in'; $('h-ball').textContent=ball+' g';
-$('h-hyd').textContent=Math.round(wP*100)+'%';
 $('h-rest').textContent=gf?'Up to 48 hr':'2\u20134 days';
 var ul=$('ing0'); ul.innerHTML='';
 ul.appendChild(row(Math.round(fl)+' g', gf?'GF flour':'Bread flour', gf?'Caputo GF recommended':'12\u201314% protein','100%'));
