@@ -164,6 +164,9 @@ ol.steps li{padding-left:58px}
 .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;box-shadow:0 14px 40px -26px rgba(31,58,95,.6)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vlink{display:inline-block;margin-top:10px;font-size:.84rem;color:var(--steel)}
+.video.short{aspect-ratio:9/16;max-width:360px;margin:0 auto}
+.video + .vlink{display:block;text-align:center}
+.vgap{margin-top:28px}
 </style>
 </head>
 <body>
@@ -208,6 +211,10 @@ ol.steps li{padding-left:58px}
 
 <section>
 <h2>Video</h2>
+<p class="subhead">Dough Guy: mixing by hand (no mixer)</p>
+<div class="video short"><iframe src="https://www.youtube-nocookie.com/embed/D40OMdLDCtU" title="Dough Guy pizza dough by hand" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+<a class="vlink" href="https://www.youtube.com/shorts/D40OMdLDCtU" target="_blank" rel="noopener">Open on YouTube &#8599;</a>
+<p class="subhead vgap">Playlist</p>
 <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLCbe4lop7RaJWnPtzFIrjg_3u9Z_kFPZG" title="Pizza dough video" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 <a class="vlink" href="https://www.youtube.com/playlist?list=PLCbe4lop7RaJWnPtzFIrjg_3u9Z_kFPZG" target="_blank" rel="noopener">Open on YouTube &#8599;</a>
 </section>
