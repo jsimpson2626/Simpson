@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Superflex Dynasty Trade Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: left-aligned title, one settings strip, team panels in an n-column grid, verdict under the panels. */
+  --bg: #f1f3f6;
+  --surface: #ffffff;
+  --sunken: #f5f7fa;
+  --ink: #1b242e;
+  --muted: #5d6976;
+  --line: #dce2e9;
+  --bar: #3a434e;
+  --bar-ink: #ffffff;
+  --accent: #1577bd;
+  --accent-ink: #ffffff;
+  --side-b: #8a95a1;
+  --good: #14805a;
+  --bad: #c23b3a;
+  --qb: #c23c5a;
+  --rb: #14805a;
+  --wr: #1577bd;
+  --te: #b9650f;
+  --pick: #6a4fc0;
+  --shadow: 0 12px 32px rgba(20, 30, 45, 0.18);
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Barlow", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c;
+    --surface: #1a2129;
+    --sunken: #151b22;
+    --ink: #e7ecf2;
+    --muted: #96a3b1;
+    --line: #2b3541;
+    --bar: #2d3743;
+    --bar-ink: #f3f6f9;
+    --accent: #4ba9ea;
+    --accent-ink: #0b141c;
+    --side-b: #6f7c8a;
+    --good: #43c08d;
+    --bad: #f07572;
+    --qb: #ee7690;
+    --rb: #43c08d;
+    --wr: #5cb0ee;
+    --te: #e9a04e;
+    --pick: #a794f2;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c;
+  --surface: #1a2129;
+  --sunken: #151b22;
+  --ink: #e7ecf2;
+  --muted: #96a3b1;
+  --line: #2b3541;
+  --bar: #2d3743;
+  --bar-ink: #f3f6f9;
+  --accent: #4ba9ea;
+  --accent-ink: #0b141c;
+  --side-b: #6f7c8a;
+  --good: #43c08d;
+  --bad: #f07572;
+  --qb: #ee7690;
+  --rb: #43c08d;
+  --wr: #5cb0ee;
+  --te: #e9a04e;
+  --pick: #a794f2;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.45 var(--font-body);
+}
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 56px;
+  display: grid;
+  gap: 18px;
+}
+
+/* Title */
+h1 {
+  margin: 0;
+  font: 700 clamp(30px, 4.4vw, 44px)/1.02 var(--font-display);
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+}
+.source {
+  margin: 8px 0 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: 15px;
+}
+.source a { color: var(--accent); font-weight: 600; }
+
+/* Settings strip */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 30px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.control { display: grid; gap: 6px; }
+.control-label {
+  font: 600 11px/1 var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.seg {
+  position: relative;
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--sunken);
+}
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label {
+  min-width: 46px;
+  padding: 7px 0;
+  text-align: center;
+  font: 700 17px/1 var(--font-display);
+  color: var(--muted);
+  cursor: pointer;
+  border-left: 1px solid var(--line);
+}
+.seg label:first-of-type { border-left: 0; }
+.seg input:checked + label { background: var(--accent); color: var(--accent-ink); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: -4px; }
+
+.switch { position: relative; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-height: 31px; }
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.switch .track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--side-b);
+  transition: background 0.15s ease;
+}
+.switch .track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.15s ease;
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { transform: translateX(20px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+.switch .state { font: 700 13px/1 var(--font-body); letter-spacing: 0.04em; min-width: 26px; }
+
+/* Example banner */
+.notice {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 15px;
+}
+.linkish {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Team panels */
+.teams { display: grid; gap: 18px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 640px) {
+  .teams[data-n="2"], .teams[data-n="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 940px) {
+  .teams[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.team {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.team-head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 10px 14px 11px;
+  border-radius: 5px 5px 0 0;
+  background: var(--bar);
+  color: var(--bar-ink);
+  font: 600 21px/1.1 var(--font-display);
+  letter-spacing: 0.01em;
+}
+.team-name {
+  min-width: 0;
+  max-width: 68%;
+  padding: 0 0 1px;
+  border: 0;
+  border-bottom: 1px dashed transparent;
+  background: transparent;
+  color: inherit;
+  font: 700 21px/1.1 var(--font-display);
+}
+.team-name:hover, .team-name:focus { border-bottom-color: currentColor; outline: none; }
+.team-name-mirror {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  visibility: hidden;
+  white-space: pre;
+  font: 700 21px/1.1 var(--font-display);
+}
+.team-head span { opacity: 0.85; white-space: nowrap; }
+
+.search { position: relative; padding: 12px 14px 0; }
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.search-input::placeholder { color: var(--muted); }
+.results {
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  left: 14px;
+  right: 14px;
+  max-height: 348px;
+  margin: 4px 0 0;
+  padding: 4px;
+  overflow: auto;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+.results li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.results li[aria-selected="true"] { background: var(--sunken); box-shadow: inset 3px 0 0 var(--accent); }
+.results li.used { opacity: 0.5; cursor: default; }
+.results li.none { display: block; color: var(--muted); cursor: default; font-size: 14px; }
+
+.assets { margin: 0; padding: 6px 14px 4px; list-style: none; min-height: 70px; }
+.asset {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.asset:last-child { border-bottom: 0; }
+.empty { padding: 20px 0 14px; color: var(--muted); font-size: 14px; }
+
+.chip {
+  --c: var(--muted);
+  min-width: 46px;
+  padding: 5px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--c) 15%, transparent);
+  color: var(--c);
+  font: 700 12px/1 var(--font-body);
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.chip.qb { --c: var(--qb); }
+.chip.rb { --c: var(--rb); }
+.chip.wr { --c: var(--wr); }
+.chip.te { --c: var(--te); }
+.chip.pick { --c: var(--pick); }
+.who { display: grid; min-width: 0; }
+.name { font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-size: 13px; line-height: 1.3; }
+.val {
+  font: 700 22px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.rm {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+.rm:hover { background: var(--sunken); color: var(--bad); }
+.from {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.from button {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 12px/1.1 var(--font-body);
+  cursor: pointer;
+}
+.from button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+.adjrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin: 4px 14px 0;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  font-size: 14px;
+  font-weight: 600;
+}
+.adjrow .val { font-size: 19px; color: var(--accent); }
+.team-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px 14px 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.total {
+  color: var(--ink);
+  font: 700 32px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Verdict */
+.verdict {
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.balance { position: relative; padding: 4px 0; }
+.balance-track {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+}
+.balance-track i { display: block; height: 100%; transition: width 0.2s ease; }
+.balance-track .a { background: var(--accent); }
+.balance-track .b { background: var(--side-b); }
+.balance::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: var(--ink);
+}
+.balance-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.balance-labels b { color: var(--ink); }
+.headline {
+  margin: 14px 0 2px;
+  font: 700 clamp(26px, 3.4vw, 34px)/1.08 var(--font-display);
+  text-wrap: balance;
+}
+.headline.fair { color: var(--good); }
+.headline.idle { color: var(--muted); }
+.sub { margin: 0; max-width: 68ch; color: var(--muted); }
+.sugg-title { margin: 16px 0 8px; font-size: 14px; font-weight: 600; }
+.sugg { display: flex; flex-wrap: wrap; gap: 8px; }
+.sugg button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  cursor: pointer;
+}
+.sugg button:hover { border-color: var(--accent); }
+.sugg .chip { min-width: 0; border-radius: 999px; padding: 5px 8px; }
+.sugg .val { font-size: 17px; }
+
+.table-scroll { overflow-x: auto; margin-top: 12px; }
+.summary { width: 100%; min-width: 520px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.summary th {
+  padding: 6px 10px;
+  color: var(--muted);
+  font: 600 11px/1.2 var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: right;
+  white-space: nowrap;
+}
+.summary td { padding: 10px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.summary th:first-child, .summary td:first-child { text-align: left; padding-left: 0; font-weight: 600; }
+.summary td.net { font: 700 21px/1 var(--font-display); }
+.summary td.net.up { color: var(--good); }
+.summary td.net.down { color: var(--bad); }
+.summary td.result { width: 250px; padding-right: 0; }
+.result-inner { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.netbar { position: relative; flex: 1; min-width: 90px; height: 10px; border-radius: 999px; background: var(--sunken); border: 1px solid var(--line); }
+.netbar::after { content: ""; position: absolute; top: -3px; bottom: -3px; left: calc(50% - 1px); width: 2px; background: var(--muted); }
+.netbar i { position: absolute; top: 0; bottom: 0; }
+.netbar i.up { left: 50%; background: var(--good); border-radius: 0 999px 999px 0; }
+.netbar i.down { right: 50%; background: var(--bad); border-radius: 999px 0 0 999px; }
+.tag {
+  min-width: 76px;
+  padding: 5px 7px;
+  border-radius: 3px;
+  background: var(--sunken);
+  color: var(--muted);
+  font: 700 11px/1 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.tag.up { background: color-mix(in srgb, var(--good) 15%, transparent); color: var(--good); }
+.tag.down { background: color-mix(in srgb, var(--bad) 15%, transparent); color: var(--bad); }
+
+/* Actions */
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.btn {
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 4px;
+  font: 600 15px/1.2 var(--font-body);
+  cursor: pointer;
+}
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.dark { background: var(--bar); color: var(--bar-ink); }
+.btn:hover { filter: brightness(1.08); }
+.copybox {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 14px/1.4 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* Notes */
+.notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6px 36px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.notes h2 { margin: 0 0 4px; font: 700 20px/1.15 var(--font-display); }
+.notes p { margin: 0 0 12px; max-width: 62ch; color: var(--muted); font-size: 15px; }
+.notes a { color: var(--accent); font-weight: 600; }
+
+@media (max-width: 480px) {
+  .wrap { padding: 20px 16px 44px; }
+  .controls { gap: 14px 22px; }
+  .verdict { padding: 14px; }
+  .btn { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Superflex Dynasty Trade Calculator</h1>
+    <p class="source" id="source-line"></p>
+  </header>
+
+  <section class="controls" aria-label="Trade settings">
+    <div class="control">
+      <span class="control-label" id="teams-label">Teams in trade</span>
+      <div class="seg" role="radiogroup" aria-labelledby="teams-label">
+        <input type="radio" name="teams" id="teams-2" value="2"><label for="teams-2">2</label>
+        <input type="radio" name="teams" id="teams-3" value="3"><label for="teams-3">3</label>
+        <input type="radio" name="teams" id="teams-4" value="4"><label for="teams-4">4</label>
+      </div>
+    </div>
+    <div class="control">
+      <span class="control-label">TE Premium</span>
+      <label class="switch">
+        <input type="checkbox" id="opt-tep" aria-label="TE Premium values">
+        <span class="track" aria-hidden="true"></span>
+        <span class="state" id="opt-tep-state" aria-hidden="true">OFF</span>
+      </label>
+    </div>
+    <div class="control">
+      <span class="control-label">Value adjustment</span>
+      <label class="switch">
+        <input type="checkbox" id="opt-adjust" aria-label="Value adjustment for uneven packages">
+        <span class="track" aria-hidden="true"></span>
+        <span class="state" id="opt-adjust-state" aria-hidden="true">ON</span>
+      </label>
+    </div>
+  </section>
+
+  <p class="notice" id="example-note" hidden>
+    Example trade loaded so you can see how a result reads.
+    <button type="button" class="linkish" id="clear-example">Clear it and start your own</button>
+  </p>
+
+  <div class="teams" id="teams" data-n="2"></div>
+
+  <section class="verdict" id="verdict" aria-live="polite" aria-label="Trade result"></section>
+
+  <div class="actions">
+    <button type="button" class="btn primary" id="copy-summary">Copy trade summary</button>
+    <button type="button" class="btn dark" id="clear-all">Clear calculator ×</button>
+    <textarea class="copybox" id="copy-fallback" rows="6" readonly hidden aria-label="Trade summary to copy"></textarea>
+  </div>
+
+  <section class="notes" aria-label="How the numbers work">
+    <div>
+      <h2>Where the values come from</h2>
+      <p id="note-values"></p>
+      <p>2027 first-round picks are valued by exact slot. Later rounds and 2028 picks are valued by tier, so add a tier once for each pick involved.</p>
+    </div>
+    <div>
+      <h2>What the value adjustment does</h2>
+      <p>Adding values at face value lets a pile of depth pieces match one star, and nobody makes that trade. With the adjustment on, each extra piece in a package counts for less: two 50-point players are treated like one 76-point player.</p>
+      <p>The side getting the tighter package shows the difference as a value adjustment. The adjustment is this calculator's own math and is not part of the FantasyPros chart. Turn it off to compare plain sums.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- All player and pick values live in values.js. Replace that file to update values. -->
+<script src="values.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Tunables ---------- */
+  var PACKAGE_POWER = 1.65; // 1 = plain sum. Higher = extra pieces in a package count for less.
+  var FAIR_POINTS = 1.5;    // a gap this small is always called fair
+  var FAIR_SHARE = 0.05;    // so is a gap within 5% of the bigger side
+  var STORE_KEY = 'sf-dynasty-trade-calc.v1';
+
+  var DATA = window.TRADE_VALUES;
+  if (!DATA || !Array.isArray(DATA.players) || !Array.isArray(DATA.picks)) {
+    var box = document.getElementById('verdict');
+    var msg = document.createElement('h2');
+    msg.className = 'headline idle';
+    msg.textContent = 'Trade values did not load';
+    var why = document.createElement('p');
+    why.className = 'sub';
+    why.textContent = 'The file values.js has to sit in the same folder as this page.';
+    box.append(msg, why);
+    return;
+  }
+
+  /* ---------- Catalog ---------- */
+  var catalog = [];
+  var byId = new Map();
+
+  function norm(s) {
+    return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/['’.]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+  function addToCatalog(a) {
+    a.nameKey = norm(a.name);
+    a.key = norm(a.name + ' ' + (a.pos === 'PICK' ? 'pick draft rookie' : a.pos) + ' ' + a.team);
+    catalog.push(a);
+    byId.set(a.id, a);
+  }
+  // players: [name, pos, team, age, value, superflex value or null, TE premium value or null]
+  DATA.players.forEach(function (r) {
+    var generic = !r[2];
+    addToCatalog({ id: r[1] + ':' + r[0], name: r[0], pos: r[1], team: r[2] || '', age: r[3],
+      value: r[4], sf: r[5], tep: r[6], repeatable: generic, generic: generic });
+  });
+  // picks: [name, 1QB value, superflex value, repeatable]
+  DATA.picks.forEach(function (r) {
+    addToCatalog({ id: 'PICK:' + r[0], name: r[0], pos: 'PICK', team: '', age: null,
+      value: r[1], sf: r[2], tep: null, repeatable: !!r[3], generic: false });
+  });
+
+  /* ---------- State ---------- */
+  var uidSeq = 0;
+  function nextUid() { uidSeq += 1; return 'a' + uidSeq; }
+
+  function freshState() {
+    return { teams: 2, tep: false, adjust: true, example: false,
+      names: ['Team 1', 'Team 2', 'Team 3', 'Team 4'], gets: [[], [], [], []] };
+  }
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      var st = freshState();
+      if (s.teams === 2 || s.teams === 3 || s.teams === 4) st.teams = s.teams;
+      st.tep = !!s.tep;
+      st.adjust = s.adjust !== false;
+      st.example = !!s.example;
+      if (Array.isArray(s.names)) {
+        s.names.slice(0, 4).forEach(function (n, i) {
+          if (typeof n === 'string' && n.trim()) st.names[i] = n.trim().slice(0, 24);
+        });
+      }
+      if (Array.isArray(s.gets)) {
+        s.gets.slice(0, 4).forEach(function (list, i) {
+          if (!Array.isArray(list)) return;
+          st.gets[i] = list.filter(function (it) { return it && byId.has(it.id); }).map(function (it) {
+            return { uid: nextUid(), id: it.id, from: Number.isInteger(it.from) ? it.from : null };
+          });
+        });
+      }
+      return st;
+    } catch (e) { return null; }
+  }
+  function saveState() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        teams: state.teams, tep: state.tep, adjust: state.adjust, example: state.example, names: state.names,
+        gets: state.gets.map(function (l) { return l.map(function (it) { return { id: it.id, from: it.from }; }); })
+      }));
+    } catch (e) { /* storage is optional */ }
+  }
+  // First visit: a star for a player plus a pick, built from whatever values are loaded.
+  function exampleState() {
+    var st = freshState();
+    var skill = catalog.filter(function (a) { return (a.pos === 'WR' || a.pos === 'RB') && !a.generic; });
+    var star = skill.slice().sort(function (x, y) { return y.value - x.value; })[0];
+    if (!star) return st;
+    var target = star.value * 0.6;
+    function closest(list, val) {
+      return list.slice().sort(function (x, y) { return Math.abs(val(x) - target) - Math.abs(val(y) - target); })[0];
+    }
+    var piece = closest(skill.filter(function (a) { return a !== star; }), function (a) { return a.value; });
+    var pick = closest(catalog.filter(function (a) { return a.pos === 'PICK'; }), function (a) { return a.sf; });
+    st.gets[0] = [{ uid: nextUid(), id: star.id, from: null }];
+    st.gets[1] = [piece, pick].filter(Boolean).map(function (a) { return { uid: nextUid(), id: a.id, from: null }; });
+    st.example = true;
+    return st;
+  }
+
+  var state = loadState() || exampleState();
+
+  /* ---------- Values and math ---------- */
+  function valueOf(a) {
+    if (a.pos === 'QB' || a.pos === 'PICK') return a.sf != null ? a.sf : a.value;
+    if (a.pos === 'TE' && state.tep && a.tep != null) return a.tep;
+    return a.value;
+  }
+  var ranks = new Map();
+  function buildRanks() {
+    ranks = new Map();
+    ['QB', 'RB', 'WR', 'TE'].forEach(function (pos) {
+      catalog.filter(function (a) { return a.pos === pos && !a.generic; })
+        .map(function (a, i) { return { a: a, i: i, v: valueOf(a) }; })
+        .sort(function (x, y) { return y.v - x.v || x.i - y.i; })
+        .forEach(function (x, n) { ranks.set(x.a.id, pos + (n + 1)); });
+    });
+  }
+  function chipText(a) { return a.pos === 'PICK' ? 'PICK' : (ranks.get(a.id) || a.pos); }
+  function metaText(a) {
+    if (a.pos === 'PICK') return 'Rookie draft pick';
+    if (a.generic) return 'Any ' + a.pos + ' not on the chart';
+    return a.team + ' · age ' + a.age;
+  }
+  function sum(vals) { return vals.reduce(function (s, v) { return s + v; }, 0); }
+  function packageValue(vals) {
+    if (!state.adjust || vals.length < 2) return sum(vals);
+    return Math.pow(vals.reduce(function (s, v) { return s + Math.pow(v, PACKAGE_POWER); }, 0), 1 / PACKAGE_POWER);
+  }
+  function isFair(net, a, b) {
+    var gap = Math.abs(net);
+    var base = Math.max(a, b);
+    return gap <= FAIR_POINTS || (base > 0 && gap / base <= FAIR_SHARE);
+  }
+  function sourceTeam(i, item) {
+    var n = state.teams;
+    if (n === 2) return 1 - i;
+    if (Number.isInteger(item.from) && item.from >= 0 && item.from < n && item.from !== i) return item.from;
+    return i === 0 ? 1 : 0;
+  }
+  function compute() {
+    var n = state.teams;
+    var T = [];
+    for (var i = 0; i < n; i++) T.push({ i: i, name: state.names[i], gets: [], gives: [] });
+    for (i = 0; i < n; i++) {
+      state.gets[i].forEach(function (item) {
+        var a = byId.get(item.id);
+        if (!a) return;
+        var from = sourceTeam(i, item);
+        var v = valueOf(a);
+        T[i].gets.push({ a: a, val: v, from: from, uid: item.uid });
+        T[from].gives.push({ a: a, val: v, to: i });
+      });
+    }
+    T.forEach(function (t) {
+      var g = t.gets.map(function (x) { return x.val; });
+      var v = t.gives.map(function (x) { return x.val; });
+      t.getsRaw = sum(g);
+      t.givesRaw = sum(v);
+      t.getsPkg = packageValue(g);
+      t.givesPkg = packageValue(v);
+      t.complete = g.length > 0 && v.length > 0;
+      t.net = t.getsPkg - t.givesPkg;
+      t.adj = t.complete ? t.net - (t.getsRaw - t.givesRaw) : 0;
+      t.fair = isFair(t.net, t.getsPkg, t.givesPkg);
+    });
+    return T;
+  }
+  function usedIds() {
+    var used = new Set();
+    for (var i = 0; i < state.teams; i++) state.gets[i].forEach(function (it) { used.add(it.id); });
+    return used;
+  }
+
+  function fmt(x) {
+    var r = Math.round(x);
+    return Math.abs(x - r) < 0.05 ? String(r) : x.toFixed(1);
+  }
+  function signed(x) {
+    if (Math.abs(x) < 0.05) return '0';
+    return (x > 0 ? '+' : '−') + fmt(Math.abs(x));
+  }
+
+  /* ---------- Search ---------- */
+  function search(query) {
+    var tokens = norm(query).split(' ').filter(Boolean);
+    var nq = tokens.join(' ');
+    var used = usedIds();
+    var hits = [];
+    catalog.forEach(function (a, i) {
+      var taken = !a.repeatable && used.has(a.id);
+      if (!tokens.length) {
+        if (taken || a.generic) return;
+        hits.push({ a: a, i: i, s: 0, v: valueOf(a), used: false });
+        return;
+      }
+      if (!tokens.every(function (t) { return a.key.indexOf(t) !== -1; })) return;
+      var s = a.nameKey.indexOf(nq) === 0 ? 0
+        : a.nameKey.split(' ').some(function (w) { return w.indexOf(tokens[0]) === 0; }) ? 1 : 2;
+      hits.push({ a: a, i: i, s: s, v: valueOf(a), used: taken });
+    });
+    hits.sort(function (x, y) { return x.s - y.s || y.v - x.v || x.i - y.i; });
+    return hits.slice(0, 8);
+  }
+
+  /* ---------- DOM helpers ---------- */
+  function $(id) { return document.getElementById(id); }
+  function el(tag, props) {
+    var node = document.createElement(tag);
+    if (props) {
+      Object.keys(props).forEach(function (k) {
+        var v = props[k];
+        if (v == null || v === false) return;
+        if (k === 'class') node.className = v;
+        else if (k === 'text') node.textContent = v;
+        else if (k.indexOf('on') === 0) node.addEventListener(k.slice(2), v);
+        else node.setAttribute(k, v === true ? '' : v);
+      });
+    }
+    for (var i = 2; i < arguments.length; i++) {
+      var kid = arguments[i];
+      if (Array.isArray(kid)) kid.forEach(function (k) { if (k) node.append(k); });
+      else if (kid) node.append(kid);
+    }
+    return node;
+  }
+  function chip(a) { return el('span', { class: 'chip ' + a.pos.toLowerCase(), text: chipText(a) }); }
+  function who(a, meta) {
+    return el('span', { class: 'who' },
+      el('span', { class: 'name', text: a.name }),
+      el('span', { class: 'meta', text: meta || metaText(a) }));
+  }
+
+  /* ---------- Actions ---------- */
+  function addAsset(teamIdx, id) {
+    var list = state.gets[teamIdx];
+    var from = null;
+    if (state.teams > 2) {
+      from = list.length ? sourceTeam(teamIdx, list[list.length - 1]) : (teamIdx + 1) % state.teams;
+    }
+    list.push({ uid: nextUid(), id: id, from: from });
+    state.example = false;
+    update();
+  }
+  function removeAsset(teamIdx, uid) {
+    state.gets[teamIdx] = state.gets[teamIdx].filter(function (it) { return it.uid !== uid; });
+    state.example = false;
+    update();
+  }
+  function setFrom(teamIdx, uid, from) {
+    state.gets[teamIdx].forEach(function (it) { if (it.uid === uid) it.from = from; });
+    state.example = false;
+    update();
+  }
+  function clearAll() {
+    state.gets = [[], [], [], []];
+    state.example = false;
+    $('copy-fallback').hidden = true;
+    update();
+  }
+
+  /* ---------- Team panels ---------- */
+  var panels = [];
+  var mirror = el('span', { class: 'team-name-mirror', 'aria-hidden': 'true' });
+  document.body.append(mirror);
+  function sizeName(input) {
+    mirror.textContent = input.value || 'Team';
+    input.style.width = Math.ceil(mirror.getBoundingClientRect().width + 4) + 'px';
+  }
+
+  function buildPanels() {
+    var host = $('teams');
+    host.dataset.n = String(state.teams);
+    host.textContent = '';
+    panels = [];
+    for (var i = 0; i < state.teams; i++) panels.push(buildPanel(host, i));
+  }
+
+  function buildPanel(host, i) {
+    var nameInput = el('input', { class: 'team-name', id: 'team-name-' + i, type: 'text', maxlength: '24',
+      value: state.names[i], 'aria-label': 'Name of team ' + (i + 1), title: 'Click to rename this team',
+      spellcheck: 'false', autocomplete: 'off' });
+    sizeName(nameInput);
+    nameInput.addEventListener('input', function () {
+      state.names[i] = nameInput.value.trim() || 'Team ' + (i + 1);
+      sizeName(nameInput);
+      update();
+    });
+    nameInput.addEventListener('blur', function () {
+      if (!nameInput.value.trim()) { nameInput.value = state.names[i]; sizeName(nameInput); }
+    });
+
+    var input = el('input', { class: 'search-input', id: 'search-' + i, type: 'text',
+      placeholder: 'Search for a player or pick', autocomplete: 'off', spellcheck: 'false', role: 'combobox',
+      'aria-expanded': 'false', 'aria-controls': 'results-' + i, 'aria-autocomplete': 'list',
+      'aria-label': 'Add a player or pick for team ' + (i + 1) });
+    var results = el('ul', { class: 'results', id: 'results-' + i, role: 'listbox', hidden: true });
+    var items = [];
+    var active = -1;
+
+    function draw() {
+      results.textContent = '';
+      if (!items.length) results.append(el('li', { class: 'none', text: 'No player or pick matches that search.' }));
+      items.forEach(function (x, k) {
+        var li = el('li', { role: 'option', id: 'opt-' + i + '-' + k, class: x.used ? 'used' : null,
+          'aria-selected': k === active ? 'true' : 'false', 'aria-disabled': x.used ? 'true' : null },
+          chip(x.a), who(x.a, x.used ? 'Already in this trade' : null),
+          el('span', { class: 'val', text: fmt(x.v) }));
+        if (!x.used) li.addEventListener('click', function () { choose(k); });
+        results.append(li);
+      });
+      results.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      if (active >= 0) input.setAttribute('aria-activedescendant', 'opt-' + i + '-' + active);
+      else input.removeAttribute('aria-activedescendant');
+      var current = results.querySelector('[aria-selected="true"]');
+      if (current && current.scrollIntoView) current.scrollIntoView({ block: 'nearest' });
+    }
+    function open() {
+      items = search(input.value);
+      active = -1;
+      for (var k = 0; k < items.length; k++) { if (!items[k].used) { active = k; break; } }
+      draw();
+    }
+    function close() {
+      results.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+    }
+    function move(step) {
+      if (!items.length) return;
+      var k = active;
+      for (var tries = 0; tries < items.length; tries++) {
+        k = (k + step + items.length) % items.length;
+        if (!items[k].used) { active = k; break; }
+      }
+      draw();
+    }
+    function choose(k) {
+      var x = items[k];
+      if (!x || x.used) return;
+      input.value = '';
+      close();
+      addAsset(i, x.a.id);
+      input.focus();
+    }
+    function keepFocus(e) { e.preventDefault(); }
+    results.addEventListener('pointerdown', keepFocus);
+    results.addEventListener('mousedown', keepFocus);
+    input.addEventListener('input', open);
+    input.addEventListener('click', function () { if (results.hidden) open(); });
+    input.addEventListener('blur', close);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (results.hidden) open(); else move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (!results.hidden) move(-1); }
+      else if (e.key === 'Enter') { if (!results.hidden && active >= 0) { e.preventDefault(); choose(active); } }
+      else if (e.key === 'Escape') { if (!results.hidden) { e.preventDefault(); close(); } }
+    });
+
+    var list = el('ul', { class: 'assets', 'aria-label': 'Pieces this team gets' });
+    var adjVal = el('span', { class: 'val' });
+    var adjRow = el('div', { class: 'adjrow', hidden: true }, el('span', { text: 'Value adjustment' }), adjVal);
+    var pieces = el('span');
+    var total = el('span', { class: 'total' });
+    host.append(el('section', { class: 'team', 'aria-label': 'Team ' + (i + 1) },
+      el('header', { class: 'team-head' }, nameInput, el('span', { text: 'gets…' })),
+      el('div', { class: 'search' }, input, results),
+      list, adjRow,
+      el('footer', { class: 'team-foot' }, pieces, total)));
+    return { nameInput: nameInput, list: list, adjRow: adjRow, adjVal: adjVal, pieces: pieces, total: total };
+  }
+
+  function drawPanel(p, t) {
+    p.list.textContent = '';
+    if (!t.gets.length) {
+      p.list.append(el('li', { class: 'empty', text: 'Nothing here yet. Search above to add players or picks.' }));
+    }
+    t.gets.forEach(function (g) {
+      var row = el('li', { class: 'asset' }, chip(g.a), who(g.a),
+        el('span', { class: 'val', text: fmt(g.val) }),
+        el('button', { class: 'rm', type: 'button', 'aria-label': 'Remove ' + g.a.name, text: '×',
+          onclick: function () { removeAsset(t.i, g.uid); } }));
+      if (state.teams > 2) {
+        var from = el('div', { class: 'from', role: 'group', 'aria-label': g.a.name + ' comes from' },
+          el('span', { text: 'from' }));
+        for (var j = 0; j < state.teams; j++) {
+          if (j === t.i) continue;
+          from.append(el('button', { type: 'button', 'aria-pressed': j === g.from ? 'true' : 'false',
+            text: state.names[j], onclick: (function (jj) { return function () { setFrom(t.i, g.uid, jj); }; })(j) }));
+        }
+        row.append(from);
+      }
+      p.list.append(row);
+    });
+    var showAdj = t.adj > 0.05;
+    p.adjRow.hidden = !showAdj;
+    p.adjVal.textContent = showAdj ? '+' + fmt(t.adj) : '';
+    p.pieces.textContent = t.gets.length + (t.gets.length === 1 ? ' Total Piece' : ' Total Pieces');
+    p.total.textContent = fmt(t.getsRaw + (showAdj ? t.adj : 0));
+  }
+
+  /* ---------- Verdict ---------- */
+  function evenUpOptions(loser) {
+    var used = usedIds();
+    var gets = loser.gets.map(function (x) { return x.val; });
+    var gives = loser.givesPkg;
+    var options = [];
+    catalog.forEach(function (a) {
+      if (a.generic || (!a.repeatable && used.has(a.id))) return;
+      var v = valueOf(a);
+      var pkg = packageValue(gets.concat([v]));
+      var net = pkg - gives;
+      options.push({ a: a, v: v, net: net, fair: isFair(net, pkg, gives) });
+    });
+    options.sort(function (x, y) { return Math.abs(x.net) - Math.abs(y.net) || y.v - x.v; });
+    var fair = options.filter(function (o) { return o.fair; });
+    return { fair: fair.length > 0, list: (fair.length ? fair : options).slice(0, fair.length ? 6 : 3) };
+  }
+
+  function drawVerdictTwo(host, T) {
+    var a = T[0], b = T[1];
+    var ready = a.complete && b.complete;
+    var totA = a.getsRaw + Math.max(a.adj, 0);
+    var totB = b.getsRaw + Math.max(b.adj, 0);
+    var share = ready && totA + totB > 0 ? totA / (totA + totB) : 0;
+    var track = el('div', { class: 'balance-track' });
+    if (ready) {
+      var fa = el('i', { class: 'a' }); fa.style.width = (share * 100).toFixed(2) + '%';
+      var fb = el('i', { class: 'b' }); fb.style.width = ((1 - share) * 100).toFixed(2) + '%';
+      track.append(fa, fb);
+    }
+    host.append(el('div', { class: 'balance', 'aria-hidden': 'true' }, track));
+    host.append(el('div', { class: 'balance-labels' },
+      el('span', null, el('b', { text: a.name }), ' gets ' + fmt(totA)),
+      el('span', null, el('b', { text: b.name }), ' gets ' + fmt(totB))));
+
+    if (!ready) {
+      host.append(el('h2', { class: 'headline idle', text: 'Add players to each side' }));
+      host.append(el('p', { class: 'sub', text: 'Each team needs at least one player or pick before the trade can be judged.' }));
+      return;
+    }
+    var gap = Math.abs(a.net);
+    var winner = a.net >= 0 ? a : b;
+    var loser = a.net >= 0 ? b : a;
+    if (a.fair) {
+      host.append(el('h2', { class: 'headline fair', text: 'Fair trade' }));
+      host.append(el('p', { class: 'sub', text: gap < 0.05 ? 'The two sides are dead even.'
+        : winner.name + ' is ahead by ' + fmt(gap) + ', which is inside the fair range.' }));
+      return;
+    }
+    host.append(el('h2', { class: 'headline', text: winner.name + ' wins by ' + fmt(gap) }));
+    host.append(el('p', { class: 'sub', text: loser.name + ' needs about ' + fmt(gap) + ' more to make this fair.' }));
+
+    var opts = evenUpOptions(loser);
+    if (!opts.list.length) return;
+    host.append(el('p', { class: 'sugg-title', text: opts.fair
+      ? 'Any one of these added to what ' + loser.name + ' gets makes it fair:'
+      : 'No single piece makes this fair. The closest adds for ' + loser.name + ':' }));
+    var box = el('div', { class: 'sugg' });
+    opts.list.forEach(function (o) {
+      box.append(el('button', { type: 'button', 'aria-label': 'Add ' + o.a.name + ' to what ' + loser.name + ' gets',
+        onclick: function () { addAsset(loser.i, o.a.id); } },
+        chip(o.a), el('span', { class: 'name', text: o.a.name }), el('span', { class: 'val', text: fmt(o.v) })));
+    });
+    host.append(box);
+  }
+
+  function drawVerdictMulti(host, T) {
+    var missing = [];
+    T.forEach(function (t) {
+      if (!t.gets.length && !t.gives.length) missing.push(t.name + ' is not in the trade yet');
+      else if (!t.gets.length) missing.push(t.name + ' gets nothing');
+      else if (!t.gives.length) missing.push(t.name + ' gives nothing');
+    });
+    var ready = !missing.length;
+    if (!ready) {
+      host.append(el('h2', { class: 'headline idle', text: 'Every team has to give and get something' }));
+      host.append(el('p', { class: 'sub', text: missing.join('. ') + '.' }));
+    } else if (T.every(function (t) { return t.fair; })) {
+      host.append(el('h2', { class: 'headline fair', text: 'Fair for all ' + T.length + ' teams' }));
+      host.append(el('p', { class: 'sub', text: 'Every team is inside the fair range.' }));
+    } else {
+      var ranked = T.slice().sort(function (x, y) { return y.net - x.net; });
+      var best = ranked[0], worst = ranked[ranked.length - 1];
+      var head = !best.fair && best.net > 0 ? best.name + ' comes out ahead by ' + fmt(best.net)
+        : worst.name + ' loses by ' + fmt(-worst.net);
+      host.append(el('h2', { class: 'headline', text: head }));
+      var short = T.filter(function (t) { return !t.fair && t.net < 0; })
+        .map(function (t) { return t.name + ' is short by ' + fmt(-t.net); });
+      host.append(el('p', { class: 'sub', text: short.length ? short.join('. ') + '.' : 'No team comes out behind.' }));
+    }
+
+    var scale = Math.max.apply(null, T.map(function (t) { return Math.abs(t.net); }).concat([10]));
+    var body = el('tbody');
+    T.forEach(function (t) {
+      var dir = t.fair || !t.complete ? '' : (t.net > 0 ? 'up' : 'down');
+      var bar = el('div', { class: 'netbar', 'aria-hidden': 'true' });
+      if (t.complete && Math.abs(t.net) >= 0.05) {
+        var fill = el('i', { class: t.net > 0 ? 'up' : 'down' });
+        fill.style.width = (Math.abs(t.net) / scale * 50).toFixed(2) + '%';
+        bar.append(fill);
+      }
+      var label = !t.complete ? 'Incomplete' : t.fair ? 'Fair' : t.net > 0 ? 'Wins' : 'Loses';
+      body.append(el('tr', null,
+        el('td', { text: t.name }),
+        el('td', { text: fmt(t.givesRaw) }),
+        el('td', { text: fmt(t.getsRaw) }),
+        el('td', { text: signed(t.adj) }),
+        el('td', { class: 'net ' + dir, text: signed(t.net) }),
+        el('td', { class: 'result' }, el('div', { class: 'result-inner' }, bar, el('span', { class: 'tag ' + dir, text: label })))));
+    });
+    host.append(el('div', { class: 'table-scroll' },
+      el('table', { class: 'summary' },
+        el('thead', null, el('tr', null,
+          el('th', { scope: 'col', text: 'Team' }), el('th', { scope: 'col', text: 'Gives' }),
+          el('th', { scope: 'col', text: 'Gets' }), el('th', { scope: 'col', text: 'Adjustment' }),
+          el('th', { scope: 'col', text: 'Net' }), el('th', { scope: 'col', text: 'Result' }))),
+        body)));
+  }
+
+  /* ---------- Copy summary ---------- */
+  function summaryText(T) {
+    var lines = ['Superflex dynasty trade (' + DATA.source.name + ', ' + DATA.source.edition + ')'];
+    T.forEach(function (t) {
+      var parts = t.gets.map(function (g) {
+        return g.a.name + ' (' + fmt(g.val) + (state.teams > 2 ? ', from ' + state.names[g.from] : '') + ')';
+      });
+      lines.push(t.name + ' gets: ' + (parts.length ? parts.join(', ') + ' = ' + fmt(t.getsRaw) : 'nothing'));
+    });
+    T.forEach(function (t) {
+      if (t.adj > 0.05) lines.push('Value adjustment: +' + fmt(t.adj) + ' to ' + t.name);
+    });
+    if (state.teams === 2) {
+      var a = T[0], b = T[1];
+      if (!(a.complete && b.complete)) lines.push('Result: incomplete');
+      else if (a.fair) lines.push('Result: fair trade');
+      else lines.push('Result: ' + (a.net > 0 ? a.name : b.name) + ' wins by ' + fmt(Math.abs(a.net)));
+    } else {
+      lines.push('Net: ' + T.map(function (t) { return t.name + ' ' + signed(t.net); }).join(', '));
+    }
+    return lines.join('\n');
+  }
+  function copySummary() {
+    var text = summaryText(compute());
+    var btn = $('copy-summary');
+    var box = $('copy-fallback');
+    function fallback() {
+      box.value = text;
+      box.hidden = false;
+      box.focus();
+      box.select();
+      btn.textContent = 'Select the text below and copy it';
+    }
+    function done() {
+      btn.textContent = 'Copied';
+      box.hidden = true;
+      setTimeout(function () { btn.textContent = 'Copy trade summary'; }, 1600);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  }
+
+  /* ---------- Render ---------- */
+  function update() {
+    buildRanks();
+    var T = compute();
+    panels.forEach(function (p, i) { drawPanel(p, T[i]); });
+    var host = $('verdict');
+    host.textContent = '';
+    if (state.teams === 2) drawVerdictTwo(host, T); else drawVerdictMulti(host, T);
+    $('example-note').hidden = !state.example;
+    $('opt-tep-state').textContent = state.tep ? 'ON' : 'OFF';
+    $('opt-adjust-state').textContent = state.adjust ? 'ON' : 'OFF';
+    saveState();
+  }
+
+  function init() {
+    var src = DATA.source;
+    var when = '';
+    if (src.published) {
+      var d = new Date(src.published + 'T12:00:00');
+      if (!isNaN(d)) when = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    var players = catalog.filter(function (a) { return a.pos !== 'PICK' && !a.generic; }).length;
+    var picks = catalog.filter(function (a) { return a.pos === 'PICK'; }).length;
+    function sourceLink() { return el('a', { href: src.url, target: '_blank', rel: 'noopener', text: src.name }); }
+    $('source-line').append('Values from the ', sourceLink(), ', ' + src.edition +
+      (when ? ', published ' + when : '') + '. ' + players + ' players and ' + picks + ' pick values.');
+    $('note-values').append('Every player and pick uses its superflex value from the ', sourceLink(),
+      (src.analysts ? ', compiled by ' + src.analysts : '') +
+      ', on a 1 to 100 scale. TE Premium swaps tight ends to the chart’s TE premium values.');
+
+    document.querySelectorAll('input[name="teams"]').forEach(function (r) {
+      r.checked = Number(r.value) === state.teams;
+      r.addEventListener('change', function () {
+        if (!r.checked) return;
+        state.teams = Number(r.value);
+        buildPanels();
+        update();
+      });
+    });
+    $('opt-tep').checked = state.tep;
+    $('opt-tep').addEventListener('change', function (e) { state.tep = e.target.checked; update(); });
+    $('opt-adjust').checked = state.adjust;
+    $('opt-adjust').addEventListener('change', function (e) { state.adjust = e.target.checked; update(); });
+    $('clear-all').addEventListener('click', clearAll);
+    $('clear-example').addEventListener('click', clearAll);
+    $('copy-summary').addEventListener('click', copySummary);
+
+    buildPanels();
+    update();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { panels.forEach(function (p) { sizeName(p.nameInput); }); });
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
